@@ -9,7 +9,7 @@ module.exports = app => {
        res.send({hi: 'there'})
    })
    app.post('/signup', Authentication.signup);
-   app.post('/signup', requireSignin, Authentication.signin);
+   app.post('/signin', requireSignin, Authentication.signin);
    
   // Google Auth
   app.get(
