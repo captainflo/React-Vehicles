@@ -1,9 +1,35 @@
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const User = require('../models/User');
 const keys = require('../config/keys');
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJWt = require('passport-jwt').ExtractJwt;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-const User = mongoose.model('users');
+// setup option for jwt Strategy
+const jwtOptions = {
+    jwtFromRequest: ExtractJWt.fromHeader('authorization'),
+    secretOrKey: keys.secret
+};
+
+// Create Jwt strategy
+const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done){
+    // See if the user Id in the payload exists in our database
+    // If does, call 'done' with that other
+    // otherwise, call done without a user object
+    User.findById(payload.sub, function(err, user){
+        if(err){return done(err, false);}
+        if(user){
+            done(null,user);
+        } else {
+            done(null, false);
+        }
+    })
+})
+
+// Tell passport to use this strategy
+passport.use(jwtLogin);
+
 
 // Generate token
 passport.serializeUser((user, done)=>{
