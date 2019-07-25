@@ -30,7 +30,8 @@ export default (ChildComponent) =>{
     }
 
     function mapStateToProps(state){
-        return {auth: state.auth.authenticated}
+        console.log(state);
+        return {auth: state.auth.authenticated, authReducer: state.authReducer}
     }
 
     return connect(mapStateToProps)(ComposedComponent);

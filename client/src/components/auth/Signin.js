@@ -5,10 +5,11 @@ import { connect } from "react-redux";
 import * as actions from "../actions";
 
 class Signin extends React.Component {
+
   onSubmit = formProps => {
-    this.props.signin(formProps, () => {
-      this.props.history.push("/feature");
-    });
+      this.props.signin(formProps, () => {
+        this.props.history.push("/feature");
+      });
   };
 
   render() {
@@ -38,13 +39,14 @@ class Signin extends React.Component {
           <div>{this.props.errorMessage}</div>
           <button>Sign In!</button>
         </form>
+        <a href="/auth/google">Login with Google</a>
       </div>
     );
   }
 }
 
 function mapStateToPros(state) {
-  return { errorMessage: state.auth.errorMessage };
+  return { errorMessage: state.auth.errorMessage , auth: state.auth, authReducer: state.authReducer};
 }
 
 export default compose(

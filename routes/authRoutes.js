@@ -5,9 +5,6 @@ const requireAuth = passport.authenticate('jwt', {session: false});
 const requireSignin = passport.authenticate('local', {session: false});
 
 module.exports = app => {
-   app.get('/', requireAuth, function(req, res){
-       res.send({hi: 'there'})
-   })
    app.post('/signup', Authentication.signup);
    app.post('/signin', requireSignin, Authentication.signin);
    
@@ -18,12 +15,16 @@ module.exports = app => {
       scope: ["profile", "email"]
     })
   );
-  app.get("/auth/google/callback", passport.authenticate("google"));
+  app.get("/auth/google/callback", passport.authenticate("google"),
+    (req, res) =>{
+      res.redirect("/feature")
+    }
+  );
 
   // Logout user
   app.get("/api/logout", (req, res) => {
     req.logout();
-    res.send(req.user);
+    res.redirect('/')
   });
 
   // Current User

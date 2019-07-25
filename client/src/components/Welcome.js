@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 class Welcome extends React.Component{
     render(){
@@ -10,4 +11,8 @@ class Welcome extends React.Component{
     }
 }
 
-export default Welcome;
+function mapStateToProps(state){
+    return {auth: state.auth.authenticated, authbyother: state.auth}
+}
+
+export default connect(mapStateToProps)(Welcome);

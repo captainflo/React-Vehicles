@@ -5,10 +5,10 @@ import './HeaderStyle.css'
 
 class Header extends React.Component{
     renderLinks(){
-        if (this.props.authenticated){
+        if (this.props.authenticated || this.props.authReducer){
             return (
                 <div>
-                    <Link to="/signout">signout</Link>
+                    {!this.props.authReducer?<Link to="/signout">signout</Link>: <a href="/api/logout">signout</a>}
                     <Link to="/feature">feature</Link>
                 </div>
             )
@@ -30,7 +30,7 @@ class Header extends React.Component{
 }
 
 function mapStateToPros(state) {
-    return { authenticated: state.auth.authenticated };
+    return { authenticated: state.auth.authenticated, authReducer: state.authReducer };
   }
 
 export default connect(mapStateToPros)(Header);
