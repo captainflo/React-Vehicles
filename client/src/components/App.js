@@ -3,6 +3,7 @@ import Header from "./Header";
 import { BrowserRouter, Route } from 'react-router-dom';
 import * as actions from './actions'
 import { connect } from 'react-redux';
+import M from "materialize-css/dist/js/materialize.min.js";
 
 import Welcome from './Welcome';
 import Signup from './auth/Signup';
@@ -13,6 +14,12 @@ import Signout from './auth/Signout'
 class App extends React.Component {
   componentDidMount(){
     this.props.fetchUser();
+    // Sidebar
+    const elem = document.querySelector(".sidenav");
+    M.Sidenav.init(elem, {
+      edge: "left",
+      inDuration: 250
+    });
   }
   render() {
     console.log(this.props)

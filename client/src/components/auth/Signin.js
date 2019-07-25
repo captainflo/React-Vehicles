@@ -3,6 +3,7 @@ import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import * as actions from "../actions";
+import { Link } from "react-router-dom";
 
 class Signin extends React.Component {
 
@@ -40,6 +41,7 @@ class Signin extends React.Component {
           <button>Sign In!</button>
         </form>
         <a href="/auth/google">Login with Google</a>
+        <Link to="/signup">sign up</Link>
       </div>
     );
   }
