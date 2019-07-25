@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const keys = require('./config/keys');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const cors = require('cors');
 
 require('./models/User');
 require('./services/passport');
@@ -22,6 +23,7 @@ app.use(
 )
 
 app.use(passport.initialize());
+app.use(cors());
 app.use(passport.session());
 
 // Routes
