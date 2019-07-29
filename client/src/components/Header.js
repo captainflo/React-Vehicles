@@ -1,34 +1,69 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import Sidebar from './Sidebar';
-import { Modal} from 'react-materialize';
-import Signin from './auth/Signin';
-import Signup from './auth/Signup';
+import Sidebar from "./Sidebar";
+import { Modal } from "react-materialize";
+import Signin from "./auth/Signin";
+import Signup from "./auth/Signup";
 
 class Header extends React.Component {
-  
-    renderLinks() {
+  state = {
+    signup: false
+  };
+
+  DisplaySignup = () => {
+    this.setState({ signup: true });
+    console.log(this.state.signup);
+  };
+
+  DisplaySignin = () => {
+    this.setState({ signup: false });
+    console.log(this.state.signup);
+  };
+
+  renderLinks() {
     if (this.props.authenticated || this.props.authReducer) {
       return (
         <div>
-          {!this.props.authReducer ? (
-            <Link to="/signout">signout</Link>
-          ) : (
-            <a href="/api/logout">signout</a>
-          )}
-          <Link to="/feature">feature</Link>
+          <li>
+            {!this.props.authReducer ? (
+              <Link to="/signout">Signout</Link>
+            ) : (
+              <a href="/api/logout">Signout</a>
+            )}
+          </li>
+          <li>
+            <Link to="/feature">feature</Link>
+          </li>
         </div>
       );
     } else {
       return (
         <div>
-            <Modal header="Modal Header" trigger={<a href="#/">login</a>}>
-                <p>
-                    <Signin/>
-                </p>
-            </Modal>
-          
+          <Modal trigger={<a href="#/">login</a>}>
+            <div style={{ padding: "30px" }}>
+              {!this.state.signup && (
+                <div>
+                  <Signin />
+                  <div className="center">
+                  <a href="#/" onClick={this.DisplaySignup}>
+                    You don't have a Account? Sign up!
+                  </a>
+                  </div>
+                </div>
+              )}
+              {this.state.signup && (
+                <div>
+                  <Signup/>
+                  <div className="center">
+                    <a href="#/" onClick={this.DisplaySignin}>
+                      You have a Account? Sign in!
+                    </a>
+                  </div>
+                </div>
+              )}
+            </div>
+          </Modal>
         </div>
       );
     }
@@ -39,21 +74,12 @@ class Header extends React.Component {
       <div>
         <nav>
           <div className="nav-wrapper">
-            <Link to="/">Redux Auth</Link>
-            <a href="#/" className="brand-logo">
-              Logo
-            </a>
+            <Link className="brand-logo" to="/"><i style={{paddingLeft:'15px'}} className="large material-icons">wb_cloudy</i></Link>
             <a href="#/" data-target="slide-out" className="sidenav-trigger">
               <i className="material-icons">menu</i>
             </a>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
-              <li>{this.renderLinks()}</li>
-              <li>
-                <a href="badges.html">Components</a>
-              </li>
-              <li>
-                <a href="collapsible.html">JavaScript</a>
-              </li>
+              {this.renderLinks()}
             </ul>
           </div>
         </nav>
@@ -64,6 +90,7 @@ class Header extends React.Component {
 }
 
 function mapStateToPros(state) {
+  console.log(state)
   return {
     authenticated: state.auth.authenticated,
     authReducer: state.authReducer

@@ -20,6 +20,7 @@ export const signin = (formProps, callback)=> async dispatch =>{
     callback(); /* history callback */
     } catch (e){
         dispatch({type: AUTH_ERROR, payload: "Invalid login credentials"});
+        
     }
 };
 

@@ -17,27 +17,33 @@ class Signup extends React.Component {
     return (
       <div>
         <form onSubmit={handleSubmit(this.onSubmit)}>
-          <fieldset>
-            <label>Email</label>
-            <Field
-              name="email"
-              type="text"
-              component="input"
-              autoComplete="none"
-            />
-          </fieldset>
-          <fieldset>
-            <label>password</label>
-            <Field
-              name="password"
-              type="password"
-              component="input"
-              autoComplete="none"
-            />
-          </fieldset>
+        <h4 className="center">Sign Up <i className="fas fa-user-plus"></i></h4>
+        <div className="input-field">
+              <i className="material-icons prefix">email</i>
+                <Field
+                  name="email"
+                  type="text"
+                  component="input"
+                  autoComplete="none"
+                  placeholder="email"
+                />
+            </div>
+
+          <div className="input-field">
+            <i className="material-icons prefix">lock</i>
+              <Field
+                name="password"
+                type="password"
+                component="input"
+                autoComplete="none"
+                placeholder="password"
+              />
+          </div>
           <div>{this.props.errorMessage}</div>
-          <button>Sign up!</button>
+          <button className="waves-effect waves-light btn"><i className="material-icons right">cloud</i>Sign Up</button>
         </form>
+        <a style={{marginTop: '20px'}} href="/auth/google" className="waves-effect waves-light btn social google">
+        <i className="fab fa-google"></i> Sign Up with google</a>
       </div>
     );
   }

@@ -3,14 +3,13 @@ import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import * as actions from "../actions";
-import { Link } from "react-router-dom";
+import "./Signin.css";
 
 class Signin extends React.Component {
-
   onSubmit = formProps => {
-      this.props.signin(formProps, () => {
-        this.props.history.push("/feature");
-      });
+    this.props.signin(formProps, () => {
+      this.props.history.push("/feature");
+    });
   };
 
   render() {
@@ -19,36 +18,54 @@ class Signin extends React.Component {
     return (
       <div>
         <form onSubmit={handleSubmit(this.onSubmit)}>
-          <fieldset>
-            <label>Email</label>
-            <Field
-              name="email"
-              type="text"
-              component="input"
-              autoComplete="none"
-            />
-          </fieldset>
-          <fieldset>
-            <label>password</label>
-            <Field
-              name="password"
-              type="password"
-              component="input"
-              autoComplete="none"
-            />
-          </fieldset>
+          <h4 className="center">Sign in <i className="fas fa-user-alt"></i></h4>
+
+            <div className="input-field">
+              <i className="material-icons prefix">email</i>
+                <Field
+                  name="email"
+                  type="text"
+                  component="input"
+                  autoComplete="none"
+                  placeholder="email"
+                />
+            </div>
+
+           
+          <div className="input-field">
+            <i className="material-icons prefix">lock</i>
+              <Field
+                name="password"
+                type="password"
+                component="input"
+                autoComplete="none"
+                placeholder="password"
+              />
+          </div>
+           
           <div>{this.props.errorMessage}</div>
-          <button>Sign In!</button>
+          <button className="waves-effect waves-light btn">
+            <i className="material-icons right">cloud</i>Sign In
+          </button>
         </form>
-        <a href="/auth/google">Login with Google</a>
-        <Link to="/signup">sign up</Link>
+        <a
+          style={{ marginTop: "20px" }}
+          href="/auth/google"
+          className="waves-effect waves-light btn social google"
+        >
+          <i className="fab fa-google" /> Sign in with google
+        </a>
       </div>
     );
   }
 }
 
 function mapStateToPros(state) {
-  return { errorMessage: state.auth.errorMessage , auth: state.auth, authReducer: state.authReducer};
+  return {
+    errorMessage: state.auth.errorMessage,
+    auth: state.auth,
+    authReducer: state.authReducer
+  };
 }
 
 export default compose(

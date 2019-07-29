@@ -6,8 +6,6 @@ import { connect } from 'react-redux';
 import M from "materialize-css/dist/js/materialize.min.js";
 
 import Welcome from './Welcome';
-import Signup from './auth/Signup';
-import Signin from './auth/Signin';
 import Feature from './Feature';
 import Signout from './auth/Signout'
 
@@ -22,7 +20,6 @@ class App extends React.Component {
     });
   }
   render() {
-    console.log(this.props)
     return (
       <div>
         <BrowserRouter>
@@ -30,8 +27,6 @@ class App extends React.Component {
           <Route exact path='/' component={Welcome}/>
           <Route path='/feature'  component={Feature}/>
           <Route path="/signout" component={Signout}/>
-          {!this.props.authenticated && !this.props.authReducer &&<Route path='/signup'  component={Signup}/>}
-          {!this.props.authenticated && !this.props.authReducer && <Route  path="/signin" component={Signin}/>}
         </BrowserRouter>
         
       </div>
@@ -40,7 +35,6 @@ class App extends React.Component {
 }
 
 function mapStateToPros(state) {
-  console.log(state)
   return { authenticated: state.auth.authenticated, authReducer: state.authReducer };
 }
 
