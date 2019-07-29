@@ -38,10 +38,14 @@ const localLogin = new localStrategy(localOptions, function(
 });
 
 // setup option for jwt Strategy
-const jwtOptions = {
-  jwtFromRequest: ExtractJWt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: keys.secret
-};
+// const jwtOptions = {
+//   jwtFromRequest: ExtractJWt.fromAuthHeaderAsBearerToken(),
+//   secretOrKey: keys.secret
+// };
+var opts = {}
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.secretOrKey = keys.secret
+opts.audience = 'https://still-wildwood-65496.herokuapp.com/';
 
 // Create Jwt strategy
 const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
