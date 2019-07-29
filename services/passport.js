@@ -45,7 +45,6 @@ const localLogin = new localStrategy(localOptions, function(
 var opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = keys.secret
-opts.audience = 'https://still-wildwood-65496.herokuapp.com/';
 
 // Create Jwt strategy
 const jwtLogin = new JwtStrategy(opts, function(payload, done) {
