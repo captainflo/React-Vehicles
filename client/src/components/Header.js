@@ -13,12 +13,10 @@ class Header extends React.Component {
 
   DisplaySignup = () => {
     this.setState({ signup: true });
-    console.log(this.state.signup);
   };
 
   DisplaySignin = () => {
     this.setState({ signup: false });
-    console.log(this.state.signup);
   };
 
   renderLinks() {
@@ -90,7 +88,6 @@ class Header extends React.Component {
 }
 
 function mapStateToPros(state) {
-  console.log(state)
   return {
     authenticated: state.auth.authenticated,
     authReducer: state.authReducer

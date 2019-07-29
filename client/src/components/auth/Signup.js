@@ -5,10 +5,26 @@ import { connect } from "react-redux";
 import * as actions from "../actions";
 
 class Signup extends React.Component {
+  state = {
+    errorPassword: "",
+    passwordConfirm: ""
+  };
+
+  handleChange = event => {
+    this.setState({ passwordConfirm: event.target.value });
+  };
+
   onSubmit = formProps => {
-    this.props.signup(formProps, () => {
-      this.props.history.push("/feature");
-    });
+    if (formProps.password === this.state.passwordConfirm) {
+      this.setState({ errorPassword: "" });
+      this.props.signup(formProps, () => {
+        this.props.history.push("/feature");
+      });
+    } else {
+      this.setState({
+        errorPassword: "Password is not identique as Password Confirm"
+      });
+    }
   };
 
   render() {
@@ -17,40 +33,61 @@ class Signup extends React.Component {
     return (
       <div>
         <form onSubmit={handleSubmit(this.onSubmit)}>
-        <h4 className="center">Sign Up <i className="fas fa-user-plus"></i></h4>
-        <div className="input-field">
-              <i className="material-icons prefix">email</i>
-                <Field
-                  name="email"
-                  type="text"
-                  component="input"
-                  autoComplete="none"
-                  placeholder="email"
-                />
-            </div>
+          <h4 className="center">
+            Sign Up <i className="fas fa-user-plus" />
+          </h4>
+          <div className="input-field">
+            <i className="material-icons prefix">email</i>
+            <Field
+              name="email"
+              type="text"
+              component="input"
+              autoComplete="none"
+              placeholder="email"
+            />
+          </div>
 
           <div className="input-field">
             <i className="material-icons prefix">lock</i>
-              <Field
-                name="password"
-                type="password"
-                component="input"
-                autoComplete="none"
-                placeholder="password"
-              />
+            <Field
+              name="password"
+              type="password"
+              component="input"
+              autoComplete="none"
+              placeholder="password"
+            />
           </div>
+
+          <div className="input-field">
+            <i className="material-icons prefix">lock</i>
+            <input
+              name="passwordConfirm"
+              type="password"
+              component="input"
+              autoComplete="none"
+              placeholder="password Confirm"
+              onChange={this.handleChange}
+            />
+          </div>
+          <div>{this.state.errorPassword}</div>
           <div>{this.props.errorMessage}</div>
-          <button className="waves-effect waves-light btn"><i className="material-icons right">cloud</i>Sign Up</button>
+          <button className="waves-effect waves-light btn">
+            <i className="material-icons right">cloud</i>Sign Up
+          </button>
         </form>
-        <a style={{marginTop: '20px'}} href="/auth/google" className="waves-effect waves-light btn social google">
-        <i className="fab fa-google"></i> Sign Up with google</a>
+        <a
+          style={{ marginTop: "20px" }}
+          href="/auth/google"
+          className="waves-effect waves-light btn social google"
+        >
+          <i className="fab fa-google" /> Sign Up with google
+        </a>
       </div>
     );
   }
 }
 
 function mapStateToPros(state) {
-  console.log(state);
   return { errorMessage: state.auth.errorMessage };
 }
 

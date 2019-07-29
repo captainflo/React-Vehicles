@@ -1,26 +1,27 @@
+import keys from '../../config/keys';
 import axios from 'axios';
 import { AUTH_USER, AUTH_ERROR, FETCH_USER } from './types';
 
+
 export const signup = (formProps, callback)=> async dispatch =>{
     try{
-        const response = await axios.post('/signup', formProps);
+        const response = await axios.post(`${keys.siteUrl}/signup`, formProps);
     dispatch({type: AUTH_USER, payload: response.data.token});
     localStorage.setItem('token', response.data.token);
     callback(); /* history callback */
     } catch (e){
-        dispatch({type: AUTH_ERROR, payload: "Email in use"});
+        dispatch({type: AUTH_ERROR, payload: "Email in use or no email"});
     }
 };
 
 export const signin = (formProps, callback)=> async dispatch =>{
     try{
-        const response = await axios.post('/signin', formProps);
+        const response = await axios.post(`${keys.siteUrl}/signin`, formProps);
     dispatch({type: AUTH_USER, payload: response.data.token});
     localStorage.setItem('token', response.data.token);
     callback(); /* history callback */
     } catch (e){
         dispatch({type: AUTH_ERROR, payload: "Invalid login credentials"});
-        
     }
 };
 

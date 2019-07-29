@@ -65,7 +65,6 @@ class Sidebar extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     return (
        <ul id="slide-out" className="sidenav">
       <li>
