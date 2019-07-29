@@ -7,28 +7,40 @@ import * as actions from "../actions";
 class Signup extends React.Component {
   state = {
     errorPassword: "",
-    passwordConfirm: ""
+    passwordConfirm: "",
+    errorEmail: "",
   };
-
+  
   handleChange = event => {
     this.setState({ passwordConfirm: event.target.value });
   };
 
   onSubmit = formProps => {
-    if (formProps.password === this.state.passwordConfirm) {
-      this.setState({ errorPassword: "" });
-      this.props.signup(formProps, () => {
-        this.props.history.push("/feature");
-      });
+    const email = formProps.email
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const checkEmail = re.test(email)
+    if (checkEmail){
+      this.setState({ errorEmail: ""});
+      if (formProps.password === this.state.passwordConfirm) {
+        this.setState({ errorPassword: ""});
+        this.props.signup(formProps, () => {
+          this.props.history.push("/feature");
+        });
+      } else {
+        this.setState({
+          errorPassword: "The two password are not the same"
+        });
+      }
     } else {
       this.setState({
-        errorPassword: "Password is not identique as Password Confirm"
+        errorEmail: "Email is invalid"
       });
     }
   };
 
   render() {
     const { handleSubmit } = this.props;
+  
     return (
       <div>
         <form onSubmit={handleSubmit(this.onSubmit)}>
@@ -37,6 +49,7 @@ class Signup extends React.Component {
           </h4>
           <div className="input-field">
             <div style={{color: 'red', marginLeft: '45px'}}>{this.props.errorMessage}</div>
+            <div style={{color: 'red', marginLeft: '45px'}}>{this.state.errorEmail}</div>
             <i className="material-icons prefix">email</i>
             <Field
               name="email"

@@ -21,6 +21,7 @@ class Signin extends React.Component {
           <h4 className="center">Sign in <i className="fas fa-user-alt"></i></h4>
 
             <div className="input-field">
+              <div style={{color: 'red', marginLeft: '45px'}}>{this.props.errorMessage}</div>
               <i className="material-icons prefix">email</i>
                 <Field
                   name="email"
