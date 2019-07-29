@@ -12,12 +12,10 @@ class Sidebar extends React.Component {
 
   DisplaySignup = () => {
     this.setState({ signup: true });
-    console.log(this.state.signup);
   };
 
   DisplaySignin = () => {
     this.setState({ signup: false });
-    console.log(this.state.signup);
   };
 
   renderLinks() {

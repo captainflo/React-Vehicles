@@ -37,6 +37,7 @@ class Signup extends React.Component {
             Sign Up <i className="fas fa-user-plus" />
           </h4>
           <div className="input-field">
+            <div style={{color: 'red', marginLeft: '45px'}}>{this.props.errorMessage}</div>
             <i className="material-icons prefix">email</i>
             <Field
               name="email"
@@ -59,6 +60,7 @@ class Signup extends React.Component {
           </div>
 
           <div className="input-field">
+            <div style={{color: 'red', marginLeft: '45px'}}>{this.state.errorPassword}</div>
             <i className="material-icons prefix">lock</i>
             <input
               name="passwordConfirm"
@@ -69,8 +71,7 @@ class Signup extends React.Component {
               onChange={this.handleChange}
             />
           </div>
-          <div>{this.state.errorPassword}</div>
-          <div>{this.props.errorMessage}</div>
+          
           <button className="waves-effect waves-light btn">
             <i className="material-icons right">cloud</i>Sign Up
           </button>
