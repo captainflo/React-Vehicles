@@ -3,7 +3,7 @@ const keys = require("../config/keys");
 const passport = require("passport");
 const User = require("../models/User");
 const JwtStrategy = require("passport-jwt").Strategy;
-const ExtractJwt = require("passport-jwt").ExtractJwt;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const localStrategy = require("passport-local");
 
@@ -39,7 +39,7 @@ const localLogin = new localStrategy(localOptions, function(
 
 // setup option for jwt Strategy
 const jwtOptions = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  jwtFromRequest: ExtractJwt.fromHeader('authorization'),
   secretOrKey: keys.secret
 };
 
