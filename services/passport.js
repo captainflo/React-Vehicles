@@ -3,7 +3,7 @@ const keys = require("../config/keys");
 const passport = require("passport");
 const User = require("../models/User");
 const JwtStrategy = require("passport-jwt").Strategy;
-const ExtractJWt = require("passport-jwt").ExtractJwt;
+const ExtractJwt = require("passport-jwt").ExtractJwt;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const localStrategy = require("passport-local");
 
@@ -48,7 +48,7 @@ opts.secretOrKey = keys.secret
 opts.audience = 'https://still-wildwood-65496.herokuapp.com/';
 
 // Create Jwt strategy
-const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
+const jwtLogin = new JwtStrategy(opts, function(payload, done) {
   // See if the user Id in the payload exists in our database
   // If does, call 'done' with that other
   // otherwise, call done without a user object
