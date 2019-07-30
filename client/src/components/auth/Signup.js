@@ -66,7 +66,7 @@ class Signup extends React.Component {
             Sign Up <i className="fas fa-user-plus" />
           </h4>
           <div className="input-field">
-            <div style={{color: 'red', marginLeft: '45px'}}>{this.state.errorMessageSignup}</div>
+            <div style={{color: 'red', marginLeft: '45px'}}>{this.state.emailInUse}</div>
             <div style={{color: 'red', marginLeft: '45px'}}>{this.state.errorEmail}</div>
             <i className="material-icons prefix">email</i>
             <Field
