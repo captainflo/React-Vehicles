@@ -5,6 +5,9 @@ const User = require("../models/User");
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const InstagramStrategy = require("passport-instagram").Strategy;
+const FacebookStrategy = require("passport-facebook").Strategy;
+const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 const localStrategy = require("passport-local");
 
 // Create local strategy
@@ -75,6 +78,7 @@ passport.deserializeUser((id, done) => {
   });
 });
 
+// Google Auth
 passport.use(
   new GoogleStrategy(
     {
@@ -98,6 +102,88 @@ passport.use(
         const user = await new User({ googleId: profile.id }).save()
           done(null, user);
       }
+    }
+  )
+);
+
+// Instagram Auth
+passport.use(
+  new InstagramStrategy(
+    {
+      clientID: keys.instagramClientID,
+      clientSecret: keys.instagramClientSecret,
+      callbackURL: "/auth/instagram/callback",
+      proxy: true
+    },
+    async (accessToken, refreshToken, profile, done)=>{
+      console.log('access token',accessToken);
+      console.log('refresh token',refreshToken);
+      console.log('profile:',profile);
+
+      // don't have double User with same profileID
+      const existingUser = await User.findOne({ instagramId: profile.id })
+        if (existingUser) {
+          // We already have record with given profile ID
+          done(null, existingUser);
+        } else {
+          // We don't have a user with this ID, make a new record
+          const user = await new User({ instagramId: profile.id }).save()
+            done(null, user);
+        }
+    }
+  )
+);
+
+// Facebook Auth
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: keys.facebookClientID,
+      clientSecret: keys.facebookClientSecret,
+      callbackURL: "/auth/facebook/callback",
+      proxy: true
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      console.log('access token',accessToken);
+      console.log('refresh token',refreshToken);
+      console.log('profile:',profile);
+      // don't have double User with same profileID
+      const existingUser = await User.findOne({ facebookId: profile.id })
+        if (existingUser) {
+          // We already have record with given profile ID
+          done(null, existingUser);
+        } else {
+          // We don't have a user with this ID, make a new record
+          const user = await new User({ facebookId: profile.id }).save()
+            done(null, user);
+        }
+    }
+  )
+);
+
+// Linkedin Auth
+passport.use(
+  new LinkedInStrategy(
+    {
+      clientID: keys.linkedinClientID,
+      clientSecret: keys.linkedinClientSecret,
+      callbackURL: "/auth/linkedin/callback",
+      proxy: true
+    },
+    async (accessToken, refreshToken, profile, done) => {
+       console.log('access token',accessToken);
+        console.log('refresh token',refreshToken);
+        console.log('profile:',profile);
+      // don't have double User with same profileID
+      const existingUser = await User.findOne({ linkedinId: profile.id })
+        if (existingUser) {
+          // We already have record with given profile ID
+          done(null, existingUser);
+        } else {
+          // We don't have a user with this ID, make a new record
+          const user = await new User({ linkedinId: profile.id }).save()
+            done(null, user);
+        }
     }
   )
 );

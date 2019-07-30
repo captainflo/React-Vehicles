@@ -5,17 +5,11 @@ module.exports = {
     mongoURI: process.env.MONGO_URI,
     cookieKey: process.env.COOKIE_KEY,
     secret: process.env.SECRET,
-    siteUrl: process.env.SITE_URL
-    // facebookClientID: process.env.FACEBOOK_CLIENT_ID,
-    // facebookClientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    // instagramClientID: process.env.INSTAGRAM_CLIENT_ID,
-    // instagramClientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
-    // linkedinClientID: process.env.LINKEDIN_CLIENT_ID,
-    // linkedinClientSecret: process.env.LINKEDIN_CLIENT_SECRET,
-    // stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
-    // stripeSecretKey: process.env.STRIPE_SECRET_KEY,
-    // sendGridKey: process.env.SEND_GRID_KEY,
-    // redirectDomain: process.env.REDIRECT_DOMAIN
-    // twitterClientID: process.env.TWITTER_CLIENT_ID,
-    // twitterClientSecret: process.env.TWITTER_CLIENT_SECRET,
+    siteUrl: process.env.SITE_URL,
+    facebookClientID: process.env.FACEBOOK_CLIENT_ID,
+    facebookClientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    instagramClientID: process.env.INSTAGRAM_CLIENT_ID,
+    instagramClientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
+    linkedinClientID: process.env.LINKEDIN_CLIENT_ID,
+    linkedinClientSecret: process.env.LINKEDIN_CLIENT_SECRET
 };

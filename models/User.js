@@ -7,6 +7,9 @@ const userSchema = new Schema({
     googleId: String,
     email: {type: String, unique: true, lowercase: true},
     password: String,
+    instagramId: String,
+    facebookId: String,
+    linkedinId: String
 });
 
 // On save Hook, encrypt password

@@ -47,13 +47,16 @@ class Signin extends React.Component {
             <i className="material-icons right">cloud</i>Sign In
           </button>
         </form>
-        <a
-          style={{ marginTop: "20px" }}
-          href="/auth/google"
-          className="waves-effect waves-light btn social google"
-        >
-          <i className="fab fa-google" /> Sign in with google
-        </a>
+        <ul>
+          <li style={{listStyle:'none', paddingBottom: '10px'}}><a href="/auth/google" className="waves-effect waves-light btn social google">
+          <i className="fab fa-google"></i> Sign in with google</a></li>
+          <li style={{listStyle:'none', paddingBottom: '10px'}}><a href="/auth/linkedin" className="waves-effect waves-light btn social linkedin">
+          <i className="fab fa-linkedin"></i> Sign in with linkedin</a></li>
+          <li style={{listStyle:'none', paddingBottom: '10px'}}><a href='/auth/facebook'className="waves-effect waves-light btn social facebook">
+          <i className="fab fa-facebook"></i> Sign in with facebook</a></li>
+          <li style={{listStyle:'none', paddingBottom: '10px'}}><a href="/auth/instagram" className="waves-effect waves-light btn social instagram">
+          <i className="fab fa-instagram"></i> Sign in with instagram</a></li>
+      </ul>
       </div>
     );
   }
