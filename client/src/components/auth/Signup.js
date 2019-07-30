@@ -10,7 +10,14 @@ class Signup extends React.Component {
     validPassword: "",
     passwordConfirm: "",
     errorEmail: "",
+    emailInUse: ""
   };
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      emailInUse: nextProps.errorMessageSignup
+    })
+  }
   
   handleChange = event => {
     this.setState({ passwordConfirm: event.target.value });
@@ -32,7 +39,7 @@ class Signup extends React.Component {
     }
     if (checkEmail){
       this.setState({ errorEmail: ""});
-      if (formProps.password === this.state.passwordConfirm) {
+      if (formProps.password === this.state.passwordConfirm && checkPassword) {
         this.setState({ errorPassword: ""});
         this.props.signup(formProps, () => {
           this.props.history.push("/feature");
@@ -59,7 +66,7 @@ class Signup extends React.Component {
             Sign Up <i className="fas fa-user-plus" />
           </h4>
           <div className="input-field">
-            <div style={{color: 'red', marginLeft: '45px'}}>{this.props.errorMessage}</div>
+            <div style={{color: 'red', marginLeft: '45px'}}>{this.state.errorMessageSignup}</div>
             <div style={{color: 'red', marginLeft: '45px'}}>{this.state.errorEmail}</div>
             <i className="material-icons prefix">email</i>
             <Field
@@ -118,7 +125,7 @@ class Signup extends React.Component {
 }
 
 function mapStateToPros(state) {
-  return { errorMessage: state.auth.errorMessage };
+  return { errorMessageSignup: state.auth.errorMessage };
 }
 
 export default compose(
@@ -126,5 +133,5 @@ export default compose(
     mapStateToPros,
     actions
   ),
-  reduxForm({ form: "signup" })
+  reduxForm({ form: "signup"})
 )(Signup);

@@ -6,6 +6,16 @@ import * as actions from "../actions";
 import "./Signin.css";
 
 class Signin extends React.Component {
+  state = {
+    emailInUse: ""
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      emailInUse: nextProps.errorMessage
+    })
+  }
+
   onSubmit = formProps => {
     this.props.signin(formProps, () => {
       this.props.history.push("/feature");
@@ -21,7 +31,7 @@ class Signin extends React.Component {
           <h4 className="center">Sign in <i className="fas fa-user-alt"></i></h4>
 
             <div className="input-field">
-              <div style={{color: 'red', marginLeft: '45px'}}>{this.props.errorMessage}</div>
+              <div style={{color: 'red', marginLeft: '45px'}}>{this.state.emailInUse}</div>
               <i className="material-icons prefix">email</i>
                 <Field
                   name="email"
@@ -73,7 +83,7 @@ function mapStateToPros(state) {
 export default compose(
   connect(
     mapStateToPros,
-    actions
+    actions,
   ),
   reduxForm({ form: "signin" })
 )(Signin);
