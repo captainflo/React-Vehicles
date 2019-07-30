@@ -43,8 +43,6 @@ class Signin extends React.Component {
                 placeholder="password"
               />
           </div>
-           
-          <div>{this.props.errorMessage}</div>
           <button className="waves-effect waves-light btn">
             <i className="material-icons right">cloud</i>Sign In
           </button>

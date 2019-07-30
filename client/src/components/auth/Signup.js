@@ -7,6 +7,7 @@ import * as actions from "../actions";
 class Signup extends React.Component {
   state = {
     errorPassword: "",
+    validPassword: "",
     passwordConfirm: "",
     errorEmail: "",
   };
@@ -16,9 +17,19 @@ class Signup extends React.Component {
   };
 
   onSubmit = formProps => {
+    // Validate Email
     const email = formProps.email
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const checkEmail = re.test(email)
+    // Validate Password
+    const password = formProps.password
+    const pass = /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})/;
+    const checkPassword = pass.test(password)
+    if (checkPassword){
+      this.setState({validPassword: ""})
+    } else{
+      this.setState({validPassword: "must contains one lowercase characters, one uppercase characters, least 6 characters and maximum of 20"})
+    }
     if (checkEmail){
       this.setState({ errorEmail: ""});
       if (formProps.password === this.state.passwordConfirm) {
@@ -57,17 +68,20 @@ class Signup extends React.Component {
               component="input"
               autoComplete="none"
               placeholder="email"
+              required
             />
           </div>
 
           <div className="input-field">
+            <div style={{color: 'red', marginLeft: '45px'}}>{this.state.validPassword}</div>
             <i className="material-icons prefix">lock</i>
             <Field
               name="password"
-              type="password"
+              type="text"
               component="input"
               autoComplete="none"
               placeholder="password"
+              required
             />
           </div>
 
@@ -76,7 +90,7 @@ class Signup extends React.Component {
             <i className="material-icons prefix">lock</i>
             <input
               name="passwordConfirm"
-              type="password"
+              type="text"
               component="input"
               autoComplete="none"
               placeholder="password Confirm"
