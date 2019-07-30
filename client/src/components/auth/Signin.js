@@ -1,23 +1,14 @@
 import React from "react";
-import { reduxForm, Field } from "redux-form";
+import { reduxForm, Field, reset } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 import "./Signin.css";
 
 class Signin extends React.Component {
-  state = {
-    emailInUse: ""
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      emailInUse: nextProps.errorMessage
-    })
-  }
-
-  onSubmit = formProps => {
+  onSubmit = (formProps, dispatch) => {
     this.props.signin(formProps, () => {
+      dispatch(reset('signin'));
       this.props.history.push("/feature");
     });
   };
@@ -31,7 +22,7 @@ class Signin extends React.Component {
           <h4 className="center">Sign in <i className="fas fa-user-alt"></i></h4>
 
             <div className="input-field">
-              <div style={{color: 'red', marginLeft: '45px'}}>{this.state.emailInUse}</div>
+              <div style={{color: 'red', marginLeft: '45px'}}>{this.props.errorMessage}</div>
               <i className="material-icons prefix">email</i>
                 <Field
                   name="email"

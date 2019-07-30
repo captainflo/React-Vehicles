@@ -13,4 +13,12 @@ class Signout extends React.Component{
         )
     }
 }
-export default connect(null, actions)(Signout);
+
+function mapStateToPros(state) {
+    return {
+      errorMessage: state.auth.errorMessage,
+      auth: state.auth,
+      authReducer: state.authReducer
+    };
+  }
+export default connect(mapStateToPros, actions)(Signout);

@@ -1,5 +1,5 @@
 import React from "react";
-import { reduxForm, Field } from "redux-form";
+import { reduxForm, Field, reset } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import * as actions from "../actions";
@@ -10,20 +10,13 @@ class Signup extends React.Component {
     validPassword: "",
     passwordConfirm: "",
     errorEmail: "",
-    emailInUse: ""
   };
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      emailInUse: nextProps.errorMessageSignup
-    })
-  }
   
   handleChange = event => {
     this.setState({ passwordConfirm: event.target.value });
   };
 
-  onSubmit = formProps => {
+  onSubmit = (formProps, dispatch) => {
     // Validate Email
     const email = formProps.email
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -42,6 +35,7 @@ class Signup extends React.Component {
       if (formProps.password === this.state.passwordConfirm && checkPassword) {
         this.setState({ errorPassword: ""});
         this.props.signup(formProps, () => {
+          dispatch(reset('signup'));
           this.props.history.push("/feature");
         });
       } else {
@@ -66,7 +60,7 @@ class Signup extends React.Component {
             Sign Up <i className="fas fa-user-plus" />
           </h4>
           <div className="input-field">
-            <div style={{color: 'red', marginLeft: '45px'}}>{this.state.emailInUse}</div>
+            <div style={{color: 'red', marginLeft: '45px'}}>{this.props.errorMessage}</div>
             <div style={{color: 'red', marginLeft: '45px'}}>{this.state.errorEmail}</div>
             <i className="material-icons prefix">email</i>
             <Field
@@ -88,7 +82,6 @@ class Signup extends React.Component {
               component="input"
               autoComplete="none"
               placeholder="password"
-              required
             />
           </div>
 
@@ -125,7 +118,7 @@ class Signup extends React.Component {
 }
 
 function mapStateToPros(state) {
-  return { errorMessageSignup: state.auth.errorMessage };
+  return { errorMessage: state.auth.errorMessage };
 }
 
 export default compose(
@@ -133,5 +126,5 @@ export default compose(
     mapStateToPros,
     actions
   ),
-  reduxForm({ form: "signup"})
+  reduxForm({ form: "signup", })
 )(Signup);
