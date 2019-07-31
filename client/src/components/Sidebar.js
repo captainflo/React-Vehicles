@@ -69,7 +69,7 @@ class Sidebar extends React.Component {
         <div className="user-view">
           <div className="background">
             <img
-              src={process.env.PUBLIC_URL + "/images/background.jpg"}
+              src={process.env.PUBLIC_URL + "/images/water.jpg"}
               alt="background"
             />
           </div>
