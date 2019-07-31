@@ -10,6 +10,7 @@ import Welcome from './Welcome';
 import Feature from './Feature';
 import Signout from './auth/Signout'
 import UserShow from "./user/UserShow";
+import UserEdit from "./user/UserEdit";
 
 class App extends React.Component {
   componentDidMount(){
@@ -32,8 +33,9 @@ class App extends React.Component {
 
           {this.props.authenticated || this.props.authReducer ?
           <div>
-            <Route exact path="/user" component={UserShow}/>
             <Route exact path='/feature' component={Feature}/>
+            <Route exact path="/user/:id" component={UserShow}/>
+            <Route exact path='/user/edit/:id' component={UserEdit}/>
           </div> : ""}
 
         </BrowserRouter>

@@ -1,7 +1,11 @@
 import keys from '../../config/keys';
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, FETCH_USER } from './types';
+import { AUTH_USER, AUTH_ERROR, FETCH_USER, EDIT_USER } from './types';
 
+export const editUser = (id, formValues) => async dispatch =>{
+    const response = await axios.patch(`/edit/${id}`, formValues);
+    dispatch({type: EDIT_USER, payload: response.data});
+};
 
 export const signup = (formProps, callback)=> async dispatch =>{
     try{

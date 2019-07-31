@@ -1,8 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class UserShow extends React.Component {
   render() {
+    // const {id} = this.props.authenticated._id || this.props.authReducer._id
     return (
       <div className="container">
         <div className="row">
@@ -28,9 +30,9 @@ class UserShow extends React.Component {
                   {this.props.authReducer.lastName}
                 </span>
 
-                <a href="#/" className="btn-floating halfway-fab waves-effect waves-light red">
-                  <i className="material-icons">add</i>
-                </a>
+                <Link to={`/user/edit/${this.props.authReducer._id}`} className="btn-floating halfway-fab waves-effect waves-light red">
+                  <i className="material-icons">edit</i>
+                </Link>
               </div>
               <div className="card-content">
               <span className="card-title activator grey-text text-darken-4">
@@ -43,7 +45,7 @@ class UserShow extends React.Component {
           <div className="col s12 m6">
             <div className="card">
               <div className="card-image waves-effect waves-block waves-light">
-                <img className="activator" src="images/water.jpg" alt="background"/>
+                <img className="activator" src={process.env.PUBLIC_URL + "/images/water.jpg" } alt="background"/>
               </div>
               <div className="card-content">
                 <span className="card-title activator grey-text text-darken-4">
