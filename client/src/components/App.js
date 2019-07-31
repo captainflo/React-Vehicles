@@ -4,10 +4,12 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import * as actions from './actions'
 import { connect } from 'react-redux';
 import M from "materialize-css/dist/js/materialize.min.js";
+import './App.css';
 
 import Welcome from './Welcome';
 import Feature from './Feature';
 import Signout from './auth/Signout'
+import UserShow from "./user/UserShow";
 
 class App extends React.Component {
   componentDidMount(){
@@ -19,14 +21,21 @@ class App extends React.Component {
       inDuration: 250
     });
   }
+
   render() {
     return (
       <div>
         <BrowserRouter>
           <Header />
           <Route exact path='/' component={Welcome}/>
-          <Route path='/feature'  component={Feature}/>
           <Route path="/signout" component={Signout}/>
+
+          {this.props.authenticated || this.props.authReducer ?
+          <div>
+            <Route exact path="/user" component={UserShow}/>
+            <Route exact path='/feature' component={Feature}/>
+          </div> : ""}
+
         </BrowserRouter>
         
       </div>

@@ -92,14 +92,20 @@ passport.use(
       console.log("refresh Token", refreshToken);
       console.log("profile", profile);
       // don't have double User with same profileId
-      const existingUser = await User.findOne({ googleId: profile.id });
+      const existingUser = await User.findOne({ googleId: profile.id});
 
       if (existingUser) {
         // We aleready have record with given profile ID
         done(null, existingUser);
       } else {
         // we don't have a user with ID, make a new record
-        const user = await new User({ googleId: profile.id }).save()
+        const user = await new User({ 
+          googleId: profile.id,
+          email: profile._json.email,
+          avatar: profile._json.picture,
+          firstName: profile._json.given_name,
+          lastName: profile._json.family_name
+        }).save()
           done(null, user);
       }
     }
@@ -127,7 +133,11 @@ passport.use(
           done(null, existingUser);
         } else {
           // We don't have a user with this ID, make a new record
-          const user = await new User({ instagramId: profile.id }).save()
+          const user = await new User({ 
+            instagramId: profile.id,
+            avatar: profile._json.data.profile_picture,
+            firstName: profile._json.data.full_name
+            }).save()
             done(null, user);
         }
     }
@@ -141,6 +151,7 @@ passport.use(
       clientID: keys.facebookClientID,
       clientSecret: keys.facebookClientSecret,
       callbackURL: "/auth/facebook/callback",
+      profileFields: ['id', 'name','picture.type(large)', 'emails', 'displayName', 'about', 'gender'],
       proxy: true
     },
     async (accessToken, refreshToken, profile, done) => {
@@ -154,7 +165,13 @@ passport.use(
           done(null, existingUser);
         } else {
           // We don't have a user with this ID, make a new record
-          const user = await new User({ facebookId: profile.id }).save()
+          const user = await new User({ 
+            facebookId: profile.id,
+            firstName: profile._json.first_name,
+            lastName: profile._json.last_name,
+            email: profile._json.email,
+            avatar: "https://graph.facebook.com/"+profile.id+"/picture?type=large&width=720&height=720"
+          }).save()
             done(null, user);
         }
     }
@@ -168,6 +185,7 @@ passport.use(
       clientID: keys.linkedinClientID,
       clientSecret: keys.linkedinClientSecret,
       callbackURL: "/auth/linkedin/callback",
+      scope: [ 'r_liteprofile', 'r_emailaddress', 'w_member_social'],
       proxy: true
     },
     async (accessToken, refreshToken, profile, done) => {
@@ -175,13 +193,19 @@ passport.use(
         console.log('refresh token',refreshToken);
         console.log('profile:',profile);
       // don't have double User with same profileID
-      const existingUser = await User.findOne({ linkedinId: profile.id })
+      const existingUser = await User.findOne({ linkedinId: profile.id})
         if (existingUser) {
           // We already have record with given profile ID
           done(null, existingUser);
         } else {
           // We don't have a user with this ID, make a new record
-          const user = await new User({ linkedinId: profile.id }).save()
+          const user = await new User({ 
+            linkedinId: profile.id,
+            firstName: profile.name.givenName,
+            lastName: profile.name.familyName,
+            email: profile.emails[0].value,
+            avatar: profile.photos[1].value            
+          }).save()
             done(null, user);
         }
     }

@@ -73,18 +73,18 @@ class Sidebar extends React.Component {
               alt="background"
             />
           </div>
-          <a href="#user">
+          <Link to="/user">
             <img
               className="circle"
-              src={process.env.PUBLIC_URL + "/images/lechef.jpg"}
+              src={this.props.authReducer.avatar || process.env.PUBLIC_URL + "/images/background.jpg"}
               alt="avatar"
             />
-          </a>
+          </Link>
           <a href="#name">
-            <span className="white-text name">John Doe</span>
+            <span className="white-text name">{this.props.authReducer.firstName} {this.props.authReducer.lastName}</span>
           </a>
           <a href="#email">
-            <span className="white-text email">jdandturk@gmail.com</span>
+            <span className="white-text email">{this.props.authReducer.email}</span>
           </a>
         </div>
         </li>

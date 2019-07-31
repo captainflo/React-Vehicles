@@ -33,6 +33,15 @@ class Header extends React.Component {
           <li>
             <Link to="/feature">feature</Link>
           </li>
+          <li>
+            <Link to="/user">
+            <img
+                className="avatar"
+                src={this.props.authReducer.avatar || process.env.PUBLIC_URL + "/images/background.jpg"}
+                alt="background"
+              />  
+            </Link>
+          </li>
         </div>
       );
     } else {

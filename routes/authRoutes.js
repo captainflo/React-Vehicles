@@ -43,7 +43,7 @@ module.exports = app => {
   );
 
   // Linkedin
-  app.get("/auth/linkedin", passport.authenticate("linkedin"));
+  app.get("/auth/linkedin", passport.authenticate("linkedin", { scope: [ 'r_liteprofile', 'r_emailaddress', 'w_member_social'] }));
   app.get(
     "/auth/linkedin/callback",
     passport.authenticate("linkedin", { failureRedirect: "/" }),
