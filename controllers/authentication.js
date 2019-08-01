@@ -40,3 +40,7 @@ exports.signin = function (req,res,next){
     // we just need to give them a token
     res.send({token: tokenForUser(req.user)});
 }
+
+exports.fetchUser = function (req, res, next) {
+    console.log('this is ',req.user)
+  };

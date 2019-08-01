@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { reduxForm, Field, reset} from "redux-form";
+import { reduxForm, Field} from "redux-form";
 import * as actions from "../actions";
 import { compose } from "redux";
 

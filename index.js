@@ -13,7 +13,7 @@ require('./services/passport');
 
 app.use(morgan('combined')); /*login server in your terminal */
 app.use(bodyParser.json({type: '*/*'})); /* used to parse incoming requests */ 
-
+app.use(bodyParser.urlencoded({ extended: true }));
 // Create Cookie Session
 app.use(
     cookieSession({
@@ -21,9 +21,8 @@ app.use(
         keys: [keys.cookieKey]
     })
 )
-
-app.use(passport.initialize());
 app.use(cors());
+app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
