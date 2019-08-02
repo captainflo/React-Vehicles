@@ -30,7 +30,7 @@ class Header extends React.Component {
             <Link to="/feature">feature</Link>
           </li>
           <li>
-            <Link to={`/user/${this.props.authenticated._id}`}>
+            <Link to={`/user/${this.props.authenticated.id}`}>
               <img
                 className="avatar"
                 src={
