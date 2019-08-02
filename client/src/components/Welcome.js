@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 class Welcome extends React.Component{
+
     render(){
         return(
             <div>
@@ -12,7 +13,7 @@ class Welcome extends React.Component{
 }
 
 function mapStateToProps(state){
-    return {auth: state.auth.authenticated, authbyother: state.auth}
+    console.log(state)
+    return {auth: state.auth.authenticated}
 }
-
 export default connect(mapStateToProps)(Welcome);

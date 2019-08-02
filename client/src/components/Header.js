@@ -20,26 +20,25 @@ class Header extends React.Component {
   };
 
   renderLinks() {
-    if (this.props.authenticated || this.props.authReducer) {
+    if (this.props.authenticated) {
       return (
         <div>
           <li>
-            {!this.props.authReducer ? (
-              <Link to="/signout">Signout</Link>
-            ) : (
-              <a href="/api/logout">Signout</a>
-            )}
+            <Link to="/signout">Signout</Link>
           </li>
           <li>
             <Link to="/feature">feature</Link>
           </li>
           <li>
-            <Link to={`/user/${this.props.authReducer._id}`|| `/user/${this.props.authenticated._id}`}>
-            <img
+            <Link to={`/user/${this.props.authenticated._id}`}>
+              <img
                 className="avatar"
-                src={this.props.authReducer.avatar || process.env.PUBLIC_URL + "/images/background.jpg"}
+                src={
+                  this.props.authenticated.avatar ||
+                  process.env.PUBLIC_URL + "/images/background.jpg"
+                }
                 alt="background"
-              />  
+              />
             </Link>
           </li>
         </div>
@@ -53,15 +52,15 @@ class Header extends React.Component {
                 <div>
                   <Signin />
                   <div className="center">
-                  <a href="#/" onClick={this.DisplaySignup}>
-                    You don't have a Account? Sign up!
-                  </a>
+                    <a href="#/" onClick={this.DisplaySignup}>
+                      You don't have a Account? Sign up!
+                    </a>
                   </div>
                 </div>
               )}
               {this.state.signup && (
                 <div>
-                  <Signup/>
+                  <Signup />
                   <div className="center">
                     <a href="#/" onClick={this.DisplaySignin}>
                       You have a Account? Sign in!
@@ -81,7 +80,14 @@ class Header extends React.Component {
       <div>
         <nav>
           <div className="nav-wrapper">
-            <Link className="brand-logo" to="/"><i style={{paddingLeft:'15px'}} className="large material-icons">wb_cloudy</i></Link>
+            <Link className="brand-logo" to="/">
+              <i
+                style={{ paddingLeft: "15px" }}
+                className="large material-icons"
+              >
+                wb_cloudy
+              </i>
+            </Link>
             <a href="#/" data-target="slide-out" className="sidenav-trigger">
               <i className="material-icons">menu</i>
             </a>
@@ -90,7 +96,7 @@ class Header extends React.Component {
             </ul>
           </div>
         </nav>
-        <Sidebar/>
+        <Sidebar />
       </div>
     );
   }
@@ -98,8 +104,7 @@ class Header extends React.Component {
 
 function mapStateToPros(state) {
   return {
-    authenticated: state.auth.authenticated,
-    authReducer: state.authReducer
+    authenticated: state.auth.authenticated
   };
 }
 

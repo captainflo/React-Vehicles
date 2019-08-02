@@ -31,7 +31,7 @@ class App extends React.Component {
           <Route exact path='/' component={Welcome}/>
           <Route path="/signout" component={Signout}/>
 
-          {this.props.authenticated || this.props.authReducer ?
+          {this.props.authenticated ?
           <div>
             <Route exact path='/feature' component={Feature}/>
             <Route exact path="/user/:id" component={UserShow}/>
@@ -46,7 +46,7 @@ class App extends React.Component {
 }
 
 function mapStateToPros(state) {
-  return { authenticated: state.auth.authenticated, authReducer: state.authReducer };
+  return { authenticated: state.auth.authenticated};
 }
 
 export default connect(mapStateToPros, actions)(App);
