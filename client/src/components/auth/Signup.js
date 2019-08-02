@@ -17,6 +17,7 @@ class Signup extends React.Component {
   };
 
   onSubmit = (formProps, dispatch) => {
+
     // Validate Email
     const email = formProps.email
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -25,27 +26,33 @@ class Signup extends React.Component {
     const password = formProps.password
     const pass = /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})/;
     const checkPassword = pass.test(password)
+    
     if (checkPassword){
       this.setState({validPassword: ""})
     } else{
-      this.setState({validPassword: "must contains one lowercase characters, one uppercase characters, least 6 characters and maximum of 20"})
+      this.setState({validPassword: "must contains one lowercase characters, one uppercase characters, one number, least 6 characters and maximum of 20"})
     }
+
     if (checkEmail){
       this.setState({ errorEmail: ""});
-      if (formProps.password === this.state.passwordConfirm && checkPassword) {
-        this.setState({ errorPassword: ""});
-        this.props.signup(formProps, () => {
-          dispatch(reset('signup'));
-          this.props.history.push("/feature");
-        });
-      } else {
-        this.setState({
-          errorPassword: "The two password are not the same"
-        });
-      }
     } else {
       this.setState({
         errorEmail: "Email is invalid"
+      });
+    }
+      
+    if (formProps.password === this.state.passwordConfirm) {
+        this.setState({ errorPassword: ""});
+    } else {
+        this.setState({
+          errorPassword: "The two password are not the same"
+        });
+    }
+    
+    if(checkPassword  === true && checkEmail === true && formProps.password === this.state.passwordConfirm){
+      this.props.signup(formProps, () => {
+        dispatch(reset('signup'));
+        this.props.history.push("/feature");
       });
     }
   };
