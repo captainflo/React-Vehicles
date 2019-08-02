@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 class UserShow extends React.Component {
   render() {
-    // const {id} = this.props.authenticated._id || this.props.authReducer._id
+    
     return (
       <div className="container">
         <div className="row">
@@ -14,8 +14,8 @@ class UserShow extends React.Component {
                 <img
                   className="avatar-card z-depth-5"
                   src={
-                    this.props.authReducer.avatar ||
-                    process.env.PUBLIC_URL + "/images/background.jpg"
+                    this.props.authenticated.avatar ||
+                    process.env.PUBLIC_URL + "/images/background.jpg" || null
                   }
                   alt="background"
                 />
@@ -26,19 +26,19 @@ class UserShow extends React.Component {
                   alt="background"
                 />
                 <span className="card-title">
-                  {this.props.authReducer.firstName}{" "}
-                  {this.props.authReducer.lastName}
+                  {this.props.authenticated.firstName}{" "}
+                  {this.props.authenticated.lastName}
                 </span>
 
-                <Link to={`/user/edit/${this.props.authReducer._id}`} className="btn-floating halfway-fab waves-effect waves-light red">
+                <Link to={`/user/edit/${this.props.authenticated.id}`} className="btn-floating halfway-fab waves-effect waves-light red">
                   <i className="material-icons">edit</i>
                 </Link>
               </div>
               <div className="card-content">
-              <span className="card-title activator grey-text text-darken-4">
+              <span className="card-title grey-text text-darken-4">
                   Details
                 </span>
-                <p><i className="far fa-envelope"></i> {this.props.authReducer.email}</p>
+                <p><i className="far fa-envelope"></i> {this.props.authenticated.email}</p>
               </div>
             </div>
           </div>
@@ -48,7 +48,7 @@ class UserShow extends React.Component {
                 <img className="activator" src={process.env.PUBLIC_URL + "/images/water.jpg" } alt="background"/>
               </div>
               <div className="card-content">
-                <span className="card-title activator grey-text text-darken-4">
+                <span className="card-title grey-text text-darken-4">
                   Reservation<i className="material-icons right">more_vert</i>
                 </span>
                 <p>
@@ -75,7 +75,6 @@ class UserShow extends React.Component {
 function mapStateToPros(state) {
   return {
     authenticated: state.auth.authenticated,
-    authReducer: state.authReducer
   };
 }
 

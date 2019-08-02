@@ -13,7 +13,7 @@ require('./services/passport');
 
 app.use(morgan('combined')); /*login server in your terminal */
 app.use(bodyParser.json({type: '*/*'})); /* used to parse incoming requests */ 
-app.use(bodyParser.urlencoded({ extended: true }));
+
 // Create Cookie Session
 app.use(
     cookieSession({
@@ -28,6 +28,7 @@ app.use(passport.session());
 // Routes
 
 require('./routes/authRoutes')(app);
+
 
 // Connect Mongo Atlas
 mongoose.connect(keys.mongoURI, {useNewUrlParser: true});

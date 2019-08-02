@@ -1,14 +1,15 @@
 const Authentication = require("../controllers/authentication");
 const passport = require("passport");
 
-const requireAuth = passport.authenticate('jwt', {session: false});
+const requireAuth = passport.authenticate('jwt', {session: true});
 const requireSignin = passport.authenticate('local', {session: false});
 
-
 module.exports = app => {
+  // Signup by Email with JWT
    app.post('/signup', Authentication.signup);
+  // Signin by Email with JWT
    app.post('/signin', requireSignin, Authentication.signin);
-
+   
   // Google Auth
   app.get(
     "/auth/google",

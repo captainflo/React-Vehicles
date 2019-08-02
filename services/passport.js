@@ -43,20 +43,21 @@ const localLogin = new localStrategy(localOptions, function(
 // setup option for jwt Strategy
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromHeader('authorization'),
-  secretOrKey: keys.secret
+  secretOrKey: keys.secret,
+  passReqToCallback: true
 };
 
 // Create Jwt strategy
-const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
+const jwtLogin = new JwtStrategy(jwtOptions, function(req,payload, done) {
   // See if the user Id in the payload exists in our database
   // If does, call 'done' with that other
   // otherwise, call done without a user object
-  console.log('this is payload', payload)
   User.findById(payload.sub, function(err, user) {
     if (err) {
       return done(err, false);
     }
     if (user) {
+      req.user = user; // <= Add this line
       done(null, user);
     } else {
       done(null, false);
@@ -75,6 +76,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((id, done) => {
   User.findById(id).then(user => {
+    user.whatever = 'you like';
     done(null, user);
   });
 });

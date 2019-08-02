@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-
 class Feature extends React.Component{
     render(){
         return(
@@ -14,7 +13,7 @@ class Feature extends React.Component{
 
 function mapStateToPros(state) {
     console.log(state)
-    return { authenticated: state.auth.authenticated, authReducer: state.authReducer };
+    return { authenticated: state.auth.authenticated};
   }
 
 export default connect(mapStateToPros)(Feature);

@@ -19,29 +19,37 @@ class Sidebar extends React.Component {
   };
 
   renderLinks() {
-    if (this.props.authenticated || this.props.authReducer) {
+    if (this.props.authenticated) {
       return (
         <div>
           <li>
-            {!this.props.authReducer ? (
-              <Link to="/signout"><i className="material-icons">cloud</i> Signout</Link>
-            ) : (
-              <a href="/api/logout"> <i className="material-icons">cloud</i> Signout</a>
-            )}
+            <Link to="/signout">
+              <i className="material-icons">cloud</i> Signout
+            </Link>
           </li>
           <li>
-            <Link to="/feature"><i className="material-icons">cloud</i> feature</Link>
+            <Link to="/feature">
+              <i className="material-icons">cloud</i> feature
+            </Link>
           </li>
         </div>
       );
     } else {
       return (
         <div>
-          <Modal trigger={<li><a href="#/"><i className="material-icons">cloud</i> Login</a></li>}>
+          <Modal
+            trigger={
+              <li>
+                <a href="#/">
+                  <i className="material-icons">cloud</i> Login
+                </a>
+              </li>
+            }
+          >
             <div>
               {!this.state.signup && (
                 <div>
-                  <Signin/>
+                  <Signin />
                   <a href="#/" onClick={this.DisplaySignup}>
                     You don't have a Account? Sign up!
                   </a>
@@ -64,29 +72,51 @@ class Sidebar extends React.Component {
 
   render() {
     return (
-       <ul id="slide-out" className="sidenav">
-      <li>
-        <div className="user-view">
-          <div className="background">
-            <img
-              src={process.env.PUBLIC_URL + "/images/water.jpg"}
-              alt="background"
-            />
+      <ul id="slide-out" className="sidenav">
+        <li>
+          <div className="user-view">
+            <div className="background">
+              <img
+                src={process.env.PUBLIC_URL + "/images/water.jpg"}
+                alt="background"
+              />
+            </div>
+            {this.props.authenticated ? (
+              <span>
+                <Link to={`/user/${this.props.authenticated._id}`}>
+                  <img
+                    className="circle"
+                    src={
+                      this.props.authenticated.avatar ||
+                      process.env.PUBLIC_URL + "/images/background.jpg"
+                    }
+                    alt="avatar"
+                  />
+                </Link>
+                <a href="#name">
+                  <span className="white-text name">
+                    {this.props.authenticated.firstName || null}{" "}
+                    {this.props.authenticated.lastName || null}
+                  </span>
+                </a>
+                <span>
+                  <span className="white-text email">
+                    {this.props.authenticated.email}
+                  </span>
+                </span>
+              </span>
+            ) : (
+              <div style={{paddingBottom: '10px'}}>
+                <a href="#/">
+                  <img
+                    className="circle"
+                    src={process.env.PUBLIC_URL + "/images/background.jpg"}
+                    alt="avatar"
+                  />
+                </a>
+              </div>
+            )}
           </div>
-          <Link to={`/user/${this.props.authReducer._id}`|| `/user/${this.props.authenticated._id}`}>
-            <img
-              className="circle"
-              src={this.props.authReducer.avatar || process.env.PUBLIC_URL + "/images/background.jpg"}
-              alt="avatar"
-            />
-          </Link>
-          <a href="#name">
-            <span className="white-text name">{this.props.authReducer.firstName} {this.props.authReducer.lastName}</span>
-          </a>
-          <a href="#email">
-            <span className="white-text email">{this.props.authReducer.email}</span>
-          </a>
-        </div>
         </li>
         {this.renderLinks()}
         <li>
@@ -99,11 +129,8 @@ class Sidebar extends React.Component {
 
 function mapStateToPros(state) {
   return {
-    authenticated: state.auth.authenticated,
-    authReducer: state.authReducer
+    authenticated: state.auth.authenticated
   };
 }
 
 export default connect(mapStateToPros)(Sidebar);
-
-

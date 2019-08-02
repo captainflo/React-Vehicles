@@ -9,7 +9,7 @@ class UserEdit extends React.Component {
   onSubmit = (id, formProps) => {
     id = this.props.authReducer._id
     this.props.editUser(id,formProps, () => {
-      this.props.history.push("/feature");
+      this.props.history.push("/");
     });
   };
   render() {
@@ -45,7 +45,6 @@ class UserEdit extends React.Component {
                     type="text"
                     component="input"
                     autoComplete="none"
-                    value={this.props.authReducer.lastName}
                   />
                   <label htmlFor="lastName">Last Name</label>
                 </div>
@@ -93,8 +92,7 @@ class UserEdit extends React.Component {
 function mapStateToPros(state) {
   return {
     errorMessage: state.auth.errorMessage,
-    auth: state.auth,
-    authReducer: state.authReducer
+    auth: state.auth
   };
 }
 
