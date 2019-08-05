@@ -1,18 +1,23 @@
 import React from "react";
+import { compose } from "redux";
 import { connect } from "react-redux";
 import { reduxForm, Field} from "redux-form";
 import * as actions from "../actions";
-import { compose } from "redux";
+
+import normalizePhone from './normalizePhone'
 
 class UserEdit extends React.Component {
 
-  onSubmit = (id, formProps) => {
-    id = this.props.authReducer._id
-    this.props.editUser(id,formProps, () => {
-      this.props.history.push("/");
+  
+
+  onSubmit = (formProps) => {
+    const id = this.props.match.params.id
+    this.props.editUser(this.props.match.params.id,formProps, () => {
+      this.props.history.push(`/user/${id}`);
     });
   };
   render() {
+    console.log(this.props)
     const { handleSubmit } = this.props;
     return (
       <div className="container">
@@ -74,13 +79,14 @@ class UserEdit extends React.Component {
                     type="tel"
                     component="input"
                     autoComplete="none"
+                    normalize={normalizePhone}
                   />
                   <label htmlFor="phone">Phone</label>
                 </div>
               </div>
             </div>
             <button className="waves-effect waves-light btn">
-              <i className="material-icons right">cloud</i>Sign In
+              <i className="material-icons right">cloud</i>Edit
             </button>
           </form>
         </div>
@@ -89,10 +95,10 @@ class UserEdit extends React.Component {
   }
 }
 
-function mapStateToPros(state) {
+function mapStateToPros(state, ownProps) {
   return {
     errorMessage: state.auth.errorMessage,
-    auth: state.auth
+    auth: state.auth.authenticated[ownProps.match.params.id],
   };
 }
 

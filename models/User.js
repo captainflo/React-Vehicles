@@ -12,7 +12,8 @@ const userSchema = new Schema({
     password: String,
     avatar: String,
     firstName: String,
-    lastName: String
+    lastName: String,
+    phone: Number
 });
 
 // On save Hook, encrypt password

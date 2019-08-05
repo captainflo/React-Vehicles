@@ -86,9 +86,8 @@ export const fetchUser = () => async dispatch => {
   }
 };
 
-
 // Edit User 
 export const editUser = (id, formValues) => async dispatch => {
-    const response = await axios.patch(`/edit/${id}`, formValues);
+    const response = await axios.patch(`/user/${id}`, formValues);
     dispatch({ type: EDIT_USER, payload: response.data });
-  };
+};
