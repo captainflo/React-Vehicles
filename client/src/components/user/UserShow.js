@@ -30,7 +30,7 @@ class UserShow extends React.Component {
                   {this.props.authenticated.lastName}
                 </span>
 
-                <Link to={`/user/edit/${this.props.authenticated.id}`} className="btn-floating halfway-fab waves-effect waves-light red">
+                <Link to={`/user/edit/${this.props.authenticated._id}`} className="btn-floating halfway-fab waves-effect waves-light red">
                   <i className="material-icons">edit</i>
                 </Link>
               </div>

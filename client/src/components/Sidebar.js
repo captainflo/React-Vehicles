@@ -83,7 +83,7 @@ class Sidebar extends React.Component {
             </div>
             {this.props.authenticated ? (
               <span>
-                <Link to={`/user/${this.props.authenticated.id}`}>
+                <Link to={`/user/${this.props.authenticated._id}`}>
                   <img
                     className="circle"
                     src={

@@ -42,3 +42,12 @@ exports.signin = function (req,res,next){
     // we just need to give them a token
     res.send({token: tokenForUser(req.user)});
 }
+
+exports.fetchUser = function (req,res,next){
+    console.log(req.params.id)
+    User.findOne({_id: req.params.id}, function(error, user){
+        if (error){return next(error)};
+           res.send(user); 
+           console.log('server side id', user);
+    })
+}

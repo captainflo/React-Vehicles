@@ -34,7 +34,6 @@ export const signup = (formProps, callback) => async dispatch => {
 export const signin = (formProps, callback) => async dispatch => {
   try {
     const response = await axios.post(`${keys.siteUrl}/signin`, formProps);
-    dispatch({ type: AUTH_USER, payload: response.data });
     localStorage.setItem("token", response.data.token);
     // then when you have the token decode it.
     let token = localStorage.token;
@@ -47,7 +46,8 @@ export const signin = (formProps, callback) => async dispatch => {
         id: data.sub,
         email: data.email
       };
-      dispatch({ type: AUTH_USER, payload: data });
+      const response = await axios.get(`/api/user/${data.id}`);
+      dispatch({ type: AUTH_USER, payload: response.data });
     } else {
       token = null;
     }
@@ -79,7 +79,8 @@ export const fetchUser = () => async dispatch => {
       id: data.sub,
       email: data.email
     };
-    dispatch({ type: AUTH_USER, payload: data });
+    const response = await axios.get(`/api/user/${data.id}`);
+    dispatch({ type: AUTH_USER, payload: response.data });
   } else {
     token = null;
     dispatch({ type: AUTH_USER, payload: res.data });
@@ -88,6 +89,6 @@ export const fetchUser = () => async dispatch => {
 
 // Edit User 
 export const editUser = (id, formValues) => async dispatch => {
-    const response = await axios.patch(`/user/${id}`, formValues);
+    const response = await axios.post(`/user/${id}`, formValues);
     dispatch({ type: EDIT_USER, payload: response.data });
 };
