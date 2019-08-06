@@ -1,14 +1,13 @@
 import React from "react";
-import { reduxForm, Field, reset } from "redux-form";
+import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 import "./Signin.css";
 
 class Signin extends React.Component {
-  onSubmit = (formProps, dispatch) => {
+  onSubmit = (formProps) => {
     this.props.signin(formProps, () => {
-      dispatch(reset('signin'));
       this.props.history.push("/feature");
     });
   };

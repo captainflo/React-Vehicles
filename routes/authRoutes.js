@@ -10,7 +10,10 @@ module.exports = app => {
   // Signin by Email with JWT
    app.post('/signin', requireSignin, Authentication.signin);
   // Fetch by id with JWT
-  app.get('/api/user/:id', Authentication.fetchUser); 
+  app.get('/api/user/:id', Authentication.fetchUser);
+  // Edit by id with JWT
+  app.post('/api/user/:id', Authentication.editUser);
+
 
   // Google Auth
   app.get(

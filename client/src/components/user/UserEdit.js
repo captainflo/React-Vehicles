@@ -8,16 +8,13 @@ import normalizePhone from './normalizePhone'
 
 class UserEdit extends React.Component {
 
-  
-
   onSubmit = (formProps) => {
-    const id = this.props.match.params.id
-    this.props.editUser(this.props.match.params.id,formProps, () => {
+    const id = this.props.auth._id
+    this.props.editUser(id,formProps, () => {
       this.props.history.push(`/user/${id}`);
     });
   };
   render() {
-    console.log(this.props)
     const { handleSubmit } = this.props;
     return (
       <div className="container">
@@ -98,7 +95,7 @@ class UserEdit extends React.Component {
 function mapStateToPros(state, ownProps) {
   return {
     errorMessage: state.auth.errorMessage,
-    auth: state.auth.authenticated[ownProps.match.params.id],
+    auth: state.auth.authenticated,
   };
 }
 
