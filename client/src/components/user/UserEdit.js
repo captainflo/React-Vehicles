@@ -3,6 +3,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
 import * as actions from "../actions";
+import { Modal } from "react-materialize";
 
 import normalizePhone from "./normalizePhone";
 
@@ -92,12 +93,18 @@ class UserEdit extends React.Component {
               <i className="material-icons right">cloud</i>Edit
             </button>
           </form>
-          <button
+          <Modal trigger={<button className="waves-effect waves-light btn right"><i className="material-icons right">cloud</i>Delete Your user</button>}>
+            <div style={{ padding: "30px" }}>
+              <h4>Are you sure you want to delete your User?</h4>
+            <button
             onClick={this.onDelete}
             className="waves-effect waves-light btn right"
           >
-            <i className="material-icons right">cloud</i>Delete Your user
+            <i className="material-icons right">cloud</i>Delete Your user definitely
           </button>
+            </div>
+          </Modal>
+          
         </div>
       </div>
     );
