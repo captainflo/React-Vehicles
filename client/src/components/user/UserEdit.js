@@ -94,9 +94,9 @@ class UserEdit extends React.Component {
           </form>
           <button
             onClick={this.onDelete}
-            className="waves-effect waves-light btn"
+            className="waves-effect waves-light btn right"
           >
-            <i className="material-icons right">cloud</i>Delete
+            <i className="material-icons right">cloud</i>Delete Your user
           </button>
         </div>
       </div>
