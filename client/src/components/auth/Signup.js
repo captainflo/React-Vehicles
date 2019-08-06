@@ -1,5 +1,5 @@
 import React from "react";
-import { reduxForm, Field, reset } from "redux-form";
+import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import * as actions from "../actions";
@@ -51,7 +51,6 @@ class Signup extends React.Component {
     
     if(checkPassword  === true && checkEmail === true && formProps.password === this.state.passwordConfirm){
       this.props.signup(formProps, () => {
-        dispatch(reset('signup'));
         this.props.history.push("/feature");
       });
     }

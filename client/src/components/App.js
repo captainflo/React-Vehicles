@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "./Header";
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route} from 'react-router-dom';
 import * as actions from './actions'
 import { connect } from 'react-redux';
 import M from "materialize-css/dist/js/materialize.min.js";
@@ -15,6 +15,7 @@ import UserEdit from "./user/UserEdit";
 class App extends React.Component {
   componentDidMount(){
     this.props.fetchUser();
+    console.log(this.props.authenticated);
     // Sidebar
     const elem = document.querySelector(".sidenav");
     M.Sidenav.init(elem, {

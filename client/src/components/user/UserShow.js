@@ -1,10 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import * as actions from "../actions";
 
 class UserShow extends React.Component {
-  render() {
-    
+  componentDidMount(){
+    this.props.fetchUser();
+  }
+  
+  render() { 
     return (
       <div className="container">
         <div className="row">
@@ -78,4 +82,4 @@ function mapStateToPros(state) {
   };
 }
 
-export default connect(mapStateToPros)(UserShow);
+export default connect(mapStateToPros, actions)(UserShow);

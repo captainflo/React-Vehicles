@@ -13,7 +13,7 @@ const userSchema = new Schema({
     avatar: String,
     firstName: String,
     lastName: String,
-    phone: Number
+    phone: String
 });
 
 // On save Hook, encrypt password

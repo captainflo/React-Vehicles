@@ -1,17 +1,23 @@
 import React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { reduxForm, Field} from "redux-form";
+import { reduxForm, Field } from "redux-form";
 import * as actions from "../actions";
 
-import normalizePhone from './normalizePhone'
+import normalizePhone from "./normalizePhone";
 
 class UserEdit extends React.Component {
-
   onSubmit = (formProps) => {
-    const id = this.props.auth._id
-    this.props.editUser(id,formProps, () => {
+    const id = this.props.auth._id;
+    this.props.editUser(id, formProps, () => {
       this.props.history.push(`/user/${id}`);
+    });
+  };
+
+  onDelete = () => {
+    const id = this.props.auth._id;
+    this.props.deleteUser(id, () => {
+      this.props.history.push(`/`);
     });
   };
   render() {
@@ -19,9 +25,9 @@ class UserEdit extends React.Component {
     return (
       <div className="container">
         <div className="card">
-        <h4 className="center">
+          <h4 className="center">
             Edit <i className="fas fa-user-alt" />
-        </h4>
+          </h4>
           <form onSubmit={handleSubmit(this.onSubmit)}>
             <div className="row">
               <div className="col s12 m6">
@@ -86,16 +92,22 @@ class UserEdit extends React.Component {
               <i className="material-icons right">cloud</i>Edit
             </button>
           </form>
+          <button
+            onClick={this.onDelete}
+            className="waves-effect waves-light btn"
+          >
+            <i className="material-icons right">cloud</i>Delete
+          </button>
         </div>
       </div>
     );
   }
 }
 
-function mapStateToPros(state, ownProps) {
+function mapStateToPros(state) {
   return {
     errorMessage: state.auth.errorMessage,
-    auth: state.auth.authenticated,
+    auth: state.auth.authenticated
   };
 }
 

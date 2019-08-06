@@ -16,7 +16,7 @@ export const signup = (formProps, callback) => async dispatch => {
       // let token to variable data
       let data = token;
       data = {
-        _id: data.sub,
+        id: data.sub,
         email: data.email
       };
       const response = await axios.get(`/api/user/${data.id}`);
@@ -24,7 +24,6 @@ export const signup = (formProps, callback) => async dispatch => {
     } else {
       token = null;
     }
-    callback(); /* history callback */
   } catch (e) {
     dispatch({ type: AUTH_ERROR, payload: "Email in use" });
   }
@@ -48,7 +47,6 @@ export const signin = (formProps, callback) => async dispatch => {
       };
       const response = await axios.get(`/api/user/${data.id}`);
       dispatch({ type: AUTH_USER, payload: response.data });
-      callback(); /* history callback */
     } else {
       token = null;
     }
@@ -92,4 +90,12 @@ export const editUser = (id, formValues, callback) => async dispatch => {
     const response = await axios.post(`/api/user/${id}`, formValues);
     dispatch({ type: EDIT_USER, payload: response.data });
     callback(); /* history callback */
+};
+
+// Edit delete 
+export const deleteUser = (id, callback) => async dispatch => {
+  await axios.delete(`/api/user/${id}`);
+  dispatch({ type: EDIT_USER, payload: '' });
+  localStorage.removeItem("token");
+  callback(); /* history callback */
 };

@@ -13,6 +13,8 @@ module.exports = app => {
   app.get('/api/user/:id', Authentication.fetchUser);
   // Edit by id with JWT
   app.post('/api/user/:id', Authentication.editUser);
+  // delete by id with JWT
+  app.delete('/api/user/:id', Authentication.deleteUser)
 
 
   // Google Auth
