@@ -44,16 +44,13 @@ class UserEdit extends React.Component {
     if (password === undefined){
       this.setState({ validPassword: ""});
     } 
-    
+
     if((checkEmail === true || email === undefined) && (checkPassword === true || password === undefined) ){
       const id = this.props.auth._id;
       this.props.editUser(id, formProps, () => {
         this.props.history.push(`/user/${id}`);
       });
-    }
-    
-
-    
+    }    
   };
 
   onDelete = () => {

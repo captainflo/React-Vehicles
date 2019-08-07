@@ -78,7 +78,7 @@ class Header extends React.Component {
   render() {
     return (
       <div>
-        <nav>
+        <nav className=''>
           <div className="nav-wrapper">
             <Link className="brand-logo" to="/">
               <i

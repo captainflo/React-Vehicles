@@ -16,6 +16,7 @@ class App extends React.Component {
   componentDidMount(){
     this.props.fetchUser();
     console.log(this.props.authenticated);
+
     // Sidebar
     const elem = document.querySelector(".sidenav");
     M.Sidenav.init(elem, {
