@@ -38,7 +38,6 @@ class Welcome extends React.Component {
             </li>
           </ul>
         </div>
-        <SearchBar />
       </div>
     );
   }

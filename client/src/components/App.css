@@ -51,10 +51,7 @@ body{
   color: black;
 }
 
-.myId{
-  width: 56px !important;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  
+.Boxinput div[style]{
+  width: 100% !important;
 }
+

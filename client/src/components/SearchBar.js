@@ -8,7 +8,6 @@ import DatePicker from "material-ui/DatePicker";
 import MenuItem from "material-ui/MenuItem";
 import moment from "moment";
 
-
 class Welcome extends React.Component {
   onSubmit = formProps => {
     console.log(formProps);
@@ -37,7 +36,7 @@ class Welcome extends React.Component {
       input,
       defaultValue,
       meta: { touched, error },
-      label,
+      label
     }) => (
       <DatePicker
         floatingLabelText={label}
@@ -45,18 +44,19 @@ class Welcome extends React.Component {
         {...input}
         value={input.value !== "" ? new Date(input.value) : null}
         onChange={(event, value) => {
-          const formatDate = value;
-          const responseDate = moment(formatDate).format("DD/MM/YYYY");
-          input.onChange(responseDate);
+          // const formatDate = value;
+          // const responseDate = moment(formatDate).format("DD/MM/YYYY");
+          input.onChange(value);
         }}
       />
     );
 
     return (
-        <MuiThemeProvider>
-          <form onSubmit={handleSubmit(this.onSubmit)}>
-            <div className="row">
-              <div className="col s12 m3">
+      <MuiThemeProvider>
+        <form onSubmit={handleSubmit(this.onSubmit)}>
+          <div className="row">
+            <div className="col s12 m3">
+              <div className="Boxinput">
                 <Field
                   name="startDate"
                   type="text"
@@ -66,7 +66,9 @@ class Welcome extends React.Component {
                   autoOk={true}
                 />
               </div>
-              <div  style={{width: '50px'}} className="col s12 m3">
+            </div>
+            <div className="col s12 m3">
+              <div className="Boxinput">
                 <Field
                   name="StartHour"
                   component={renderSelectField}
@@ -94,7 +96,9 @@ class Welcome extends React.Component {
                   />
                 </Field>
               </div>
-              <div className="col s12 m3">
+            </div>
+            <div className="col s12 m3">
+              <div className="Boxinput">
                 <Field
                   name="startEnd"
                   type="text"
@@ -104,7 +108,9 @@ class Welcome extends React.Component {
                   autoOk={true}
                 />
               </div>
-              <div className="col 12 m3">
+            </div>
+            <div className="col 12 m3">
+              <div className="Boxinput">
                 <Field
                   name="EndHour"
                   component={renderSelectField}
@@ -133,11 +139,12 @@ class Welcome extends React.Component {
                 </Field>
               </div>
             </div>
-            <div className="row">
-              <button>here</button>
-            </div>
-          </form>
-        </MuiThemeProvider>
+          </div>
+          <div className="row">
+            <button>here</button>
+          </div>
+        </form>
+      </MuiThemeProvider>
     );
   }
 }
