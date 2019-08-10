@@ -6,11 +6,32 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import SelectField from "material-ui/SelectField";
 import DatePicker from "material-ui/DatePicker";
 import MenuItem from "material-ui/MenuItem";
+import TextField from "material-ui/TextField";
+import Button from '@material-ui/core/Button';
 import moment from "moment";
+
 
 class Welcome extends React.Component {
   onSubmit = formProps => {
     console.log(formProps);
+    
+    
+    
+    const  startFinal = Date.parse(formProps.startDate);
+    console.log(startFinal);
+
+    const  endFinal = Date.parse(formProps.endDate);
+    console.log(endFinal);
+
+
+    if(endFinal < startFinal){
+      alert('wrong')
+    } else {
+      alert('good')
+    }
+
+   
+    
   };
 
   render() {
@@ -46,20 +67,42 @@ class Welcome extends React.Component {
         onChange={(event, value) => {
           // const formatDate = value;
           // const responseDate = moment(formatDate).format("DD/MM/YYYY");
-          input.onChange(value);
+          const formatDate = value
+          const responseDate = moment(formatDate).format('L'); 
+          input.onChange(responseDate);
         }}
       />
     );
+
+    const renderField = ({ input, label, meta: { touched, error } }) => (
+      <TextField
+      floatingLabelText={label}
+      errorText={touched && error}
+      {...input}
+      onChange={(event, value) => input.onChange(value)}
+      />
+    )
 
     return (
       <MuiThemeProvider>
         <form onSubmit={handleSubmit(this.onSubmit)}>
           <div className="row">
-            <div className="col s12 m3">
+          <div className="col s12 m2">
+              <div className="Boxinput">
+              <Field
+                 name="city"
+                type="text"
+                id="city"
+                component={renderField}
+                label="City"
+              />
+              </div>
+            </div>
+            <div className="col s12 m2">
               <div className="Boxinput">
                 <Field
                   name="startDate"
-                  type="text"
+                  type="date"
                   label="Pick up at"
                   component={renderDatePicker}
                   hintText="Checkin Date"
@@ -97,11 +140,11 @@ class Welcome extends React.Component {
                 </Field>
               </div>
             </div>
-            <div className="col s12 m3">
+            <div className="col s12 m2">
               <div className="Boxinput">
                 <Field
-                  name="startEnd"
-                  type="text"
+                  name="endDate"
+                  type="date"
                   label="Drop off at"
                   component={renderDatePicker}
                   hintText="Checkin Date"
@@ -141,8 +184,10 @@ class Welcome extends React.Component {
             </div>
           </div>
           <div className="row">
-            <button>here</button>
-          </div>
+          <Button type='submit' variant="outlined">
+            Primary
+          </Button>
+            </div>
         </form>
       </MuiThemeProvider>
     );
