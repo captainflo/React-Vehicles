@@ -14,10 +14,11 @@ class Search extends React.Component {
     endDate: {},
     city: "",
     startHour: "",
-    endHour: ""
+    endHour: "",
+    vehicle: ""
   };
 
-  onSubmit = (event) => {
+  onSubmit = event => {
     event.preventDefault();
     // Date Format
     const formatDateStart = this.state.startDate;
@@ -26,31 +27,34 @@ class Search extends React.Component {
     const formatDateEnd = this.state.endDate;
     const responseDateEnd = moment(formatDateEnd).format("L");
 
+    // Date Validation
+    const startFinal = Date.parse(this.state.startDate);
+    const endFinal = Date.parse(this.state.endDate);
+
+    // Validate All
+    if (this.state.city === "" || this.state.startDate === "" || this.state.endDate === "" || this.state.startHour === ""|| this.state.endHour === ""|| this.state.vehicle === "") {
+      alert("must provide all the form!");
+    }
+    // start date vs end date
+    if (endFinal < startFinal) {
+      alert("wrong");
+    } else {
+      alert("good");
+    }
+
     const form = {
       startDate: responseDateStart,
       endDate: responseDateEnd,
       city: this.state.city,
       startHour: this.state.startHour,
-      endHour: this.state.endHour
-    }
-
-    // Date Validation
-    const  startFinal = Date.parse(this.state.startDate);
-    const  endFinal = Date.parse(this.state.endDate);
-    if (this.state.city === "") {
-      alert("must select city");
-    }
-    if(endFinal < startFinal){
-      alert('wrong')
-    } else {
-      alert('good')
-    }
+      endHour: this.state.endHour,
+      vehicle: this.state.vehicle
+    };
     console.log(form);
   };
 
   handleType = event => {
     this.setState({ [event.target.name]: event.target.value });
-    console.log(this.state);
   };
   handleChangeStartDate = (event, date) => {
     this.setState({
@@ -66,9 +70,15 @@ class Search extends React.Component {
 
   handleChangeStartHour = (event, index, value) =>
     this.setState({ startHour: value });
-  
+
   handleChangeEndHour = (event, index, value) =>
-  this.setState({ endHour: value });
+    this.setState({ endHour: value });
+
+  handleChangeVehicle(event) {
+    this.setState({
+      vehicle: event.target.value
+    });
+  }
 
   render() {
     return (
@@ -76,7 +86,6 @@ class Search extends React.Component {
         <form>
           <div className="row">
             <div className="col m6 s12">
-              <div className=''>
                 <label>City</label>
                 <Autocomplete
                   onPlaceSelected={place => {
@@ -85,6 +94,48 @@ class Search extends React.Component {
                   types={["(regions)"]}
                   componentRestrictions={{ country: "us" }}
                 />
+            </div>
+            <div className="col m6 s12 block-vehicle">
+              <div className="row center">
+                <div className="col m4">
+                  <label>
+                    <input
+                      name="vehicle"
+                      type="radio"
+                      value="Car"
+                      onChange={e => this.handleChangeVehicle(e)}
+                    />
+                    <span>
+                      <i className="fas fa-car" /> Car
+                    </span>
+                  </label>
+                </div>
+                <div className="col m4">
+                  <label>
+                    <input
+                      name="vehicle"
+                      type="radio"
+                      value="Boat"
+                      onChange={e => this.handleChangeVehicle(e)}
+                    />
+                    <span>
+                      <i className="fas fa-ship" /> Boat
+                    </span>
+                  </label>
+                </div>
+                <div className="col m4">
+                  <label>
+                    <input
+                      name="vehicle"
+                      type="radio"
+                      value="Bike"
+                      onChange={e => this.handleChangeVehicle(e)}
+                    />
+                    <span>
+                      <i className="fas fa-motorcycle" /> Bike
+                    </span>
+                  </label>
+                </div>
               </div>
             </div>
           </div>
@@ -93,7 +144,6 @@ class Search extends React.Component {
               <div className="Boxinput">
                 <DatePicker
                   floatingLabelText="Pick up at"
-                  hintText="hello"
                   value={this.state.startDate}
                   onChange={this.handleChangeStartDate}
                 />
@@ -102,6 +152,7 @@ class Search extends React.Component {
             <div className="col m3 s12">
               <div className="Boxinput">
                 <SelectField
+                  className='color-field'
                   floatingLabelText="Start Hour"
                   value={this.state.startHour}
                   onChange={this.handleChangeStartHour}
@@ -133,7 +184,6 @@ class Search extends React.Component {
               <div className="Boxinput">
                 <DatePicker
                   floatingLabelText="drop off at"
-                  hintText="hello"
                   value={this.state.endDate}
                   onChange={this.handleChangeEndDate}
                 />
@@ -142,6 +192,7 @@ class Search extends React.Component {
             <div className="col m3 s12">
               <div className="Boxinput">
                 <SelectField
+                  className='color-field'
                   floatingLabelText="Start Hour"
                   value={this.state.endHour}
                   onChange={this.handleChangeEndHour}
@@ -170,9 +221,7 @@ class Search extends React.Component {
               </div>
             </div>
           </div>
-          <button type="submit" onClick={this.onSubmit}>
-              Here
-            </button>
+          <button onClick={this.onSubmit} class="waves-effect waves-light btn-small">Search</button>
         </form>
       </MuiThemeProvider>
     );

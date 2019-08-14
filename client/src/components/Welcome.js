@@ -4,11 +4,19 @@ import { compose } from "redux";
 import Search from "./Search";
 
 class Welcome extends React.Component {
-
   render() {
     return (
       <div>
-        <Search />
+        <div className="Banner">
+          <img
+            style={{width:'100%'}}
+            src={process.env.PUBLIC_URL + "/images/banner.jpg"}
+            alt="background"
+          />
+        </div>
+        <div className="centered fadeIn">
+        <Search/>
+        </div>
       </div>
     );
   }
