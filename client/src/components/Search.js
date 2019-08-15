@@ -15,7 +15,11 @@ class Search extends React.Component {
     city: "",
     startHour: "",
     endHour: "",
-    vehicle: ""
+    vehicle: "",
+    selectCity: "",
+    invalidDate: "",
+    invalidTime: "",
+    invalidVehicle: ""
   };
 
   onSubmit = event => {
@@ -31,16 +35,39 @@ class Search extends React.Component {
     const startFinal = Date.parse(this.state.startDate);
     const endFinal = Date.parse(this.state.endDate);
 
-    // Validate All
-    if (this.state.city === "" || this.state.startDate === "" || this.state.endDate === "" || this.state.startHour === ""|| this.state.endHour === ""|| this.state.vehicle === "") {
-      alert("must provide all the form!");
-    }
-    // start date vs end date
-    if (endFinal < startFinal) {
-      alert("wrong");
+    // Validate city
+    if (this.state.city === ""){
+      this.setState({ selectCity: "must select city" });
     } else {
-      alert("good");
+      this.setState({ selectCity: "" });
     }
+
+    // if start date > end date
+    if(startFinal >endFinal){
+      this.setState({ invalidDate: "drop off date must be superior than pick up date" });
+    } else {
+      this.setState({ invalidDate: "" });
+    }
+
+    // Validate hours
+    if (this.state.startHour === ""|| this.state.endHour === "") {
+      this.setState({ invalidTime: "must select hours" });
+    } else {
+      this.setState({ invalidTime: "" });
+    }
+
+    // Validate vehicle
+    if (this.state.vehicle === "") {
+      this.setState({ invalidVehicle: "must select vehicle" });
+    } else {
+      this.setState({ invalidVehicle: "" });
+    }
+
+    if(startFinal < endFinal && this.state.city !== "" && this.state.startHour !== "" && this.state.endHour !== "" && this.state.vehicle !== ""){
+      alert('good');
+    }
+    
+
 
     const form = {
       startDate: responseDateStart,
@@ -83,7 +110,7 @@ class Search extends React.Component {
   render() {
     return (
       <MuiThemeProvider>
-        <form>
+        <form id="search-form">
           <div className="row">
             <div className="col m6 s12">
                 <label>City</label>
@@ -94,6 +121,7 @@ class Search extends React.Component {
                   types={["(regions)"]}
                   componentRestrictions={{ country: "us" }}
                 />
+                <span style={{color: 'red'}}>{this.state.selectCity}</span>
             </div>
             <div className="col m6 s12 block-vehicle">
               <div className="row center">
@@ -109,6 +137,7 @@ class Search extends React.Component {
                       <i className="fas fa-car" /> Car
                     </span>
                   </label>
+                  <span style={{color: 'red'}}>{this.state.invalidVehicle}</span>
                 </div>
                 <div className="col m4">
                   <label>
@@ -153,7 +182,7 @@ class Search extends React.Component {
               <div className="Boxinput">
                 <SelectField
                   className='color-field'
-                  floatingLabelText="Start Hour"
+                  floatingLabelText="Start Time"
                   value={this.state.startHour}
                   onChange={this.handleChangeStartHour}
                 >
@@ -193,7 +222,7 @@ class Search extends React.Component {
               <div className="Boxinput">
                 <SelectField
                   className='color-field'
-                  floatingLabelText="Start Hour"
+                  floatingLabelText="Return Time"
                   value={this.state.endHour}
                   onChange={this.handleChangeEndHour}
                 >
@@ -221,7 +250,9 @@ class Search extends React.Component {
               </div>
             </div>
           </div>
-          <button onClick={this.onSubmit} class="waves-effect waves-light btn-small">Search</button>
+          <div style={{color: 'red'}}>{this.state.invalidDate}</div>
+          <div style={{color: 'red'}}>{this.state.invalidTime}</div>
+          <button onClick={this.onSubmit} className="waves-effect waves-light btn-small">Search</button>
         </form>
       </MuiThemeProvider>
     );

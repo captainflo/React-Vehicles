@@ -29,7 +29,8 @@ body{
 }
 
 .color-field div{
-  color: #fff !important;
+  /* color: #fff !important; */
+    color: #00BCD4 !important;
 }
 
 
@@ -73,4 +74,14 @@ body{
 
 .block-vehicle{
   margin-top: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+  .centered {
+    padding: 10px;
+  }
+  .Banner img{
+    height: 700px;
+    max-width: 100%;
+  }
 }
