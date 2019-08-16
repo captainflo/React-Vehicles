@@ -26,8 +26,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
-
 require('./routes/authRoutes')(app);
+require('./routes/vehicleRoutes')(app);
 
 
 // Connect Mongo Atlas

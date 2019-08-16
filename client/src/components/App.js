@@ -11,12 +11,11 @@ import Feature from './Feature';
 import Signout from './auth/Signout'
 import UserShow from "./user/UserShow";
 import UserEdit from "./user/UserEdit";
+import VehicleCreate from './vehicle/VehicleCreate';
 
 class App extends React.Component {
   componentDidMount(){
     this.props.fetchUser();
-    console.log(this.props.authenticated);
-
     // Sidebar
     const elem = document.querySelector(".sidenav");
     M.Sidenav.init(elem, {
@@ -37,6 +36,7 @@ class App extends React.Component {
           <div>
             <Route exact path='/feature' component={Feature}/>
             <Route exact path="/user/:id" component={UserShow}/>
+            <Route exact path="/user/:id/createVehicle" component={VehicleCreate}/>
             <Route exact path='/user/edit/:id' component={UserEdit}/>
           </div> : ""}
 

@@ -1,3 +1,6 @@
 export const AUTH_USER = 'auth_user'
 export const EDIT_USER = 'edit_user'
 export const AUTH_ERROR = 'auth_error'
+export const VEHICLE_ERROR = 'vehicle_errror'
+export const EDIT_VEHICLE = 'edit_vehicle'
+export const GET_MY_VEHICLE = 'get_my_vehicle'

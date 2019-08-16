@@ -6,13 +6,20 @@ import * as actions from "../actions";
 class UserShow extends React.Component {
   componentDidMount(){
     this.props.fetchUser();
+    this.props.getVehicleByUser(this.props.match.params.id);
   }
+
+  renderListVehicle=()=>{
+    if(this.props.vehicles !== undefined)
+    console.log(this.props.vehicles[0])
+  }
+
   
   render() { 
     return (
       <div className="container">
         <div className="row">
-          <div className="col s12">
+          <div className="col s12 m6">
             <div className="card">
               <div className="top-left">
                 <img
@@ -47,6 +54,11 @@ class UserShow extends React.Component {
               </div>
             </div>
           </div>
+          <div className="col s12 m6">
+            <div className="card">
+                  {this.renderListVehicle()}
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -56,6 +68,7 @@ class UserShow extends React.Component {
 function mapStateToPros(state) {
   return {
     authenticated: state.auth.authenticated,
+    vehicles: state.vehicles
   };
 }
 
