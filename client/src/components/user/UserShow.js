@@ -4,18 +4,20 @@ import { Link } from "react-router-dom";
 import * as actions from "../actions";
 
 class UserShow extends React.Component {
-  componentDidMount(){
-    this.props.fetchUser();
+  UNSAFE_componentWillMount(){
     this.props.getVehicleByUser(this.props.match.params.id);
   }
 
   renderListVehicle=()=>{
-    if(this.props.vehicles !== undefined)
-    console.log(this.props.vehicles[0])
+    if(this.props.vehicles.length > 0){
+      return this.props.vehicles.map(vehicle =>{
+        return(<div key={vehicle._id}>{vehicle.name}</div>)
+      })
+    } 
   }
-
   
   render() { 
+  
     return (
       <div className="container">
         <div className="row">
@@ -73,3 +75,5 @@ function mapStateToPros(state) {
 }
 
 export default connect(mapStateToPros, actions)(UserShow);
+
+

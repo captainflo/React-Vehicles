@@ -119,7 +119,7 @@ export const createVehicle = (id,formValues, callback) => async dispatch => {
 // Get Vehicle by User
 export const getVehicleByUser = (id) => async dispatch => {
   try {
-    const response = await axios.get(`/api/user/${id}/myVehicles`);
+    const response = await axios.get(`${keys.siteUrl}/api/user/${id}/myVehicles`);
     dispatch({ type: GET_MY_VEHICLE, payload: response.data });
   }catch (e) {
     dispatch({ type: VEHICLE_ERROR, payload: "error" });
