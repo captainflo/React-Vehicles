@@ -11,7 +11,15 @@ class UserShow extends React.Component {
   renderListVehicle=()=>{
     if(this.props.vehicles.length > 0){
       return this.props.vehicles.map(vehicle =>{
-        return(<div key={vehicle._id}>{vehicle.name}</div>)
+        return(
+            <div>
+              <div key={vehicle._id}>
+                {vehicle.name}<br></br>
+                {vehicle.city}
+              </div>
+              <hr></hr>
+            </div>   
+        )
       })
     } 
   }
