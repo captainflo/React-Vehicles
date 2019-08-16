@@ -1,6 +1,6 @@
 import keys from "../../config/keys";
 import axios from "axios";
-import { AUTH_USER, AUTH_ERROR, EDIT_USER } from "./types";
+import { AUTH_USER, AUTH_ERROR, EDIT_USER , EDIT_VEHICLE, VEHICLE_ERROR, GET_MY_VEHICLE} from "./types";
 import * as JWT from "jwt-decode";
 
 // Signup with Passport JWT
@@ -66,7 +66,6 @@ export const signout = () => async dispatch => {
 
 // Fetch the user by Passport JWT 
 export const fetchUser = () => async dispatch => {
-  const res = await axios.get("/api/current_user");
   let token = localStorage.token;
   if (token) {
     // Decode token
@@ -77,10 +76,11 @@ export const fetchUser = () => async dispatch => {
       id: data.sub,
       email: data.email
     };
-    const response = await axios.get(`/api/user/${data.id}`);
+    const response = await axios.get(`${keys.siteUrl}/api/user/${data.id}`);
     dispatch({ type: AUTH_USER, payload: response.data });
   } else {
     token = null;
+    const res = await axios.get("/api/current_user");
     dispatch({ type: AUTH_USER, payload: res.data });
   }
 };
@@ -104,3 +104,24 @@ export const deleteUser = (id, callback) => async dispatch => {
   localStorage.removeItem("token");
   callback(); /* history callback */
 };
+
+// Post Vehicle 
+export const createVehicle = (id,formValues, callback) => async dispatch => {
+  try {
+    const response = await axios.post(`${keys.siteUrl}/api/user/${id}/createVehicle`, formValues);
+    dispatch({ type: EDIT_VEHICLE, payload: response.data });
+    callback(); /* history callback */
+  } catch (e) {
+    dispatch({ type: VEHICLE_ERROR, payload: "error" });
+  }
+}
+
+// Get Vehicle by User
+export const getVehicleByUser = (id) => async dispatch => {
+  try {
+    const response = await axios.get(`/api/user/${id}/myVehicles`);
+    dispatch({ type: GET_MY_VEHICLE, payload: response.data });
+  }catch (e) {
+    dispatch({ type: VEHICLE_ERROR, payload: "error" });
+  }
+}
