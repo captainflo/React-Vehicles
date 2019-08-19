@@ -12,13 +12,17 @@ class UserShow extends React.Component {
     if(this.props.vehicles.length > 0){
       return this.props.vehicles.map(vehicle =>{
         return(
-            <div>
-              <div key={vehicle._id}>
-                {vehicle.name}<br></br>
-                {vehicle.city}
+            <div key={vehicle._id} className="card horizontal">
+            <div className="card-image">
+              <img src={vehicle.image} alt={vehicle._id}/>
+            </div>
+            <div className="card-stacked">
+              <div className="card-content">
+                <p>{vehicle.name}</p>
+                <p>{vehicle.city}</p>
               </div>
-              <hr></hr>
-            </div>   
+            </div>
+          </div>
         )
       })
     } 
@@ -65,9 +69,8 @@ class UserShow extends React.Component {
             </div>
           </div>
           <div className="col s12 m6">
-            <div className="card">
-                  {this.renderListVehicle()}
-            </div>
+          <h4>Your Vehicle(s)</h4>
+            {this.renderListVehicle()}
           </div>
         </div>
       </div>

@@ -6,7 +6,8 @@ const vehicleSchema = new Schema({
     name: String,
     city: String,
     type: String,
-    userId: String
+    userId: String,
+    image: String
 });
 
 // Create the model class

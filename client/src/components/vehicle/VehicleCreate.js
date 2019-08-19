@@ -16,11 +16,11 @@ class VehicleCreate extends React.Component {
     name:"",
     selectCity: "",
     invalidVehicle: "",
-    profile_pic: '',
+    profile_pic: "",
+    picOk: null,
   };
 
   onSubmit = event => {
-    console.log(this.state.profile_pic);
     event.preventDefault();
     console.log(this.state.vehicle)
     // Validate city
@@ -42,7 +42,7 @@ class VehicleCreate extends React.Component {
         name: this.state.name,
         image: this.state.profile_pic
     }
-
+    console.log(form)
     const id = this.props.auth._id;
     this.props.createVehicle(id, form, () => {
         this.props.history.push(`/user/${id}`);
@@ -68,7 +68,7 @@ class VehicleCreate extends React.Component {
 
               if (result.event === "success") { //if (result && result.event === "success")
                   this.setState({ picOk: true })
-                  this.state.profile_pic = result.info.url
+                  this.setState({ profile_pic: result.info.url })
                   console.log(result.info.url);
               };
           }
