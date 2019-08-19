@@ -15,10 +15,12 @@ class VehicleCreate extends React.Component {
     vehicle: "",
     name:"",
     selectCity: "",
-    invalidVehicle: ""
+    invalidVehicle: "",
+    profile_pic: '',
   };
 
   onSubmit = event => {
+    console.log(this.state.profile_pic);
     event.preventDefault();
     console.log(this.state.vehicle)
     // Validate city
@@ -37,8 +39,10 @@ class VehicleCreate extends React.Component {
     const form = {
         city: this.state.city,
         type: this.state.vehicle,
-        name: this.state.name
+        name: this.state.name,
+        image: this.state.profile_pic
     }
+
     const id = this.props.auth._id;
     this.props.createVehicle(id, form, () => {
         this.props.history.push(`/user/${id}`);
@@ -57,13 +61,14 @@ class VehicleCreate extends React.Component {
       window.cloudinary.openUploadWidget({
           cloudName: config.cloudinaryClientName,
           uploadPreset: "rtvojstm",
+          folder: "vehicle",
           sources: ['local', 'url', 'instagram']
       },
           (error, result) => {
 
               if (result.event === "success") { //if (result && result.event === "success")
-                  // this.setState({ picOk: true })
-                  // this.state.profile_pic = result.info.url
+                  this.setState({ picOk: true })
+                  this.state.profile_pic = result.info.url
                   console.log(result.info.url);
               };
           }
