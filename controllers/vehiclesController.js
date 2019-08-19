@@ -17,11 +17,13 @@ exports.createVehicle = function(req,res,next){
     const name = req.body.name;
     const type = req.body.type;
     const city = req.body.city;
+    const image = req.body.image
 
     const vehicle = new Vehicle({
         name: name,
         type: type,
         city: city,
+        image: image,
         userId: userId
     });
 

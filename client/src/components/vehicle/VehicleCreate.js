@@ -7,6 +7,7 @@ import SelectField from "material-ui/SelectField";
 import MenuItem from "material-ui/MenuItem";
 import TextField from "material-ui/TextField"
 import * as actions from "../actions";
+import config from '../../config/keys';
 
 class VehicleCreate extends React.Component {
   state = {
@@ -14,7 +15,9 @@ class VehicleCreate extends React.Component {
     vehicle: "",
     name:"",
     selectCity: "",
-    invalidVehicle: ""
+    invalidVehicle: "",
+    profile_pic: "",
+    picOk: null,
   };
 
   onSubmit = event => {
@@ -36,8 +39,10 @@ class VehicleCreate extends React.Component {
     const form = {
         city: this.state.city,
         type: this.state.vehicle,
-        name: this.state.name
+        name: this.state.name,
+        image: this.state.profile_pic
     }
+    console.log(form)
     const id = this.props.auth._id;
     this.props.createVehicle(id, form, () => {
         this.props.history.push(`/user/${id}`);
@@ -50,6 +55,25 @@ class VehicleCreate extends React.Component {
 
   handleChangeVehicle = (event, index, value) =>
     this.setState({ vehicle: value });
+  
+    showWidget = (event) => {
+      event.preventDefault();
+      window.cloudinary.openUploadWidget({
+          cloudName: config.cloudinaryClientName,
+          uploadPreset: "rtvojstm",
+          folder: "vehicle",
+          sources: ['local', 'url', 'instagram']
+      },
+          (error, result) => {
+
+              if (result.event === "success") { //if (result && result.event === "success")
+                  this.setState({ picOk: true })
+                  this.setState({ profile_pic: result.info.url })
+                  console.log(result.info.url);
+              };
+          }
+      )
+  }
 
   render() {
     return (
@@ -107,6 +131,7 @@ class VehicleCreate extends React.Component {
                 <span style={{color: 'red'}}>{this.state.selectCity}</span>
             </div>     
           </div>
+          <button onClick={this.showWidget} className="btn-login">{this.state.picOk && <i className="far fa-check-square"></i>} Upload Picture <i className="fas fa-image"></i></button>
           <button onClick={this.onSubmit} className="waves-effect waves-light btn-small">Search</button>
         </form>
       </MuiThemeProvider>
