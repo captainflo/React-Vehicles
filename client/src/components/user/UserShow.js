@@ -2,9 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as actions from "../actions";
+import VehicleCreate from '../vehicle/VehicleCreate';
 
 class UserShow extends React.Component {
   UNSAFE_componentWillMount(){
+    this.props.fetchUser();
     this.props.getVehicleByUser(this.props.match.params.id);
   }
 
@@ -69,7 +71,7 @@ class UserShow extends React.Component {
             </div>
           </div>
           <div className="col s12 m6">
-          <h4>Your Vehicle(s)</h4>
+          <h4>Your Vehicle(s) <Link className='btn-floating btn-large waves-effect waves-light red' to={`/user/${this.props.authenticated_id}/createVehicle`}><i class="material-icons">add</i></Link></h4>
             {this.renderListVehicle()}
           </div>
         </div>

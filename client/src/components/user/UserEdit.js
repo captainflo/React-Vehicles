@@ -4,13 +4,16 @@ import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
 import * as actions from "../actions";
 import { Modal } from "react-materialize";
+import config from '../../config/keys';
 
 import normalizePhone from "./normalizePhone";
 
 class UserEdit extends React.Component {
   state = {
     errorEmail: '',
-    validPassword: ''
+    validPassword: '',
+    image: '',
+    picOk:'',
   }
 
   onSubmit = (formProps) => {
@@ -44,14 +47,41 @@ class UserEdit extends React.Component {
     if (password === undefined){
       this.setState({ validPassword: ""});
     } 
+    const finalProps = {
+      avatar: this.state.image,
+      email: formProps.email,
+      password: formProps.password,
+      firstName: formProps.firstName,
+      lastName: formProps.lasName,
+      phone: formProps.phone
+
+    }
 
     if((checkEmail === true || email === undefined) && (checkPassword === true || password === undefined) ){
       const id = this.props.auth._id;
-      this.props.editUser(id, formProps, () => {
+      this.props.editUser(id, finalProps, () => {
         this.props.history.push(`/user/${id}`);
       });
     }    
   };
+
+  showWidget = (event) => {
+    event.preventDefault();
+    window.cloudinary.openUploadWidget({
+        cloudName: config.cloudinaryClientName,
+        uploadPreset: "rtvojstm",
+        folder: "vehicle",
+        sources: ['local', 'url', 'instagram']
+    },
+        (error, result) => {
+
+            if (result.event === "success") { //if (result && result.event === "success")
+                this.setState({ picOk: true })
+                this.setState({ image: result.info.url })
+            };
+        }
+    )
+  } 
 
   onDelete = () => {
     const id = this.props.auth._id;
@@ -144,6 +174,9 @@ class UserEdit extends React.Component {
                   <label htmlFor="password">Password</label>  
                   <div style={{color: 'red', marginLeft: '45px'}}>{this.state.validPassword}</div>
                 </div>
+              </div>
+              <div className='col s12 m6'>
+              <button onClick={this.showWidget} className="btn-login">{this.state.picOk && <i className="far fa-check-square"></i>} Upload Picture <i className="fas fa-image"></i></button>
               </div>
             </div>
             <button className="waves-effect waves-light btn">
