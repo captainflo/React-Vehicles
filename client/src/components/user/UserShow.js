@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as actions from "../actions";
-import VehicleCreate from '../vehicle/VehicleCreate';
 
 class UserShow extends React.Component {
   UNSAFE_componentWillMount(){

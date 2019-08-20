@@ -5,6 +5,7 @@ import { reduxForm, Field } from "redux-form";
 import * as actions from "../actions";
 import { Modal } from "react-materialize";
 import config from '../../config/keys';
+import API from '../utils/API';
 
 import normalizePhone from "./normalizePhone";
 
@@ -12,11 +13,12 @@ class UserEdit extends React.Component {
   state = {
     errorEmail: '',
     validPassword: '',
-    image: '',
+    avatar: '',
     picOk:'',
   }
 
   onSubmit = (formProps) => {
+    const id = this.props.auth._id;
     // Validate Email
     const email = formProps.email
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -47,19 +49,17 @@ class UserEdit extends React.Component {
     if (password === undefined){
       this.setState({ validPassword: ""});
     } 
-    const finalProps = {
-      avatar: this.state.image,
-      email: formProps.email,
-      password: formProps.password,
-      firstName: formProps.firstName,
-      lastName: formProps.lasName,
-      phone: formProps.phone
 
-    }
 
+      const body =  {
+        avatar: this.state.avatar
+      } 
+     
     if((checkEmail === true || email === undefined) && (checkPassword === true || password === undefined) ){
-      const id = this.props.auth._id;
-      this.props.editUser(id, finalProps, () => {
+      if(this.state.avatar !== ''){
+        API.uploadImage(id, body);
+      }
+      this.props.editUser(id, formProps, () => {
         this.props.history.push(`/user/${id}`);
       });
     }    
@@ -77,7 +77,7 @@ class UserEdit extends React.Component {
 
             if (result.event === "success") { //if (result && result.event === "success")
                 this.setState({ picOk: true })
-                this.setState({ image: result.info.url })
+                this.setState({ avatar: result.info.url })
             };
         }
     )
@@ -176,7 +176,7 @@ class UserEdit extends React.Component {
                 </div>
               </div>
               <div className='col s12 m6'>
-              <button onClick={this.showWidget} className="btn-login">{this.state.picOk && <i className="far fa-check-square"></i>} Upload Picture <i className="fas fa-image"></i></button>
+                <button onClick={this.showWidget} className="btn-login">{this.state.picOk && <i className="far fa-check-square"></i>} Upload Picture <i className="fas fa-image"></i></button>
               </div>
             </div>
             <button className="waves-effect waves-light btn">

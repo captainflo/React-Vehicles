@@ -15,7 +15,8 @@ module.exports = app => {
   app.post('/api/user/:id', Authentication.editUser);
   // delete by id with JWT
   app.delete('/api/user/:id', Authentication.deleteUser)
-
+  // upload Image
+  app.post('/api/user/edit/:id', Authentication.uploadImage);
 
   // Google Auth
   app.get(
