@@ -7,6 +7,8 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Autocomplete from "react-google-autocomplete";
 import SelectField from "material-ui/SelectField";
 import MenuItem from "material-ui/MenuItem";
+import API from './API';
+import { withRouter } from 'react-router-dom';
 
 class Search extends React.Component {
   state = {
@@ -62,13 +64,7 @@ class Search extends React.Component {
     } else {
       this.setState({ invalidVehicle: "" });
     }
-
-    if(startFinal < endFinal && this.state.city !== "" && this.state.startHour !== "" && this.state.endHour !== "" && this.state.vehicle !== ""){
-      alert('good');
-    }
     
-
-
     const form = {
       startDate: responseDateStart,
       endDate: responseDateEnd,
@@ -78,6 +74,13 @@ class Search extends React.Component {
       vehicle: this.state.vehicle
     };
     console.log(form);
+    const city = form.city 
+
+    if(startFinal < endFinal && this.state.city !== "" && this.state.startHour !== "" && this.state.endHour !== "" && this.state.vehicle !== ""){  
+      API.SearchVehicle(city)
+      this.props.history.push(`/city/${city}`);
+    }
+
   };
 
   handleType = event => {
@@ -263,4 +266,4 @@ function mapStateToProps(state) {
   return { auth: state.auth.authenticated };
 }
 
-export default compose(connect(mapStateToProps))(Search);
+export default compose(withRouter,connect(mapStateToProps))(Search);

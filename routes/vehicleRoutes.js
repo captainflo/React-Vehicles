@@ -7,4 +7,7 @@ module.exports = app => {
   app.post('/api/user/:id/createVehicle', controllers.createVehicle);
   // Get vehicles by Id user
   app.get('/api/user/:id/myVehicles',controllers.getVehicleByUser);
+
+  // Get vehicles by city
+  app.get('/api/city/:city', controllers.getVehicleByCity)
 };

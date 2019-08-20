@@ -12,6 +12,7 @@ import Signout from './auth/Signout'
 import UserShow from "./user/UserShow";
 import UserEdit from "./user/UserEdit";
 import VehicleCreate from './vehicle/VehicleCreate';
+import ShowSearch from "./page/ShowSearch";
 
 class App extends React.Component {
   componentDidMount(){
@@ -30,6 +31,7 @@ class App extends React.Component {
         <BrowserRouter>
           <Header />
           <Route exact path='/' component={Welcome}/>
+          <Route path='/city/:city' component={ShowSearch}/>
           <Route path="/signout" component={Signout}/>
 
           {this.props.authenticated ?

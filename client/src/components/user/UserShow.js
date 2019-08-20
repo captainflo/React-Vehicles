@@ -70,7 +70,7 @@ class UserShow extends React.Component {
             </div>
           </div>
           <div className="col s12 m6">
-          <h4>Your Vehicle(s) <Link className='btn-floating btn-large waves-effect waves-light red' to={`/user/${this.props.authenticated_id}/createVehicle`}><i class="material-icons">add</i></Link></h4>
+          <h4>Your Vehicle(s) <Link className='btn-floating btn-large waves-effect waves-light red' to={`/user/${this.props.authenticated_id}/createVehicle`}><i className="material-icons">add</i></Link></h4>
             {this.renderListVehicle()}
           </div>
         </div>

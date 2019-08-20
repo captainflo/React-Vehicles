@@ -11,8 +11,6 @@ exports.getAllVehicle = function (req,res,next){
 };
 
 exports.createVehicle = function(req,res,next){
-    console.log('server req.body',req.body)
-    console.log('server req.params',req.params.id)
     const userId = req.params.id
     const name = req.body.name;
     const type = req.body.type;
@@ -34,10 +32,19 @@ exports.createVehicle = function(req,res,next){
 }
 
 exports.getVehicleByUser = function(req,res,next){
-    console.log('server req.params',req.params.id)
     Vehicle.find({userId: req.params.id})
     .then(function(dbVehicle){
         res.json(dbVehicle)
+    })
+    .catch(function(error){
+        res.json(error);
+    })
+}
+
+exports.getVehicleByCity = function(req,res,next){
+    Vehicle.find({city: req.params.city})
+    .then(function(dbVehicle){
+        res.send(dbVehicle)
     })
     .catch(function(error){
         res.json(error);
