@@ -80,10 +80,10 @@ exports.editUser = function (req,res,next){
 exports.uploadImage = function (req,res,next){
     console.log(req.params.id);
     console.log(req.body);
-    // User.findByIdAndUpdate(req.params.id, req.body)
-    // .then(function(photo){
-    //     res.send(photo)
-    // })   
+    User.findByIdAndUpdate(req.params.id, req.body)
+    .then(function(photo){
+        res.send(photo)
+    })   
 }
 
 exports.deleteUser = function (req,res,next){
