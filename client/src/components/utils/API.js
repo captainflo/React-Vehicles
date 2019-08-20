@@ -1,10 +1,10 @@
 import axios from "axios";
-// import config from "../../config/keys";
+import config from "../../config/keys";
 
 const apiCall = {
     // Upload Image
     uploadImage: (id, body)=>{
-      return axios.post(`/api/user/edit/${id}`, body)
+      return axios.post(`${config.siteUrl}/api/user/edit/${id}`, body)
     }, 
 
 }

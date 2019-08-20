@@ -89,7 +89,7 @@ export const fetchUser = () => async dispatch => {
 export const editUser = (id, formValues, callback) => async dispatch => {
   try {
     dispatch({ type: AUTH_ERROR, payload: "" });
-    const response = await axios.post(`/api/user/${id}`, formValues);
+    const response = await axios.post(`${keys.siteUrl}/api/user/${id}`, formValues);
     dispatch({ type: EDIT_USER, payload: response.data });
     callback(); /* history callback */
   } catch (e) {

@@ -61,20 +61,22 @@ exports.editUser = function (req,res,next){
                 });
             });
         }
-       // See if user with the given email exists
-       User.findOne({email: email}, function(error, existingUser){
-        if (error){return next(error)};
-        // if a user with email does exist, return an error
-        if (existingUser){
-            return res.status(422).send({error: 'Email is in use'});
-        }
-        // if a user with email does not exist, create and save record
-        User.findByIdAndUpdate(req.params.id, req.body)
-        .then(function(user){
-            res.json(user)
-        })
-    })    
-
+        console.log(email)
+       if(email !== undefined || email !== ''){
+        // See if user with the given email exists
+        User.findOne({email: email}, function(error, existingUser){
+            if (error){return next(error)};
+            // if a user with email does exist, return an error
+            if (existingUser){
+                return res.status(422).send({error: 'Email is in use'});
+            }
+            // if a user with email does not exist, create and save record
+            User.findByIdAndUpdate(req.params.id, req.body)
+            .then(function(user){
+                res.json(user)
+            })
+            })   
+       }
 }
 
 exports.uploadImage = function (req,res,next){
