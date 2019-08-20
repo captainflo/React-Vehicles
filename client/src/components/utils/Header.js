@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Sidebar from "./Sidebar";
 import { Modal } from "react-materialize";
-import Signin from "./auth/Signin";
-import Signup from "./auth/Signup";
+import Signin from "../auth/Signin";
+import Signup from "../auth/Signup";
 
 class Header extends React.Component {
   state = {

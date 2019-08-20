@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Modal } from "react-materialize";
-import Signin from "./auth/Signin";
-import Signup from "./auth/Signup";
+import Signin from "../auth/Signin";
+import Signup from "../auth/Signup";
 import { Link } from "react-router-dom";
 
 class Sidebar extends React.Component {

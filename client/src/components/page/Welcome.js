@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import Search from "./Search";
+import Search from "../utils/Search";
 
 class Welcome extends React.Component {
   render() {

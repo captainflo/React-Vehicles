@@ -1,13 +1,13 @@
 import React from "react";
-import Header from "./Header";
+import Header from "./utils/Header";
 import { BrowserRouter, Route} from 'react-router-dom';
 import * as actions from './actions'
 import { connect } from 'react-redux';
 import M from "materialize-css/dist/js/materialize.min.js";
 import './App.css';
 
-import Welcome from './Welcome';
-import Feature from './Feature';
+import Welcome from './page/Welcome';
+import Feature from './page/Feature';
 import Signout from './auth/Signout'
 import UserShow from "./user/UserShow";
 import UserEdit from "./user/UserEdit";

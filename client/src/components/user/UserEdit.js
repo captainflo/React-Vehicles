@@ -56,12 +56,12 @@ class UserEdit extends React.Component {
       } 
      
     if((checkEmail === true || email === undefined) && (checkPassword === true || password === undefined) ){
-      if(this.state.avatar !== ''){
-        API.uploadImage(id, body);
-      }
       this.props.editUser(id, formProps, () => {
         this.props.history.push(`/user/${id}`);
       });
+      if(this.state.avatar !== ''){
+        API.uploadImage(id, body);
+      }
     }    
   };
 
