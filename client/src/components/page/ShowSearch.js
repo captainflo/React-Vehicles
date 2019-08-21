@@ -2,20 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from "../actions";
 import API from '../utils/API';
+import GoogleMap from '../utils/GoogleMap';
+import Geocode from "react-geocode";
+Geocode.setApiKey("AIzaSyCeAipRGvfEcH30zU8l2XMdvrtycHpV55g");
 
 class Feature extends React.Component{
     state = {
-        vehicles: []
+        vehicles: [],
     }
     componentDidMount(){
         API.SearchVehicle(this.props.match.params.city)
-            .then((data)=>{
-                this.setState({vehicles: data.data})
-            })
+        .then((data)=>{
+            this.setState({vehicles: data.data});
+        })
     }
-
+    
     renderListVehicle=()=>{
-        console.log(this.state.vehicles)
         if(this.state.vehicles.length > 0){
             return this.state.vehicles.map(vehicle =>{
                 return(
@@ -45,7 +47,9 @@ class Feature extends React.Component{
                         {this.renderListVehicle()}
                     </div>
                     <div className='col m6 s12'>
-                    
+                        <div>
+                        <GoogleMap vehicles={this.state.vehicles}/>
+                        </div>
                     </div>
                 </div>
                 
