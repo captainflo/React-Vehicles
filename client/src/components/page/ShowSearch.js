@@ -1,23 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from "../actions";
-import API from '../utils/API';
 
-class Feature extends React.Component{
-    state = {
-        vehicles: []
-    }
+
+class ShowSearch extends React.Component{
     componentDidMount(){
-        API.SearchVehicle(this.props.match.params.city)
-            .then((data)=>{
-                this.setState({vehicles: data.data})
-            })
+        this.props.getAllVehicleByCity(this.props.match.params.city)
+            // .then((data)=>{
+            //     this.setState({vehicles: data.data})
+            // })
     }
 
     renderListVehicle=()=>{
-        console.log(this.state.vehicles)
-        if(this.state.vehicles.length > 0){
-            return this.state.vehicles.map(vehicle =>{
+        if(this.props.vehicles.length > 0){
+            return this.props.vehicles.map(vehicle =>{
                 return(
                     <div key={vehicle._id} className="card horizontal">
                     <div className="card-image">
@@ -55,7 +51,11 @@ class Feature extends React.Component{
 }
 
 function mapStateToPros(state) {
-    return { authenticated: state.auth.authenticated};
+    console.log(state)
+    return { 
+        authenticated: state.auth.authenticated,
+        vehicles: state.vehicles
+    };
   }
 
-export default connect(mapStateToPros, actions)(Feature);
+export default connect(mapStateToPros, actions)(ShowSearch);
