@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from "../actions";
+import GoogleMap from '../utils/GoogleMap';
 
 
 class ShowSearch extends React.Component{
@@ -41,7 +42,7 @@ class ShowSearch extends React.Component{
                         {this.renderListVehicle()}
                     </div>
                     <div className='col m6 s12'>
-                    
+                        <GoogleMap/>
                     </div>
                 </div>
                 
@@ -59,3 +60,4 @@ function mapStateToPros(state) {
   }
 
 export default connect(mapStateToPros, actions)(ShowSearch);
+
