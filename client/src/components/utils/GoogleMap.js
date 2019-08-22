@@ -1,44 +1,65 @@
 import React from "react";
 import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
+import { connect } from 'react-redux';
 import Geocode from "react-geocode";
-
-
+import * as actions from "../actions";
 Geocode.setApiKey("AIzaSyCeAipRGvfEcH30zU8l2XMdvrtycHpV55g");
 
 class GoogleMap extends React.Component {
-    state = {
-      location: { lat: 0, lng: 0 },
-      zoom: 8
-    };
+  constructor(props) {
+    super(props);
 
-  componentDidMount() {
-    // Get My current position
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        let lat = position.coords.latitude;
-        let lng = position.coords.longitude;
-        console.log("getCurrentPosition Success " + lat + lng); // logs position correctly
-        this.setState({
-          location: {
-            lat: lat,
-            lng: lng
-          }
-        });
-      },
-      error => {
-        this.props.displayError("Error dectecting your location");
-        console.error(JSON.stringify(error));
-      },
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-    );
+  this.state = {
+    currentPosition: {lat: 0, lng:0},
+  }
+}
+
+
+  componentDidMount(){
+    this.getCurrentPosition();
+  }
+  
+  // My current position
+  getCurrentPosition(){
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const lng = position.coords.longitude;
+        const lat = position.coords.latitude;
+        this.setState({currentPosition: {lat: lat,lng: lng}});
+      })
+    }  
   }
 
-
+  displayMarkers = () => {
+    let vroom = this.props.vehicles 
+    console.log(vroom)
+    if (vroom.length > 0){
+    for (let i = 0; i < vroom.length; i++) {
+    let city = vroom[i].city;
+    console.log(city)
+      Geocode.fromAddress(city).then(
+      response => {
+        const {lat ,lng} = response.results[0].geometry.location;
+        return (
+          <Marker position={{
+            lat: lat,
+            lng: lng
+          }}
+          onClick={() => console.log("You clicked me!")} />
+        )
+      },
+      error => {
+        console.error(error);
+      }
+    );
+    }
+  } 
+  }
 
   render() {
-    const location = this.state.location;
+    const currentPosition = this.state.currentPosition;
     // if current position is null
-    if (location.lat === 0 && location.lng === 0) {
+    if (currentPosition.lat === 0 && currentPosition.lng === 0) {
       return (
         <div className="preloader-wrapper big active">
           <div className="spinner-layer spinner-blue-only">
@@ -56,21 +77,24 @@ class GoogleMap extends React.Component {
       );
     }
     return (
-      <Map
-        google={this.props.google}
-        zoom={this.state.zoom}
-        initialCenter={{lat: 0, lng: 0}}
-      >
-        <Marker
-          position={location}
-          label={{
-            text: "here"
-          }}
-        />
-      </Map>
+        <Map
+          google={this.props.google}
+          zoom={8}
+          initialCenter={this.state.currentPosition}
+        >
+        <Marker position={this.state.currentPosition} />
+        {this.displayMarkers()}
+        </Map>
     );
   }
 }
-export default GoogleApiWrapper({
+
+function mapStateToPros(state) {
+  return { 
+      authenticated: state.auth.authenticated,
+      vehicles: state.vehicles
+  };
+}
+export default connect(mapStateToPros, actions)(GoogleApiWrapper({
   apiKey: "AIzaSyCeAipRGvfEcH30zU8l2XMdvrtycHpV55g"
-})(GoogleMap);
+})(GoogleMap));

@@ -7,11 +7,8 @@ import GoogleMap from '../utils/GoogleMap';
 class ShowSearch extends React.Component{
     componentDidMount(){
         this.props.getAllVehicleByCity(this.props.match.params.city)
-            // .then((data)=>{
-            //     this.setState({vehicles: data.data})
-            // })
     }
-
+    
     renderListVehicle=()=>{
         if(this.props.vehicles.length > 0){
             return this.props.vehicles.map(vehicle =>{
@@ -35,7 +32,7 @@ class ShowSearch extends React.Component{
     }
     render(){
         return(
-            <div>
+            <div className='container'>
                 <h3>Search for {this.props.match.params.city}</h3>
                 <div className='row'>
                     <div className='col m6 s12'>
@@ -52,7 +49,6 @@ class ShowSearch extends React.Component{
 }
 
 function mapStateToPros(state) {
-    console.log(state)
     return { 
         authenticated: state.auth.authenticated,
         vehicles: state.vehicles
@@ -61,3 +57,28 @@ function mapStateToPros(state) {
 
 export default connect(mapStateToPros, actions)(ShowSearch);
 
+
+// getLatLngByAddress = () => {
+//     if (this.state.vehicles) {
+//       let liststore = [];
+//       for (let i = 0; i < this.state.vehicles.length; i++) {
+//         let city = this.state.vehicles[i].city;
+//         Geocode.fromAddress(city).then(
+//           response => {
+//             const lat = response.results[0].geometry.location.lat;
+//             const lng = response.results[0].geometry.location.lng;
+//             const storeLatLng = {
+//               lat: lat,
+//               lng: lng
+//             };
+//             liststore.push(storeLatLng);
+//           },
+//           error => {
+//             console.error(error);
+//           }
+//         );
+//       }
+//       this.setState({ stores: liststore });
+//       console.log( "I am inside getLatLngByAddress", this.state.stores) 
+//     }
+//   };
