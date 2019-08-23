@@ -46,7 +46,7 @@ class GoogleMap extends React.Component {
           anchor: new window.google.maps.Point(16,16),
           scaledSize: new window.google.maps.Size(32, 32)
         }}
-        onClick={() => console.log("You clicked me!")} 
+        onClick={()=> this.props.action(vehicle._id)}
         />
         })
     } else{
@@ -83,7 +83,6 @@ class GoogleMap extends React.Component {
       >
         <Map
           google={this.props.google}
-          id="map"
           zoom={8}
           initialCenter={this.state.currentPosition}
         >

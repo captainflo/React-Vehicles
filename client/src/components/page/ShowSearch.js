@@ -4,15 +4,28 @@ import * as actions from "../actions";
 import GoogleMap from '../utils/GoogleMap';
 
 class ShowSearch extends React.Component{
+    state ={
+        classCard: "card horizontal"
+    }
     componentDidMount(){
         this.props.getAllVehicleByCity(this.props.match.params.city)
     }
-    
+
+    // This method will be sent to the child component
+    handler=(vehicleId)=>{
+        this.setState({classCard: `card horizontal`})
+        if(vehicleId){
+            this.setState({ classCard: { ...this.state.classCard, [vehicleId]: ` red` }})
+            console.log(this.state.classCard)
+        }
+    }
+
+    // Render Vehicles
     renderListVehicle=()=>{
         if(this.props.vehicles.length > 0){
             return this.props.vehicles.map(vehicle =>{
                 return(
-                    <div key={vehicle._id} className="card horizontal">
+                    <div ref={vehicle._id} key={vehicle._id}  className={'card horizontal'+' '+ this.state.classCard[vehicle._id]}>
                     <div className="card-image">
                     <img src={vehicle.image} alt={vehicle._id}/>
                     </div>
@@ -31,14 +44,14 @@ class ShowSearch extends React.Component{
     }
     render(){
         return(
-            <div>
+            <div class='container'>
                 <h3>Search for {this.props.match.params.city}</h3>
                 <div className='row'>
                     <div className='col m6 s12'>
                         {this.renderListVehicle()}
                     </div>
                     <div className='col m6 s12'>
-                        <GoogleMap/>
+                        <GoogleMap action={this.handler}/>
                     </div>
                 </div>
             </div>
