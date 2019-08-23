@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as actions from "../actions";
 import GoogleMap from '../utils/GoogleMap';
 
-
 class ShowSearch extends React.Component{
     componentDidMount(){
         this.props.getAllVehicleByCity(this.props.match.params.city)
@@ -32,7 +31,7 @@ class ShowSearch extends React.Component{
     }
     render(){
         return(
-            <div className='container'>
+            <div>
                 <h3>Search for {this.props.match.params.city}</h3>
                 <div className='row'>
                     <div className='col m6 s12'>

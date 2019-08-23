@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import * as actions from "../actions";
 import config from '../../config/keys';
 
+
+
 class GoogleMap extends React.Component {
   constructor(props) {
     super(props);
@@ -29,14 +31,25 @@ class GoogleMap extends React.Component {
 
   // Display Marker
   displayMarkers = () => {
+    console.log(this.props.google);
     console.log(this.props.vehicles)
-    return this.props.vehicles.map((vehicle) => {
-      return <Marker key={vehicle.id} id={vehicle.id} position={{
-       lat: vehicle.lat,
-       lng: vehicle.lng
-     }}
-     onClick={() => console.log("You clicked me!")} />
-    })
+    if(this.props.vehicles.length > 0){
+      return this.props.vehicles.map((vehicle) => {
+        return <Marker 
+        key={vehicle._id} 
+        id={vehicle.id} 
+        animation= {this.props.google.maps.Animation.DROP}
+        position={{
+          lat: vehicle.lat,
+          lng: vehicle.lng
+        }}
+
+        onClick={() => console.log("You clicked me!")} 
+        />
+        })
+    } else{
+      return (<div>Nothing Found...</div>)
+    }
   }
 
   render() {
@@ -60,14 +73,22 @@ class GoogleMap extends React.Component {
       );
     }
     return (
+      <div
+        style={{
+          position: "relative",
+          height: "calc(100vh - 20px)"
+        }}
+      >
         <Map
           google={this.props.google}
+          id="map"
           zoom={8}
           initialCenter={this.state.currentPosition}
         >
         <Marker position={this.state.currentPosition} />
         {this.displayMarkers()}
         </Map>
+        </div>
     );
   }
 }
