@@ -42,7 +42,6 @@ class ShowSearch extends React.Component{
                         <GoogleMap/>
                     </div>
                 </div>
-                
             </div>
         )
     }
@@ -56,29 +55,3 @@ function mapStateToPros(state) {
   }
 
 export default connect(mapStateToPros, actions)(ShowSearch);
-
-
-// getLatLngByAddress = () => {
-//     if (this.state.vehicles) {
-//       let liststore = [];
-//       for (let i = 0; i < this.state.vehicles.length; i++) {
-//         let city = this.state.vehicles[i].city;
-//         Geocode.fromAddress(city).then(
-//           response => {
-//             const lat = response.results[0].geometry.location.lat;
-//             const lng = response.results[0].geometry.location.lng;
-//             const storeLatLng = {
-//               lat: lat,
-//               lng: lng
-//             };
-//             liststore.push(storeLatLng);
-//           },
-//           error => {
-//             console.error(error);
-//           }
-//         );
-//       }
-//       this.setState({ stores: liststore });
-//       console.log( "I am inside getLatLngByAddress", this.state.stores) 
-//     }
-//   };

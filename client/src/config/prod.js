@@ -3,5 +3,6 @@ module.exports = {
     siteUrl: 'https://still-wildwood-65496.herokuapp.com',
     cloudinaryClientName: 'dwtc6zep7',
     cloudinaryClientID: '596555837329564',
-    cloudinaryClientSecret:'oCn37LxVL2KbWdFIU_H89yVcz6o'
+    cloudinaryClientSecret:'oCn37LxVL2KbWdFIU_H89yVcz6o',
+    googleMap: 'AIzaSyCeAipRGvfEcH30zU8l2XMdvrtycHpV55g'
 };

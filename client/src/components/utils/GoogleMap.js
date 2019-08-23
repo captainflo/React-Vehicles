@@ -1,9 +1,8 @@
 import React from "react";
 import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
 import { connect } from 'react-redux';
-import Geocode from "react-geocode";
 import * as actions from "../actions";
-Geocode.setApiKey("AIzaSyCeAipRGvfEcH30zU8l2XMdvrtycHpV55g");
+import config from '../../config/keys';
 
 class GoogleMap extends React.Component {
   constructor(props) {
@@ -13,8 +12,6 @@ class GoogleMap extends React.Component {
     currentPosition: {lat: 0, lng:0},
   }
 }
-
-
   componentDidMount(){
     this.getCurrentPosition();
   }
@@ -30,30 +27,16 @@ class GoogleMap extends React.Component {
     }  
   }
 
+  // Display Marker
   displayMarkers = () => {
-    let vroom = this.props.vehicles 
-    console.log(vroom)
-    if (vroom.length > 0){
-    for (let i = 0; i < vroom.length; i++) {
-    let city = vroom[i].city;
-    console.log(city)
-      Geocode.fromAddress(city).then(
-      response => {
-        const {lat ,lng} = response.results[0].geometry.location;
-        return (
-          <Marker position={{
-            lat: lat,
-            lng: lng
-          }}
-          onClick={() => console.log("You clicked me!")} />
-        )
-      },
-      error => {
-        console.error(error);
-      }
-    );
-    }
-  } 
+    console.log(this.props.vehicles)
+    // return this.props.vehicles.map((vehicle, index) => {
+    //   return <Marker key={index} id={index} position={{
+    //    lat: store.latitude,
+    //    lng: store.longitude
+    //  }}
+    //  onClick={() => console.log("You clicked me!")} />
+    // })
   }
 
   render() {
@@ -83,7 +66,7 @@ class GoogleMap extends React.Component {
           initialCenter={this.state.currentPosition}
         >
         <Marker position={this.state.currentPosition} />
-        {this.displayMarkers()}
+        {/* {this.displayMarkers()} */}
         </Map>
     );
   }
@@ -96,5 +79,5 @@ function mapStateToPros(state) {
   };
 }
 export default connect(mapStateToPros, actions)(GoogleApiWrapper({
-  apiKey: "AIzaSyCeAipRGvfEcH30zU8l2XMdvrtycHpV55g"
+  apiKey: config.googleMap
 })(GoogleMap));
