@@ -10,6 +10,8 @@ const apiCall = {
     SearchVehicle: (city)=>{
       return axios.get(`/api/city/${city}`)
     }
+    
 
 }
+
 export default apiCall;
