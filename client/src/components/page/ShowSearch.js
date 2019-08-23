@@ -1,53 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from "../actions";
-import API from '../utils/API';
 import GoogleMap from '../utils/GoogleMap';
-import Geocode from "react-geocode";
-Geocode.setApiKey("AIzaSyCeAipRGvfEcH30zU8l2XMdvrtycHpV55g");
 
-class Feature extends React.Component{
-    state = {
-        vehicles: [],
-        stores: [],
-    }
+
+class ShowSearch extends React.Component{
     componentDidMount(){
-        API.SearchVehicle(this.props.match.params.city)
-        .then((data)=>{
-            this.setState({vehicles: data.data});
-            this.getLatLngByAddress();
-        })
-     
+        this.props.getAllVehicleByCity(this.props.match.params.city)
     }
-
-    getLatLngByAddress = () => {
-        if (this.state.vehicles) {
-          let liststore = [];
-          for (let i = 0; i < this.state.vehicles.length; i++) {
-            let city = this.state.vehicles[i].city;
-            Geocode.fromAddress(city).then(
-              response => {
-                const lat = response.results[0].geometry.location.lat;
-                const lng = response.results[0].geometry.location.lng;
-                const storeLatLng = {
-                  lat: lat,
-                  lng: lng
-                };
-                liststore.push(storeLatLng);
-              },
-              error => {
-                console.error(error);
-              }
-            );
-          }
-          this.setState({ stores: liststore });
-          console.log( "I am inside getLatLngByAddress", this.state.stores) 
-        }
-      };
     
     renderListVehicle=()=>{
-        if(this.state.vehicles.length > 0){
-            return this.state.vehicles.map(vehicle =>{
+        if(this.props.vehicles.length > 0){
+            return this.props.vehicles.map(vehicle =>{
                 return(
                     <div key={vehicle._id} className="card horizontal">
                     <div className="card-image">
@@ -68,26 +32,26 @@ class Feature extends React.Component{
     }
     render(){
         return(
-            <div>
+            <div className='container'>
                 <h3>Search for {this.props.match.params.city}</h3>
                 <div className='row'>
                     <div className='col m6 s12'>
                         {this.renderListVehicle()}
                     </div>
                     <div className='col m6 s12'>
-                        <div>
-                        <GoogleMap vehicles={this.state.vehicles} stores={this.state.stores}/>
-                        </div>
+                        <GoogleMap/>
                     </div>
                 </div>
-                
             </div>
         )
     }
 }
 
 function mapStateToPros(state) {
-    return { authenticated: state.auth.authenticated};
+    return { 
+        authenticated: state.auth.authenticated,
+        vehicles: state.vehicles
+    };
   }
 
-export default connect(mapStateToPros, actions)(Feature);
+export default connect(mapStateToPros, actions)(ShowSearch);

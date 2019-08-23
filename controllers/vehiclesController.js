@@ -16,13 +16,19 @@ exports.createVehicle = function(req,res,next){
     const type = req.body.type;
     const city = req.body.city;
     const image = req.body.image
+    const lat = req.body.lat
+    const lng = req.body.lng
+    const address = req.body.address
 
     const vehicle = new Vehicle({
         name: name,
         type: type,
         city: city,
         image: image,
-        userId: userId
+        userId: userId,
+        address: address,
+        lat: lat,
+        lng: lng
     });
 
     vehicle.save(function(error, vehicle){

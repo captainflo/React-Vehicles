@@ -1,6 +1,6 @@
 import keys from "../../config/keys";
 import axios from "axios";
-import { AUTH_USER, AUTH_ERROR, EDIT_USER , EDIT_VEHICLE, VEHICLE_ERROR, GET_MY_VEHICLE} from "./types";
+import { AUTH_USER, AUTH_ERROR, EDIT_USER , EDIT_VEHICLE, VEHICLE_ERROR, GET_MY_VEHICLE, GET_VEHICLE_CITY} from "./types";
 import * as JWT from "jwt-decode";
 
 // Signup with Passport JWT
@@ -121,6 +121,16 @@ export const getVehicleByUser = (id) => async dispatch => {
   try {
     const response = await axios.get(`${keys.siteUrl}/api/user/${id}/myVehicles`);
     dispatch({ type: GET_MY_VEHICLE, payload: response.data });
+  }catch (e) {
+    dispatch({ type: VEHICLE_ERROR, payload: "error" });
+  }
+}
+
+// Get Vehicle by User
+export const getAllVehicleByCity = (city) => async dispatch => {
+  try {
+    const response = await axios.get(`/api/city/${city}`);
+    dispatch({ type: GET_VEHICLE_CITY, payload: response.data });
   }catch (e) {
     dispatch({ type: VEHICLE_ERROR, payload: "error" });
   }
