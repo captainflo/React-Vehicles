@@ -30,13 +30,13 @@ class GoogleMap extends React.Component {
   // Display Marker
   displayMarkers = () => {
     console.log(this.props.vehicles)
-    // return this.props.vehicles.map((vehicle, index) => {
-    //   return <Marker key={index} id={index} position={{
-    //    lat: store.latitude,
-    //    lng: store.longitude
-    //  }}
-    //  onClick={() => console.log("You clicked me!")} />
-    // })
+    return this.props.vehicles.map((vehicle) => {
+      return <Marker key={vehicle.id} id={vehicle.id} position={{
+       lat: vehicle.lat,
+       lng: vehicle.lng
+     }}
+     onClick={() => console.log("You clicked me!")} />
+    })
   }
 
   render() {
@@ -66,7 +66,7 @@ class GoogleMap extends React.Component {
           initialCenter={this.state.currentPosition}
         >
         <Marker position={this.state.currentPosition} />
-        {/* {this.displayMarkers()} */}
+        {this.displayMarkers()}
         </Map>
     );
   }
