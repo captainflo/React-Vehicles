@@ -3,8 +3,7 @@ import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
 import { connect } from 'react-redux';
 import * as actions from "../actions";
 import config from '../../config/keys';
-
-
+import image from './marker.jpg'
 
 class GoogleMap extends React.Component {
   constructor(props) {
@@ -31,11 +30,10 @@ class GoogleMap extends React.Component {
 
   // Display Marker
   displayMarkers = () => {
-    console.log(this.props.google);
-    console.log(this.props.vehicles)
     if(this.props.vehicles.length > 0){
       return this.props.vehicles.map((vehicle) => {
         return <Marker 
+        google={this.props.google}
         key={vehicle._id} 
         id={vehicle.id} 
         animation= {this.props.google.maps.Animation.DROP}
@@ -43,7 +41,11 @@ class GoogleMap extends React.Component {
           lat: vehicle.lat,
           lng: vehicle.lng
         }}
-
+        icon={{
+          url: image,
+          anchor: new window.google.maps.Point(16,16),
+          scaledSize: new window.google.maps.Size(32, 32)
+        }}
         onClick={() => console.log("You clicked me!")} 
         />
         })
