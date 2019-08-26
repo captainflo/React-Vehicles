@@ -67,7 +67,9 @@ class UserShow extends React.Component {
                 <span className="card-title grey-text text-darken-4">
                   Your rent vehicle(s)
                 </span>
-                {this.renderListVehicle()}
+                <div className='list-vehicle-user'>
+                  {this.renderListVehicle()}
+                </div>
                 <p>Rent Your vehicle <Link className='btn-floating  waves-effect waves-light red' to={`/user/${this.props.authenticated_id}/createVehicle`}><i className="material-icons">add</i></Link></p>
               </div>
             </div>
