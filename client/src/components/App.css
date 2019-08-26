@@ -84,9 +84,10 @@ input[type=text]:not(.browser-default):focus:not([readonly]){
 @media only screen and (max-width: 600px) {
   .centered {
     padding: 10px;
+    top: 45%;
+    left: 50%;
+    height: 400px;
+    width: 80%;
   }
-  .Banner img{
-    height: 700px;
-    max-width: 100%;
-  }
+
 }

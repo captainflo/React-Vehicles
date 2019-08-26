@@ -46,6 +46,7 @@ class GoogleMap extends React.Component {
           anchor: new window.google.maps.Point(16,16),
           scaledSize: new window.google.maps.Size(32, 32)
         }}
+        url={vehicle._id}
         onClick={()=> this.props.action(vehicle._id)}
         />
         })
