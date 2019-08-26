@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "./utils/Header";
+import Footer from "./utils/Footer";
 import { BrowserRouter, Route} from 'react-router-dom';
 import * as actions from './actions'
 import { connect } from 'react-redux';
@@ -41,7 +42,7 @@ class App extends React.Component {
             <Route exact path="/user/:id/createVehicle" component={VehicleCreate}/>
             <Route exact path='/user/edit/:id' component={UserEdit}/>
           </div> : ""}
-
+          <Footer/>
         </BrowserRouter>
         
       </div>

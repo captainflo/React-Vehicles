@@ -5,7 +5,7 @@ import GoogleMap from '../utils/GoogleMap';
 
 class ShowSearch extends React.Component{
     state ={
-        classCard: "card horizontal"
+        classCard: "card-product"
     }
     componentDidMount(){
         this.props.getAllVehicleByCity(this.props.match.params.city)
@@ -13,9 +13,9 @@ class ShowSearch extends React.Component{
 
     // This method will be sent to the child component
     handler=(vehicleId)=>{
-        this.setState({classCard: `card horizontal`})
+        this.setState({classCard: `card-product`})
         if(vehicleId){
-            this.setState({ classCard: { ...this.state.classCard, [vehicleId]: ` red` }})
+            this.setState({ classCard: { ...this.state.classCard, [vehicleId]: ` select-marker` }})
             console.log(this.state.classCard)
         }
     }
@@ -25,15 +25,12 @@ class ShowSearch extends React.Component{
         if(this.props.vehicles.length > 0){
             return this.props.vehicles.map(vehicle =>{
                 return(
-                    <div ref={vehicle._id} key={vehicle._id} id={'#'+vehicle.id} className={'card horizontal'+' '+ this.state.classCard[vehicle._id]}>
-                    <div className="card-image">
-                    <img src={vehicle.image} alt={vehicle._id}/>
-                    </div>
-                    <div className="card-stacked">
-                    <div className="card-content">
-                        <p>{vehicle.name}</p>
-                        <p>{vehicle.city}</p>
-                    </div>
+                <div ref={vehicle._id} key={vehicle._id} id={'#'+vehicle.id} className={'card-product'+' '+ this.state.classCard[vehicle._id]}>
+                    <img src={vehicle.image} alt='background'/>
+                    <div class="card-product-infos">
+                        <h2>{vehicle.name}</h2>
+                        <p><i className="fas fa-building"></i> {vehicle.city}</p>
+                        <p><i class="fas fa-dollar-sign"></i> {vehicle.price} /Half Day</p>
                     </div>
                 </div>
                 )
@@ -44,11 +41,12 @@ class ShowSearch extends React.Component{
     }
     render(){
         return(
-            <div class='container'>
-                <h3>Search for {this.props.match.params.city}</h3>
+            <div className='search-show'>
                 <div className='row'>
                     <div className='col m6 s12'>
-                        {this.renderListVehicle()}
+                    <div className='list-vehicle'>
+                        {this.renderListVehicle()} 
+                    </div>
                     </div>
                     <div className='col m6 s12'>
                         <GoogleMap action={this.handler}/>

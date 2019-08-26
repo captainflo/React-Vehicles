@@ -33,18 +33,6 @@ body{
     color: #00BCD4 !important;
 }
 
-
-/* .search-input:hover{
-  -webkit-transform: scale(1.05);
-  -ms-transform: scale(1.05);
-  transform: scale(1.05);
-  -webkit-box-shadow: 0 14px 28px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.22);
-  box-shadow: 0 14px 28px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.22);
-  -webkit-transition: .1s;
-  -o-transition: .1s;
-  transition: .1s;
-} */
-
 /* UserShow */
 .avatar {
   vertical-align: middle;
@@ -80,6 +68,99 @@ body{
 input[type=text]:not(.browser-default):focus:not([readonly]){
   box-shadow: none !important;
 }
+
+/* Card Vehicle */
+.card-product {
+  overflow: hidden;
+  height: 160px;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  padding: 15px;
+}
+
+.card-product:hover {
+  cursor: pointer;
+  background: #ECE9E6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.card-product img {
+  height: 100%;
+  width: 170px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.card-product h2 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.card-product p {
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: .7;
+  margin-bottom: 0;
+  margin-top: 8px;
+}
+.card-product .card-product-infos {
+  padding: 16px;
+}
+
+.select-marker{
+  background: #ECE9E6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+/* vehicles create Edit */
+input[type=number]:not(.browser-default):focus:not([readonly]){
+  box-shadow: none !important;
+}
+
+/* Search Show */
+.search-show .col, .search-show .row{
+  padding: 0 !important;
+  margin-bottom: 0 !important
+}
+
+.list-vehicle{
+  max-height: 770px;
+  overflow: auto;
+}
+
+/* Footer */
+.footer {
+  background: #F4F4F4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
+  padding: 0px 50px;
+  color: rgba(0,0,0,0.3);
+}
+.footer-links {
+  display: flex;
+  align-items: center;
+}
+.footer-links a {
+  color: black;
+  opacity: 0.15;
+  text-decoration: none;
+  font-size: 24px;
+  padding: 0px 10px;
+}
+.footer-links a:hover {
+  opacity: 1;
+}
+.footer .fa-heart {
+  color: #D23333;
+}
+
 
 @media only screen and (max-width: 600px) {
   .centered {

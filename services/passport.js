@@ -137,6 +137,7 @@ passport.use(
         } else {
           // We don't have a user with this ID, make a new record
           const user = await new User({ 
+            email: 'noEmailFor'+ profile.id,
             instagramId: profile.id,
             avatar: profile._json.data.profile_picture,
             firstName: profile._json.data.full_name

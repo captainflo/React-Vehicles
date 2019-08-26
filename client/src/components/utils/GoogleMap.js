@@ -60,6 +60,8 @@ class GoogleMap extends React.Component {
     // if current position is null
     if (currentPosition.lat === 0 && currentPosition.lng === 0) {
       return (
+        <div  style={{marginTop: '50%'}}className='center'>
+        <p>Loading...</p> 
         <div className="preloader-wrapper big active">
           <div className="spinner-layer spinner-blue-only">
             <div className="circle-clipper left">
@@ -73,6 +75,7 @@ class GoogleMap extends React.Component {
             </div>
           </div>
         </div>
+      </div>
       );
     }
     return (
@@ -90,7 +93,7 @@ class GoogleMap extends React.Component {
         <Marker position={this.state.currentPosition} />
         {this.displayMarkers()}
         </Map>
-        </div>
+        </div> 
     );
   }
 }

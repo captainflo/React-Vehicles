@@ -19,6 +19,7 @@ exports.createVehicle = function(req,res,next){
     const lat = req.body.lat
     const lng = req.body.lng
     const address = req.body.address
+    const price = req.body.price
 
     const vehicle = new Vehicle({
         name: name,
@@ -28,7 +29,8 @@ exports.createVehicle = function(req,res,next){
         userId: userId,
         address: address,
         lat: lat,
-        lng: lng
+        lng: lng,
+        price: price
     });
 
     vehicle.save(function(error, vehicle){
