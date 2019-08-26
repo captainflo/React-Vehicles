@@ -54,7 +54,9 @@ class UserEdit extends React.Component {
       const body =  {
         avatar: this.state.avatar
       } 
-     
+    
+      console.log(formProps);
+      console.log(email)
     if((checkEmail === true || email === undefined) && (checkPassword === true || password === undefined) ){
       this.props.editUser(id, formProps, () => {
         this.props.history.push(`/user/${id}`);

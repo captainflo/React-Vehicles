@@ -13,15 +13,12 @@ class UserShow extends React.Component {
     if(this.props.vehicles.length > 0){
       return this.props.vehicles.map(vehicle =>{
         return(
-            <div key={vehicle._id} className="card horizontal">
-            <div className="card-image">
-              <img src={vehicle.image} alt={vehicle._id}/>
-            </div>
-            <div className="card-stacked">
-              <div className="card-content">
-                <p>{vehicle.name}</p>
-                <p>{vehicle.city}</p>
-              </div>
+          <div key={vehicle._id} class="card-product">
+            <img src={vehicle.image} alt='background'/>
+            <div class="card-product-infos">
+              <h2>{vehicle.name}</h2>
+              <p><i className="fas fa-building"></i> {vehicle.city}</p>
+              <p><i class="fas fa-dollar-sign"></i> {vehicle.price} /Half Day</p>
             </div>
           </div>
         )
@@ -66,12 +63,28 @@ class UserShow extends React.Component {
                 </span>
                 <p><i className="far fa-envelope"></i> {this.props.authenticated.email}</p>
                 <p><i className="fas fa-phone-square"></i> {this.props.authenticated.phone}</p>
+                <hr></hr>
+                <span className="card-title grey-text text-darken-4">
+                  Your rent vehicle(s)
+                </span>
+                {this.renderListVehicle()}
+                <p>Rent Your vehicle <Link className='btn-floating  waves-effect waves-light red' to={`/user/${this.props.authenticated_id}/createVehicle`}><i className="material-icons">add</i></Link></p>
               </div>
             </div>
           </div>
           <div className="col s12 m6">
-          <h4>Your Vehicle(s) <Link className='btn-floating btn-large waves-effect waves-light red' to={`/user/${this.props.authenticated_id}/createVehicle`}><i className="material-icons">add</i></Link></h4>
-            {this.renderListVehicle()}
+            <div class="card">
+              <div class="card-image waves-effect waves-block waves-light">
+                <img class="activator" src={process.env.PUBLIC_URL + "/images/water.jpg"} alt='background'/>
+              </div>
+              <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">Reservation<i class="material-icons right">more_vert</i></span>
+              </div>
+              <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">Historic<i class="material-icons right">close</i></span>
+                
+              </div>
+            </div>
           </div>
         </div>
       </div>

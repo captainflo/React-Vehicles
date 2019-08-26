@@ -54,15 +54,16 @@ exports.editUser = function (req,res,next){
         const email = req.body.email;
         const password = req.body.password;
 
-        if( password != undefined ){
+        if( password !== undefined ){
             bcrypt.genSalt(10, function(err, salt){
                 bcrypt.hash(password, salt, null, function (err, hash) { 
                     req.body.password = hash 
                 });
             });
         }
-        console.log(email)
+        
        if(email !== undefined || email !== ''){
+           console.log('im here')
         // See if user with the given email exists
         User.findOne({email: email}, function(error, existingUser){
             if (error){return next(error)};
