@@ -2,6 +2,7 @@ const User = require('../models/User');
 const jwt = require('jwt-simple');
 const config = require('../config/keys');
 const bcrypt = require('bcrypt-nodejs')
+const Vehicle = require('../models/Vehicle');
 
 // function for uncode user  
 function tokenForUser(user){
@@ -98,4 +99,18 @@ exports.deleteUser = function (req,res,next){
             res.json(err);
         })
 }
+
+exports.getUserByVehicleId = function (req,res,next){
+    Vehicle.find({_id: req.params.id})
+    .then(function(dbVehicle){
+        User.findOne({_id: dbVehicle[0].userId}, function(error, user){
+            if (error){return next(error)};
+               res.send(user); 
+               console.log(user)
+        })
+    })
+    
+}
+
+
 

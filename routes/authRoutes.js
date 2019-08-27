@@ -17,6 +17,8 @@ module.exports = app => {
   app.delete('/api/user/:id', Authentication.deleteUser)
   // upload Image
   app.post('/api/user/edit/:id', Authentication.uploadImage);
+  // Get user By id Vehicle
+  app.get('/api/user/byVehicle/:id', Authentication.getUserByVehicleId);
 
   // Google Auth
   app.get(

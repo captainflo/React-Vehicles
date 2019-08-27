@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import * as actions from "../actions";
 
 class UserShow extends React.Component {
-  UNSAFE_componentWillMount(){
+  componentWillMount(){
     this.props.fetchUser();
     this.props.getVehicleByUser(this.props.match.params.id);
   }

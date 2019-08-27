@@ -59,3 +59,14 @@ exports.getVehicleByCity = function(req,res,next){
     })
 }
 
+exports.getVehicleById = function(req,res,next){
+    Vehicle.find({_id: req.params.id})
+    .then(function(dbVehicle){
+        res.send(dbVehicle)
+    })
+    .catch(function(error){
+        res.json(error);
+    })
+}
+
+

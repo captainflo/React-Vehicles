@@ -14,6 +14,7 @@ import UserShow from "./user/UserShow";
 import UserEdit from "./user/UserEdit";
 import VehicleCreate from './vehicle/VehicleCreate';
 import ShowSearch from "./page/ShowSearch";
+import VehicleShow from "./vehicle/vehicleShow";
 
 class App extends React.Component {
   componentDidMount(){
@@ -34,6 +35,7 @@ class App extends React.Component {
           <Route exact path='/' component={Welcome}/>
           <Route path='/city/:city' component={ShowSearch}/>
           <Route path="/signout" component={Signout}/>
+          <Route path="/vehicle/:id/" component={VehicleShow}/>
 
           {this.props.authenticated ?
           <div>

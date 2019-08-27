@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from "../actions";
 import GoogleMap from '../utils/GoogleMap';
+import { Link } from "react-router-dom";
 
 class ShowSearch extends React.Component{
     state ={
@@ -13,10 +14,10 @@ class ShowSearch extends React.Component{
 
     // This method will be sent to the child component
     handler=(vehicleId)=>{
+        window.location = '#'+vehicleId;
         this.setState({classCard: `card-product`})
         if(vehicleId){
             this.setState({ classCard: { ...this.state.classCard, [vehicleId]: ` select-marker` }})
-            console.log(this.state.classCard)
         }
     }
 
@@ -25,14 +26,16 @@ class ShowSearch extends React.Component{
         if(this.props.vehicles.length > 0){
             return this.props.vehicles.map(vehicle =>{
                 return(
-                <div ref={vehicle._id} key={vehicle._id} id={vehicle._id} className={'card-product'+' '+ this.state.classCard[vehicle._id]}>
-                    <img src={vehicle.image} alt='background'/>
-                    <div className="card-product-infos">
-                        <h2>{vehicle.name}</h2>
-                        <p><i className="fas fa-building"></i> {vehicle.city}</p>
-                        <p><i className="fas fa-dollar-sign"></i> {vehicle.price} /Half Day</p>
+                <Link to={'/vehicle/'+vehicle._id}>
+                    <div ref={vehicle._id} key={vehicle._id} id={vehicle._id} className={'card-product'+' '+ this.state.classCard[vehicle._id]}>
+                        <img src={vehicle.image} alt='background'/>
+                        <div className="card-product-infos">
+                            <h2>{vehicle.name}</h2>
+                            <p><i className="fas fa-building"></i> {vehicle.city}</p>
+                            <p><i className="fas fa-dollar-sign"></i> {vehicle.price} /Half Day</p>
+                        </div>
                     </div>
-                </div>
+                </Link>
                 )
             })
         } else{
