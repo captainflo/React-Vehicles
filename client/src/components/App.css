@@ -129,7 +129,7 @@ input[type=number]:not(.browser-default):focus:not([readonly]){
 }
 
 .list-vehicle{
-  max-height: 770px;
+  max-height: 769px;
   overflow: auto;
 }
 

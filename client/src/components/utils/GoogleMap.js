@@ -28,6 +28,8 @@ class GoogleMap extends React.Component {
     }  
   }
 
+
+
   // Display Marker
   displayMarkers = () => {
     if(this.props.vehicles.length > 0){
@@ -35,7 +37,7 @@ class GoogleMap extends React.Component {
         return <Marker 
         google={this.props.google}
         key={vehicle._id} 
-        id={vehicle.id} 
+        url={"#"+vehicle._id} 
         animation= {this.props.google.maps.Animation.DROP}
         position={{
           lat: vehicle.lat,
@@ -46,7 +48,6 @@ class GoogleMap extends React.Component {
           anchor: new window.google.maps.Point(16,16),
           scaledSize: new window.google.maps.Size(32, 32)
         }}
-        url={vehicle._id}
         onClick={()=> this.props.action(vehicle._id)}
         />
         })
@@ -82,7 +83,7 @@ class GoogleMap extends React.Component {
       <div
         style={{
           position: "relative",
-          height: "calc(100vh - 20px)"
+          height: "769px"
         }}
       >
         <Map

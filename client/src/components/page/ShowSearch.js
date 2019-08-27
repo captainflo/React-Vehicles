@@ -25,12 +25,12 @@ class ShowSearch extends React.Component{
         if(this.props.vehicles.length > 0){
             return this.props.vehicles.map(vehicle =>{
                 return(
-                <div ref={vehicle._id} key={vehicle._id} id={'#'+vehicle.id} className={'card-product'+' '+ this.state.classCard[vehicle._id]}>
+                <div ref={vehicle._id} key={vehicle._id} id={vehicle._id} className={'card-product'+' '+ this.state.classCard[vehicle._id]}>
                     <img src={vehicle.image} alt='background'/>
-                    <div class="card-product-infos">
+                    <div className="card-product-infos">
                         <h2>{vehicle.name}</h2>
                         <p><i className="fas fa-building"></i> {vehicle.city}</p>
-                        <p><i class="fas fa-dollar-sign"></i> {vehicle.price} /Half Day</p>
+                        <p><i className="fas fa-dollar-sign"></i> {vehicle.price} /Half Day</p>
                     </div>
                 </div>
                 )
