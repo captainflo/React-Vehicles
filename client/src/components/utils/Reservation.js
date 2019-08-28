@@ -8,6 +8,7 @@ import SelectField from "material-ui/SelectField";
 import MenuItem from "material-ui/MenuItem";
 import M from "materialize-css/dist/js/materialize.min.js";
 import moment from "moment";
+import DatePickers from "../utils/DatePickers";
 
 class Reservation extends React.Component {
   state = {
@@ -47,6 +48,7 @@ class Reservation extends React.Component {
     var date2 = moment(formatDateEnd, 'seconds');
     var diff = date2.diff(date1, 'seconds');
     const diffDay = diff / 86400;
+    console.log(diffDay);
     const finalPrice = this.state.newprice * diffDay
     console.log(finalPrice);
 
@@ -167,13 +169,7 @@ class Reservation extends React.Component {
               <div className="row">
                 <div className={this.state.className}> 
                   <div className="Boxinput box-date-reservation">
-                    <DatePicker
-                      floatingLabelText={
-                        <i class="material-icons">date_range</i>
-                      }
-                      value={this.state.startDate}
-                      onChange={this.handleChangeStartDate}
-                    />
+                  <DatePickers/>
                   </div>
                 </div>
                 {this.state.addCalandar && (
