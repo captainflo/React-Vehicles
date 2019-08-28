@@ -8,61 +8,56 @@ import SelectField from "material-ui/SelectField";
 import MenuItem from "material-ui/MenuItem";
 import M from "materialize-css/dist/js/materialize.min.js";
 import moment from "moment";
-import DatePickers from "../utils/DatePickers";
+
 
 class Reservation extends React.Component {
   state = {
     newprice: this.props.vehicle[0].price,
+    finalPrice: '',
     addCalandar: false,
-    startDate: {},
-    endDate: {},
+    startDate: new Date(),
+    infoStartDate: '',
+    infoEndDate: '',
+    endDate: new Date(),
     invalidDate: "",
     count: 0,
     max: "",
-    className: 'col m12'
+    className: 'col m12',
+    contractDate: "",
   };
 
   componentDidMount() {
     const elemSelect = document.querySelectorAll("select");
     M.FormSelect.init(elemSelect, {});
+    const elemsModal = document.querySelectorAll('.modal');
+    M.Modal.init(elemsModal,{});
   }
-
- 
 
   onSubmit = event => {
     event.preventDefault();
-
     // Date Format
     const formatDateStart = this.state.startDate;
     const responseDateStart = moment(formatDateStart).format("L");
+    this.setState({
+      infoStartDate: responseDateStart
+    });
+    
 
     const formatDateEnd = this.state.endDate;
     const responseDateEnd = moment(formatDateEnd).format("L");
-
-    // Date Validation
-    const startFinal = Date.parse(this.state.startDate);
-    const endFinal = Date.parse(this.state.endDate);
-  
-
-    var date1 = moment(formatDateStart,'seconds' );
-    var date2 = moment(formatDateEnd, 'seconds');
-    var diff = date2.diff(date1, 'seconds');
-    const diffDay = diff / 86400;
-    console.log(diffDay);
-    const finalPrice = this.state.newprice * diffDay
-    console.log(finalPrice);
-
-    
-    
-    // if start date > end date
-    if (startFinal > endFinal) {
-      this.setState({
-        invalidDate: "drop off date must be superior than pick up date"
-      });
-    } else {
-      this.setState({ invalidDate: "" });
-    }
-    console.log(this.state);
+    this.setState({
+      infoEndDate: responseDateEnd
+    });
+    const date1 = new Date(responseDateStart);
+    const date2 = new Date(responseDateEnd);
+    const diffTime = Math.abs(date2.getTime() - date1.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+    const finaldiffDays = diffDays + 1
+    const finalPrice = this.state.newprice * finaldiffDays
+    this.setState({
+      finalPrice: finalPrice
+    });
+    console.log(finalPrice)
   };
 
   handleChangeStartDate = (event, date) => {
@@ -98,6 +93,12 @@ class Reservation extends React.Component {
       });
     }
   }
+
+  handleContractDateChange = (event, date) => {
+    this.setState({
+      contractDate: date
+    });
+  };
 
   addCalandar = () => this.setState({ addCalandar: true, className: 'col m6' });
   removeCalandar = () => this.setState({ addCalandar: false, className: 'col m12' });
@@ -169,7 +170,14 @@ class Reservation extends React.Component {
               <div className="row">
                 <div className={this.state.className}> 
                   <div className="Boxinput box-date-reservation">
-                  <DatePickers/>
+                  <DatePicker
+                        floatingLabelText={
+                          <i className="material-icons">date_range</i>
+                        }
+                        value={this.state.startDate}
+                        onChange={this.handleChangeStartDate}
+                        minDate={new Date()} 
+                      />
                   </div>
                 </div>
                 {this.state.addCalandar && (
@@ -177,10 +185,11 @@ class Reservation extends React.Component {
                     <div className="Boxinput box-date-reservation">
                       <DatePicker
                         floatingLabelText={
-                          <i class="material-icons">date_range</i>
+                          <i className="material-icons">date_range</i>
                         }
                         value={this.state.endDate}
                         onChange={this.handleChangeEndDate}
+                        minDate={new Date()} 
                       />
                     </div>
                   </div>
@@ -193,7 +202,7 @@ class Reservation extends React.Component {
                     className="btn-floating waves-effect waves-light color-web"
                     onClick={e => this.decrement(e)}
                     >
-                    <i class="material-icons">remove</i>
+                    <i className="material-icons">remove</i>
                     </button>
                     <span>
                     {this.state.count} <br></br> Passengers
@@ -202,27 +211,43 @@ class Reservation extends React.Component {
                     className="btn-floating waves-effect waves-light color-web"
                     onClick={e => this.increment(e)}
                     >
-                    <i class="material-icons">add</i>
+                    <i className="material-icons">add</i>
                     </button>
                 </div>
               </div>
               <hr></hr>
               <button
                 onClick={this.onSubmit}
-                class="btn waves-effect waves-light color-web"
+                href="#modal1"
+                className="btn waves-effect waves-light color-web  modal-trigger"
               >
                 Request a Book
               </button>
+               
               <div className='line'>
                  - Or -
               </div>
               <button
-                class=" waves-effect waves-light color-web-owner"
+                className=" waves-effect waves-light color-web-owner"
               >
                 Message Owner
               </button>
             </form>
           </MuiThemeProvider>
+        </div>
+        /
+        <div id="modal1" className="modal">
+          <div className="modal-content">
+            <h4>Confirmation Book</h4>
+            <p>You are in the last step of your booking before proced payment</p>
+            <p><i className="material-icons">date_range</i> {this.state.infoStartDate}</p>
+            <p><i className="material-icons">date_range</i> {this.state.infoEndDate}</p>
+            <p><i className="material-icons">person</i> {this.state.count}</p>
+            <p><i className="fas fa-dollar-sign"></i> {this.state.finalPrice}</p>
+          </div>
+          <div className="modal-footer">
+            <a href="#!" className="modal-close btn waves-effect waves-light color-web">Payment</a>
+          </div>
         </div>
       </div>
     );
