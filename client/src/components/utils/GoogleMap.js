@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import * as actions from "../actions";
 import config from "../../config/keys";
 import image from "./marker.jpg";
-import { Link } from "react-router-dom";
 
 class GoogleMap extends React.Component {
   constructor(props) {

@@ -2,7 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import * as actions from "../actions";
-import { Slide, Slider, Caption } from "react-materialize";
+import { Slide, Slider } from "react-materialize";
+import Reservation from '../utils/Reservation.js'
 
 class VehicleShow extends React.Component {
 
@@ -11,10 +12,7 @@ class VehicleShow extends React.Component {
       this.props.getUserByVehicleId(this.props.match.params.id)
     }
 
-
-
   render() {
-    console.log(this.props.user)
     if (!this.props.vehicle.length > 0){
       return  <div style={{ marginTop: "10%" }} className="center">
       <p>Loading...</p>
@@ -55,19 +53,22 @@ class VehicleShow extends React.Component {
       <div>
         <div className='box-slider-vehicle slideRight'>
         <Slider options={{indicators: false}} >
-          <Slide  image={<img src={this.props.vehicle[0].image}/>}>
+          <Slide  image={<img src={this.props.vehicle[0].image} alt='background'/>}>
           </Slide>
         </Slider>
         </div>
-        <div className='row'>
-          <div className="col m6">
-              <h4>{this.props.vehicle[0].name}</h4>
+       
+          <div className='row'>
+            <div className="col m6">
+                  <span className='right avatar-vehicle-show'><img className='avatar' src={this.props.user.avatar}/><br></br>{this.props.user.firstName}</span>
+                  <h4>{this.props.vehicle[0].name}</h4>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            </div>
+            <div className="col m6">
+              <Reservation/>
+            </div>
           </div>
-          <div className="col m6">
-            {this.props.user.firstName}
-            <img className='avatar' src={this.props.user.avatar}/>
-          </div>
-        </div>
+     
       </div>
       
     );

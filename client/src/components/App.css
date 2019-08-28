@@ -154,6 +154,65 @@ input[type=number]:not(.browser-default):focus:not([readonly]){
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
 }
+.price-show-vehicle{
+  display: block;
+  margin-top: 10px;
+  font-size: 22px;
+}
+.form-price{
+  display: block;
+  padding: 20px;
+  background-color: #F4F4F4;
+  border-radius: 5px;
+  border: 10px solid #fff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
+}
+
+.avatar-vehicle-show{
+  padding: 15px;
+}
+
+/* Reservation */
+.box-date-reservation{
+  margin-top: -40px !important;
+}
+
+.color-web{
+  background-color: #00BCD4 !important;
+  width: 100%;
+  margin-top: 10px
+}
+
+.color-web-owner{
+  background-color: #fff !important;
+  color:  #00BCD4 !important;
+  width: 100%;
+  margin-top: 10px;
+  border: 3px solid  #00BCD4 !important;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.counter{
+  display: inline-flex;
+}
+.counter span{
+  width: 95px;
+  margin-left: 10px;
+  margin-right: 10px;
+  text-align: center;
+  display: inline-block;
+  margin-top: 13px;
+}
+
+.line {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
 
 /* Footer */
 .footer {

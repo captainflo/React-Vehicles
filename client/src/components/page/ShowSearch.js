@@ -26,8 +26,8 @@ class ShowSearch extends React.Component{
         if(this.props.vehicles.length > 0){
             return this.props.vehicles.map(vehicle =>{
                 return(
-                <Link to={'/vehicle/'+vehicle._id}>
-                    <div ref={vehicle._id} key={vehicle._id} id={vehicle._id} className={'card-product'+' '+ this.state.classCard[vehicle._id]}>
+                <Link key={vehicle._id} to={'/vehicle/'+vehicle._id}>
+                    <div ref={vehicle._id}  id={vehicle._id} className={'card-product'+' '+ this.state.classCard[vehicle._id]}>
                         <img src={vehicle.image} alt='background'/>
                         <div className="card-product-infos">
                             <h2>{vehicle.name}</h2>

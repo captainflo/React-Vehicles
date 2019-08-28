@@ -64,7 +64,6 @@ exports.editUser = function (req,res,next){
         }
         
        if(email !== undefined || email !== ''){
-           console.log('im here')
         // See if user with the given email exists
         User.findOne({email: email}, function(error, existingUser){
             if (error){return next(error)};
@@ -82,8 +81,6 @@ exports.editUser = function (req,res,next){
 }
 
 exports.uploadImage = function (req,res,next){
-    console.log(req.params.id);
-    console.log(req.body);
     User.findByIdAndUpdate(req.params.id, req.body)
     .then(function(photo){
         res.send(photo)
@@ -106,7 +103,6 @@ exports.getUserByVehicleId = function (req,res,next){
         User.findOne({_id: dbVehicle[0].userId}, function(error, user){
             if (error){return next(error)};
                res.send(user); 
-               console.log(user)
         })
     })
     
