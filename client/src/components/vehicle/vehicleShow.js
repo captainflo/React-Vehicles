@@ -57,7 +57,6 @@ class VehicleShow extends React.Component {
           </Slide>
         </Slider>
         </div>
-       
           <div className='row'>
             <div className="col m6">
               <div className='container-vehicle-show'> 
@@ -70,7 +69,6 @@ class VehicleShow extends React.Component {
               <Reservation/>
             </div>
           </div>
-     
       </div>
       
     );

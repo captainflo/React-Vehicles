@@ -2,23 +2,25 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as actions from "../actions";
+import reservation from "../reducers/reservation";
 
 class UserShow extends React.Component {
   componentWillMount(){
     this.props.fetchUser();
     this.props.getVehicleByUser(this.props.match.params.id);
+    this.props.getReservationByUser(this.props.match.params.id);
   }
 
   renderListVehicle=()=>{
     if(this.props.vehicles.length > 0){
       return this.props.vehicles.map(vehicle =>{
         return(
-          <div key={vehicle._id} class="card-product">
+          <div key={vehicle._id} className="card-product">
             <img src={vehicle.image} alt='background'/>
-            <div class="card-product-infos">
+            <div className="card-product-infos">
               <h2>{vehicle.name}</h2>
               <p><i className="fas fa-building"></i> {vehicle.city}</p>
-              <p><i class="fas fa-dollar-sign"></i> {vehicle.price} /Half Day</p>
+              <p><i className="fas fa-dollar-sign"></i> {vehicle.price} /Half Day</p>
             </div>
           </div>
         )
@@ -26,6 +28,25 @@ class UserShow extends React.Component {
     } 
   }
   
+  renderListReservation=()=>{
+    if(this.props.reservations.length > 0){
+      return this.props.reservations.map(reservation =>{
+        return(
+          <div key={reservation._id} className="card-product">
+            <img src={reservation.image} alt='background'/>
+            <div className="card-product-infos">
+              <h2>{reservation.name}</h2>
+              <p><i className="fas fa-users"></i> {reservation.person}</p>
+              <p><i className="fas fa-calendar-week"></i> {reservation.startDate} <span style={{fontWeight: 'bold', color: 'black', fontSize: '15px'}}>To</span>  <i className="fas fa-calendar-week"></i> {reservation.endDate}</p>
+              <p><i className="fas fa-dollar-sign"></i> {reservation.price}</p>
+              {!reservation.paid && <p>status: not paid </p>}
+              {reservation.paid && <p>status: paid</p>}
+            </div>
+          </div>
+        )
+      })
+    } 
+  }
   render() { 
   
     return (
@@ -75,16 +96,16 @@ class UserShow extends React.Component {
             </div>
           </div>
           <div className="col s12 m6">
-            <div class="card">
-              <div class="card-image waves-effect waves-block waves-light">
-                <img class="activator" src={process.env.PUBLIC_URL + "/images/water.jpg"} alt='background'/>
+            <div className="card">
+              <div className="card-image waves-effect waves-block waves-light">
+                <img className="activator" src={process.env.PUBLIC_URL + "/images/water.jpg"} alt='background'/>
               </div>
-              <div class="card-content">
-                <span class="card-title activator grey-text text-darken-4">Reservation<i class="material-icons right">more_vert</i></span>
+              <div className="card-content">
+                <span className="card-title activator grey-text text-darken-4">Reservation<i className="material-icons right">more_vert</i></span>
               </div>
-              <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4">Historic<i class="material-icons right">close</i></span>
-                
+              <div className="card-reveal">
+                <span className="card-title grey-text text-darken-4">Historic<i className="material-icons right">close</i></span>
+                {this.renderListReservation()}
               </div>
             </div>
           </div>
@@ -95,9 +116,11 @@ class UserShow extends React.Component {
 }
 
 function mapStateToPros(state) {
+  console.log(state)
   return {
     authenticated: state.auth.authenticated,
-    vehicles: state.vehicles
+    vehicles: state.vehicles,
+    reservations: state.reservation
   };
 }
 

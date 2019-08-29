@@ -8,29 +8,45 @@ import SelectField from "material-ui/SelectField";
 import MenuItem from "material-ui/MenuItem";
 import M from "materialize-css/dist/js/materialize.min.js";
 import moment from "moment";
-
+import Payment from '../utils/Payment';
 
 class Reservation extends React.Component {
   state = {
     newprice: this.props.vehicle[0].price,
-    finalPrice: '',
+    finalPrice: "",
     addCalandar: false,
     startDate: new Date(),
-    infoStartDate: '',
-    infoEndDate: '',
+    infoStartDate: "",
+    infoEndDate: "",
     endDate: new Date(),
     invalidDate: "",
     count: 0,
     max: "",
-    className: 'col m12',
-    contractDate: "",
+    className: "col m12",
+    contractDate: ""
   };
 
   componentDidMount() {
     const elemSelect = document.querySelectorAll("select");
     M.FormSelect.init(elemSelect, {});
-    const elemsModal = document.querySelectorAll('.modal');
-    M.Modal.init(elemsModal,{});
+    const elemsModal = document.querySelectorAll(".modal");
+    M.Modal.init(elemsModal, {});
+  }
+  
+  submitReservation = event => {
+    const formReservation ={
+      vehicleId: this.props.vehicle[0]._id,
+      image: this.props.vehicle[0].image,
+      name: this.props.vehicle[0].name,
+      userCustomerId: this.props.auth._id,
+      OwnerId: this.props.user._id,
+      price: this.state.finalPrice,
+      startDate: this.state.infoStartDate,
+      endDate: this.state.infoEndDate,
+      person: this.state.count,
+      paid: false
+    }
+    this.props.createReservation(formReservation);
   }
 
   onSubmit = event => {
@@ -41,7 +57,6 @@ class Reservation extends React.Component {
     this.setState({
       infoStartDate: responseDateStart
     });
-    
 
     const formatDateEnd = this.state.endDate;
     const responseDateEnd = moment(formatDateEnd).format("L");
@@ -51,13 +66,12 @@ class Reservation extends React.Component {
     const date1 = new Date(responseDateStart);
     const date2 = new Date(responseDateEnd);
     const diffTime = Math.abs(date2.getTime() - date1.getTime());
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-    const finaldiffDays = diffDays + 1
-    const finalPrice = this.state.newprice * finaldiffDays
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const finaldiffDays = diffDays + 1;
+    const finalPrice = this.state.newprice * finaldiffDays;
     this.setState({
       finalPrice: finalPrice
     });
-    console.log(finalPrice)
   };
 
   handleChangeStartDate = (event, date) => {
@@ -100,8 +114,9 @@ class Reservation extends React.Component {
     });
   };
 
-  addCalandar = () => this.setState({ addCalandar: true, className: 'col m6' });
-  removeCalandar = () => this.setState({ addCalandar: false, className: 'col m12' });
+  addCalandar = () => this.setState({ addCalandar: true, className: "col m6" });
+  removeCalandar = () =>
+    this.setState({ addCalandar: false, className: "col m12" });
 
   handlePrice = (event, index, value) => this.setState({ newprice: value });
 
@@ -168,16 +183,16 @@ class Reservation extends React.Component {
                 </div>
               </div>
               <div className="row">
-                <div className={this.state.className}> 
+                <div className={this.state.className}>
                   <div className="Boxinput box-date-reservation">
-                  <DatePicker
-                        floatingLabelText={
-                          <i className="material-icons">date_range</i>
-                        }
-                        value={this.state.startDate}
-                        onChange={this.handleChangeStartDate}
-                        minDate={new Date()} 
-                      />
+                    <DatePicker
+                      floatingLabelText={
+                        <i className="material-icons">date_range</i>
+                      }
+                      value={this.state.startDate}
+                      onChange={this.handleChangeStartDate}
+                      minDate={new Date()}
+                    />
                   </div>
                 </div>
                 {this.state.addCalandar && (
@@ -189,30 +204,30 @@ class Reservation extends React.Component {
                         }
                         value={this.state.endDate}
                         onChange={this.handleChangeEndDate}
-                        minDate={new Date()} 
+                        minDate={new Date()}
                       />
                     </div>
                   </div>
                 )}
                 <div style={{ color: "red" }}>{this.state.invalidDate}</div>
               </div>
-              <div className='center'> 
+              <div className="center">
                 <div className="counter">
-                    <button
+                  <button
                     className="btn-floating waves-effect waves-light color-web"
                     onClick={e => this.decrement(e)}
-                    >
+                  >
                     <i className="material-icons">remove</i>
-                    </button>
-                    <span>
+                  </button>
+                  <span>
                     {this.state.count} <br></br> Passengers
-                    </span>
-                    <button
+                  </span>
+                  <button
                     className="btn-floating waves-effect waves-light color-web"
                     onClick={e => this.increment(e)}
-                    >
+                  >
                     <i className="material-icons">add</i>
-                    </button>
+                  </button>
                 </div>
               </div>
               <hr></hr>
@@ -223,10 +238,8 @@ class Reservation extends React.Component {
               >
                 Request a Book
               </button>
-               
-              <div className='line'>
-                 - Or -
-              </div>
+
+              <div className="line">- Or -</div>
               <button
                 href="#modalMessage"
                 className=" waves-effect waves-light color-web-owner modal-trigger"
@@ -236,43 +249,67 @@ class Reservation extends React.Component {
             </form>
           </MuiThemeProvider>
         </div>
-      
+
         <div id="modalBook" className="modal">
           <div className="modal-content">
-          <button className='modal-close right btn waves-effect waves-light btn-close-modal'><i className="fas fa-times"></i></button>
+            <button className="modal-close right btn waves-effect waves-light btn-close-modal">
+              <i className="fas fa-times"></i>
+            </button>
             <h4>Confirmation Book</h4>
-            <p>You are in the last step of your booking before proced payment</p>
-            <p><i className="material-icons">date_range</i> {this.state.infoStartDate} To <i className="material-icons">date_range</i> {this.state.infoEndDate}</p>
-            <p><i className="material-icons">person</i> {this.state.count}</p>
-            <p><i className="fas fa-dollar-sign"></i> {this.state.finalPrice}</p>
+            <p>
+              You are in the last step of your booking before proced payment
+            </p>
+            <p>
+              <i className="material-icons">date_range</i>{" "}
+              {this.state.infoStartDate} To{" "}
+              <i className="material-icons">date_range</i>{" "}
+              {this.state.infoEndDate}
+            </p>
+            <p>
+              <i className="material-icons">person</i> {this.state.count}
+            </p>
+            <p>
+              <i className="fas fa-dollar-sign"></i> {this.state.finalPrice}
+            </p>
           </div>
           <div className="modal-footer">
-            <a href="#!" className="modal-close btn waves-effect waves-light color-web">Payment</a>
+            <Payment money={this.state.finalPrice} submitReservation={this.submitReservation}/>
           </div>
         </div>
 
         <div id="modalMessage" className="modal">
           <div className="modal-content">
-          <button className='modal-close right btn waves-effect waves-light btn-close-modal'><i className="fas fa-times"></i></button>
+            <button className="modal-close right btn waves-effect waves-light btn-close-modal">
+              <i className="fas fa-times"></i>
+            </button>
             <h4>Message Owner</h4>
             <div className="row">
               <form className="col s12">
-              <div className="row">
+                <div className="row">
                   <div className="input-field col s6">
                     <i className="fas fa-user-alt prefix"></i>
-                    <textarea id="icon_prefix" className="materialize-textarea"></textarea>
+                    <textarea
+                      id="icon_prefix"
+                      className="materialize-textarea"
+                    ></textarea>
                     <label htmlFor="icon_prefix">First Name</label>
                   </div>
                   <div className="input-field col s6">
-                    <i class="far fa-edit prefix"></i>
-                    <textarea id="icon_prefix2" className="materialize-textarea"></textarea>
+                    <i className="far fa-edit prefix"></i>
+                    <textarea
+                      id="icon_prefix2"
+                      className="materialize-textarea"
+                    ></textarea>
                     <label htmlFor="icon_prefix2">Type of message</label>
                   </div>
                 </div>
                 <div className="row">
                   <div className="input-field col s12">
-                  <i className="far fa-comment-dots prefix"></i>
-                    <textarea id="icon_prefix3" className="materialize-textarea"></textarea>
+                    <i className="far fa-comment-dots prefix"></i>
+                    <textarea
+                      id="icon_prefix3"
+                      className="materialize-textarea"
+                    ></textarea>
                     <label htmlFor="icon_prefix3">Message</label>
                   </div>
                 </div>
@@ -280,10 +317,14 @@ class Reservation extends React.Component {
             </div>
           </div>
           <div className="modal-footer">
-            <a href="#!" className="modal-close btn waves-effect waves-light color-web">Send Message</a>
+            <a
+              href="#!"
+              className="modal-close btn waves-effect waves-light color-web"
+            >
+              Send Message
+            </a>
           </div>
         </div>
-
       </div>
     );
   }

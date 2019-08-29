@@ -28,6 +28,8 @@ app.use(passport.session());
 // Routes
 require('./routes/authRoutes')(app);
 require('./routes/vehicleRoutes')(app);
+require('./routes/billingRoutes')(app);
+require('./routes/ReservationRoutes')(app);
 
 
 // Connect Mongo Atlas

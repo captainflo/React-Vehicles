@@ -9,7 +9,10 @@ import {
   VEHICLE_ERROR,
   GET_MY_VEHICLE,
   GET_VEHICLE_CITY,
-  GET_VEHICLE_ID
+  GET_VEHICLE_ID,
+  EDIT_RESERVATION,
+  GET_MY_RESERVATION,
+  RESERVATION_ERROR
 } from "./types";
 import * as JWT from "jwt-decode";
 
@@ -170,3 +173,41 @@ export const getVehicleById = id => async dispatch => {
     dispatch({ type: VEHICLE_ERROR, payload: "error" });
   }
 };
+
+/***************************************  Payment  ***********************************************/
+export const handleToken = (token, amount) => async dispatch =>{
+  const body = {
+    amount: amount,
+    token: token,
+  };
+  const res = await axios.post("/api/stripe", body);
+  // dispatch({type: FETCH_USER, payload: res.data});
+};
+
+
+/***************************************  Reservation  ***********************************************/
+// Post Reservation
+export const createReservation = (formValues) => async dispatch => {
+  try {
+    const response = await axios.post(
+      `/api/reservation`,
+      formValues
+    );
+    dispatch({ type: EDIT_RESERVATION, payload: response.data });
+  } catch (e) {
+    dispatch({ type: RESERVATION_ERROR, payload: "error" });
+  }
+};
+
+// Get Reservation
+export const getReservationByUser = id => async dispatch => {
+  try {
+    const response = await axios.get(
+      `/api/reservation/${id}`
+    );
+    dispatch({ type: GET_MY_RESERVATION, payload: response.data });
+  } catch (e) {
+    dispatch({ type: RESERVATION_ERROR, payload: "error" });
+  }
+};
+

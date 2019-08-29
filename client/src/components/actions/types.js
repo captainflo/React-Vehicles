@@ -9,3 +9,8 @@ export const EDIT_VEHICLE = 'edit_vehicle'
 export const GET_MY_VEHICLE = 'get_my_vehicle'
 export const GET_VEHICLE_CITY = 'get_vehicle_city'
 export const GET_VEHICLE_ID = 'get_vehicle_id'
+
+export const EDIT_RESERVATION = 'edit_reservation'
+export const RESERVATION_ERROR = 'reservation_error'
+export const GET_MY_RESERVATION = 'get_my_reservation'
+
