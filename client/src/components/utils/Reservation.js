@@ -218,8 +218,8 @@ class Reservation extends React.Component {
               <hr></hr>
               <button
                 onClick={this.onSubmit}
-                href="#modal1"
-                className="btn waves-effect waves-light color-web  modal-trigger"
+                href="#modalBook"
+                className="btn waves-effect waves-light color-web modal-trigger"
               >
                 Request a Book
               </button>
@@ -228,20 +228,21 @@ class Reservation extends React.Component {
                  - Or -
               </div>
               <button
-                className=" waves-effect waves-light color-web-owner"
+                href="#modalMessage"
+                className=" waves-effect waves-light color-web-owner modal-trigger"
               >
                 Message Owner
               </button>
             </form>
           </MuiThemeProvider>
         </div>
-        /
-        <div id="modal1" className="modal">
+      
+        <div id="modalBook" className="modal">
           <div className="modal-content">
+          <button className='modal-close right btn waves-effect waves-light btn-close-modal'><i className="fas fa-times"></i></button>
             <h4>Confirmation Book</h4>
             <p>You are in the last step of your booking before proced payment</p>
-            <p><i className="material-icons">date_range</i> {this.state.infoStartDate}</p>
-            <p><i className="material-icons">date_range</i> {this.state.infoEndDate}</p>
+            <p><i className="material-icons">date_range</i> {this.state.infoStartDate} To <i className="material-icons">date_range</i> {this.state.infoEndDate}</p>
             <p><i className="material-icons">person</i> {this.state.count}</p>
             <p><i className="fas fa-dollar-sign"></i> {this.state.finalPrice}</p>
           </div>
@@ -249,6 +250,40 @@ class Reservation extends React.Component {
             <a href="#!" className="modal-close btn waves-effect waves-light color-web">Payment</a>
           </div>
         </div>
+
+        <div id="modalMessage" className="modal">
+          <div className="modal-content">
+          <button className='modal-close right btn waves-effect waves-light btn-close-modal'><i className="fas fa-times"></i></button>
+            <h4>Message Owner</h4>
+            <div className="row">
+              <form className="col s12">
+              <div className="row">
+                  <div className="input-field col s6">
+                    <i className="fas fa-user-alt prefix"></i>
+                    <textarea id="icon_prefix" className="materialize-textarea"></textarea>
+                    <label htmlFor="icon_prefix">First Name</label>
+                  </div>
+                  <div className="input-field col s6">
+                    <i class="far fa-edit prefix"></i>
+                    <textarea id="icon_prefix2" className="materialize-textarea"></textarea>
+                    <label htmlFor="icon_prefix2">Type of message</label>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="input-field col s12">
+                  <i className="far fa-comment-dots prefix"></i>
+                    <textarea id="icon_prefix3" className="materialize-textarea"></textarea>
+                    <label htmlFor="icon_prefix3">Message</label>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div className="modal-footer">
+            <a href="#!" className="modal-close btn waves-effect waves-light color-web">Send Message</a>
+          </div>
+        </div>
+
       </div>
     );
   }

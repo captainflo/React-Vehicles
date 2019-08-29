@@ -3,6 +3,14 @@ body{
   /* color: #00BCD4  */
 }
 
+/* Close Modal */
+.btn-close-modal{
+  background-color:  #00BCD4 !important;
+
+  color: #FFFFFF;
+
+}
+
 /* Banner Image */
 .Banner {
   position: relative;
@@ -150,6 +158,9 @@ input[type=number]:not(.browser-default):focus:not([readonly]){
 }
 
 /* Vehicle show */
+.container-vehicle-show{
+  padding-left: 30px;
+}
 .box-slider-vehicle{
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
@@ -169,9 +180,7 @@ input[type=number]:not(.browser-default):focus:not([readonly]){
   -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
 }
 
-.avatar-vehicle-show{
-  padding: 15px;
-}
+
 
 /* Reservation */
 .box-date-reservation{
