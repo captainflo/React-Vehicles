@@ -32,22 +32,6 @@ class Reservation extends React.Component {
     const elemsModal = document.querySelectorAll(".modal");
     M.Modal.init(elemsModal, {});
   }
-  
-  submitReservation = event => {
-    const formReservation ={
-      vehicleId: this.props.vehicle[0]._id,
-      image: this.props.vehicle[0].image,
-      name: this.props.vehicle[0].name,
-      userCustomerId: this.props.auth._id,
-      OwnerId: this.props.user._id,
-      price: this.state.finalPrice,
-      startDate: this.state.infoStartDate,
-      endDate: this.state.infoEndDate,
-      person: this.state.count,
-      paid: false
-    }
-    this.props.createReservation(formReservation);
-  }
 
   onSubmit = event => {
     event.preventDefault();
@@ -121,6 +105,19 @@ class Reservation extends React.Component {
   handlePrice = (event, index, value) => this.setState({ newprice: value });
 
   render() {
+    const formReservation ={
+      vehicleId: this.props.vehicle[0]._id,
+      image: this.props.vehicle[0].image,
+      name: this.props.vehicle[0].name,
+      userCustomerId: this.props.auth._id,
+      OwnerId: this.props.user._id,
+      price: this.state.finalPrice,
+      startDate: this.state.infoStartDate,
+      endDate: this.state.infoEndDate,
+      person: this.state.count
+    }
+    console.log(formReservation)
+
     if (!this.props.vehicle.length > 0) {
       return (
         <div style={{ marginTop: "10%" }} className="center">
@@ -273,7 +270,7 @@ class Reservation extends React.Component {
             </p>
           </div>
           <div className="modal-footer">
-            <Payment money={this.state.finalPrice} submitReservation={this.submitReservation}/>
+            <Payment submitReservation={formReservation}/>
           </div>
         </div>
 

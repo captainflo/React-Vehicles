@@ -4,17 +4,42 @@ const Reservation = require('../models/Reservation');
 
 module.exports = app => {
     app.post('/api/stripe',  async (req,res) =>{
-        const money = req.body.amount
+        console.log(req.body)
+        const money = req.body.form.price
+        
         const charge = await stripe.charges.create({
             amount: money,
             currency: 'usd',
             description: 'vehicle trip book',
             source: req.body.token.id
         })
-        res.send(charge);
-        // // req.user from passport because inex.js initialize and session
-        // req.user.credits += 5;
-        // const user = await req.user.save();
-        // res.send(user);
+
+        const vehicleId = req.body.form.vehicleId;
+        const userCustomerId = req.body.form.userCustomerId;
+        const OwnerId = req.body.form.OwnerId;
+        const price = (req.body.form.price / 100);
+        const startDate = req.body.form.startDate;
+        const endDate = req.body.form.endDate;
+        const person = req.body.form.person;
+        const image = req.body.form.image;
+        const name = req.body.form.name;
+
+    const reservation = new Reservation({
+        vehicleId: vehicleId,
+        userCustomerId: userCustomerId,
+        price: price,
+        OwnerId: OwnerId,
+        startDate: startDate,
+        endDate: endDate,
+        person: person,
+        image: image,
+        name: name
+    });
+
+    reservation.save(function(error, reservation){
+        if (error){return next(error);}
+        res.send(reservation)
+    })
+ 
     });
 }

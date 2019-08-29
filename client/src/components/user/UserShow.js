@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as actions from "../actions";
-import reservation from "../reducers/reservation";
 
 class UserShow extends React.Component {
   componentWillMount(){
@@ -32,6 +31,7 @@ class UserShow extends React.Component {
     if(this.props.reservations.length > 0){
       return this.props.reservations.map(reservation =>{
         return(
+          <li class="collection-item">
           <div key={reservation._id} className="card-product">
             <img src={reservation.image} alt='background'/>
             <div className="card-product-infos">
@@ -39,10 +39,9 @@ class UserShow extends React.Component {
               <p><i className="fas fa-users"></i> {reservation.person}</p>
               <p><i className="fas fa-calendar-week"></i> {reservation.startDate} <span style={{fontWeight: 'bold', color: 'black', fontSize: '15px'}}>To</span>  <i className="fas fa-calendar-week"></i> {reservation.endDate}</p>
               <p><i className="fas fa-dollar-sign"></i> {reservation.price}</p>
-              {!reservation.paid && <p>status: not paid </p>}
-              {reservation.paid && <p>status: paid</p>}
             </div>
           </div>
+          </li>
         )
       })
     } 
@@ -105,7 +104,9 @@ class UserShow extends React.Component {
               </div>
               <div className="card-reveal">
                 <span className="card-title grey-text text-darken-4">Historic<i className="material-icons right">close</i></span>
-                {this.renderListReservation()}
+                <ul class="collection">
+                  {this.renderListReservation()}
+                </ul>
               </div>
             </div>
           </div>

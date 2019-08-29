@@ -16,6 +16,8 @@ import {
 } from "./types";
 import * as JWT from "jwt-decode";
 
+
+/***************************************  USER  ***********************************************/
 // Signup with Passport JWT
 export const signup = (formProps, callback) => async dispatch => {
   try {
@@ -175,30 +177,18 @@ export const getVehicleById = id => async dispatch => {
 };
 
 /***************************************  Payment  ***********************************************/
-export const handleToken = (token, amount) => async dispatch =>{
+// + creation of the reservation
+export const handleToken = (token, form) => async dispatch =>{
   const body = {
-    amount: amount,
+    form: form,
     token: token,
   };
   const res = await axios.post("/api/stripe", body);
-  // dispatch({type: FETCH_USER, payload: res.data});
+  dispatch({ type: EDIT_RESERVATION, payload: res.data });
 };
 
 
 /***************************************  Reservation  ***********************************************/
-// Post Reservation
-export const createReservation = (formValues) => async dispatch => {
-  try {
-    const response = await axios.post(
-      `/api/reservation`,
-      formValues
-    );
-    dispatch({ type: EDIT_RESERVATION, payload: response.data });
-  } catch (e) {
-    dispatch({ type: RESERVATION_ERROR, payload: "error" });
-  }
-};
-
 // Get Reservation
 export const getReservationByUser = id => async dispatch => {
   try {
