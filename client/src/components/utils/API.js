@@ -9,7 +9,13 @@ const apiCall = {
     // Search Vehicle By city
     SearchVehicle: (city)=>{
       return axios.get(`/api/city/${city}`)
+    },
+
+    getUser: (id)=>{
+      return axios.get(`/api/user/${id}`)
     }
+
+
     
 
 }

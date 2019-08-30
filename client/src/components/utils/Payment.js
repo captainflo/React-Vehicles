@@ -16,7 +16,10 @@ class Payments extends React.Component{
             price: money,
             startDate: form.startDate,
             endDate: form.endDate,
-            person: form.person
+            person: form.person,
+            imageCustomer: form.imageCustomer,
+            fistNameCustomer: form.fistNameCustomer,
+            lastNameCustomer: form.lastNameCustomer,
           }
         console.log(formReservation)
        

@@ -23,6 +23,9 @@ module.exports = app => {
         const person = req.body.form.person;
         const image = req.body.form.image;
         const name = req.body.form.name;
+        const imageCustomer = req.body.form.imageCustomer;
+        const fistNameCustomer = req.body.form.fistNameCustomer;
+        const lastNameCustomer = req.body.form.lastNameCustomer;
 
     const reservation = new Reservation({
         vehicleId: vehicleId,
@@ -33,7 +36,10 @@ module.exports = app => {
         endDate: endDate,
         person: person,
         image: image,
-        name: name
+        name: name,
+        imageCustomer: imageCustomer,
+        fistNameCustomer: fistNameCustomer,
+        lastNameCustomer: lastNameCustomer
     });
 
     reservation.save(function(error, reservation){

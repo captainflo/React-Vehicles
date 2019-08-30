@@ -12,6 +12,7 @@ import {
   GET_VEHICLE_ID,
   EDIT_RESERVATION,
   GET_MY_RESERVATION,
+  GET_MY_RESERVATION_OF_MY_VEHICLE,
   RESERVATION_ERROR
 } from "./types";
 import * as JWT from "jwt-decode";
@@ -196,6 +197,18 @@ export const getReservationByUser = id => async dispatch => {
       `/api/reservation/${id}`
     );
     dispatch({ type: GET_MY_RESERVATION, payload: response.data });
+  } catch (e) {
+    dispatch({ type: RESERVATION_ERROR, payload: "error" });
+  }
+};
+
+// Reservation of my own vehicle
+export const getReservationMyVehicle = id => async dispatch => {
+  try {
+    const response = await axios.get(
+      `/api/reservationOfMyVehicle/${id}`
+    );
+    dispatch({ type: GET_MY_RESERVATION_OF_MY_VEHICLE, payload: response.data });
   } catch (e) {
     dispatch({ type: RESERVATION_ERROR, payload: "error" });
   }

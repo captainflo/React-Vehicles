@@ -11,7 +11,20 @@ exports.getReservation = function(req,res,next){
     })
 }
 
-// Create reservation
+// Get my Reservation by userId
+exports.getReservationMyVehicle = function(req,res,next){
+    Reservation.find({OwnerId: req.params.id})
+    .then(function(dbReservation){
+        res.json(dbReservation)
+    })
+    .catch(function(error){
+        res.json(error);
+    })
+}
+
+
+
+//Create reservation
 exports.createReservation = function(req,res,next){
     const vehicleId = req.body.vehicleId;
     const userCustomerId = req.body.userCustomerId;
@@ -22,6 +35,9 @@ exports.createReservation = function(req,res,next){
     const person = req.body.person;
     const image = req.body.image;
     const name = req.body.name;
+    const imageCustomer = req.body.imageCustomer;
+    const fistNameCustomer = req.body.fistNameCustomer;
+    const lastNameCustomer = req.body.lastNameCustomer;
 
     const reservation = new Reservation({
         vehicleId: vehicleId,
@@ -32,7 +48,10 @@ exports.createReservation = function(req,res,next){
         endDate: endDate,
         person: person,
         image: image,
-        name: name
+        name: name,
+        imageCustomer: imageCustomer,
+        fistNameCustomer: fistNameCustomer,
+        lastNameCustomer: lastNameCustomer
     });
 
     reservation.save(function(error, reservation){

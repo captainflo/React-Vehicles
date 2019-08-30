@@ -12,7 +12,10 @@ const reservationSchema = new Schema({
     startDate: String,
     endDate: String,
     person: Number,
-    paid: Boolean
+    paid: Boolean,
+    imageCustomer: String,
+    fistNameCustomer: String,
+    lastNameCustomer: String,
 });
 
 // Create the model class
