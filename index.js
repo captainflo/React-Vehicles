@@ -30,6 +30,7 @@ require('./routes/authRoutes')(app);
 require('./routes/vehicleRoutes')(app);
 require('./routes/billingRoutes')(app);
 require('./routes/ReservationRoutes')(app);
+require('./routes/ReviewRoutes')(app);
 
 
 // Connect Mongo Atlas

@@ -7,16 +7,14 @@ import M from "materialize-css/dist/js/materialize.min.js";
 class UserShow extends React.Component {
   state = {
     userReservation: []
-  }
-  componentDidMount(){
-    // Sidebar
-    const elems = document.querySelectorAll('.collapsible');
+  };
+
+  componentDidMount() {
+    // collapsible
+    const elems = document.querySelectorAll(".collapsible");
     M.Collapsible.init(elems, {
       inDuration: 300
     });
-  }
-
-  componentWillMount() {
     this.props.fetchUser();
     this.props.getVehicleByUser(this.props.match.params.id);
     this.props.getReservationByUser(this.props.match.params.id);
@@ -27,43 +25,104 @@ class UserShow extends React.Component {
     if (this.props.vehicles.length > 0) {
       return this.props.vehicles.map(vehicle => {
         return (
-        <li key={vehicle._id}>
-          <div className="collapsible-header">
-            <div className="card-vehicle">
-              <img src={vehicle.image} alt="background" />
-              <div className="card-vehicle-content">
-                <h2>{vehicle.name}</h2>
-                <p><i className="fas fa-building"></i> {vehicle.city}</p>
-                <p><i className="fas fa-dollar-sign"></i> {vehicle.price} /Half Day</p>
+          <li key={vehicle._id}>
+            <div className="collapsible-header">
+              <div className="card-vehicle">
+                <img src={vehicle.image} alt="background" />
+                <div className="card-vehicle-content">
+                  <h2>{vehicle.name}</h2>
+                  <p>
+                    <i className="fas fa-building"></i> {vehicle.city}
+                  </p>
+                  <p>
+                    <i className="fas fa-dollar-sign"></i> {vehicle.price} /Half
+                    Day
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="collapsible-body">
-            <h5>Reservation</h5>
-            {this.renderListOfMyVehicleReservation()}
-          </div>
-        </li>
+            <div className="collapsible-body">
+              <h5>Reservation</h5>
+              {this.renderListOfMyVehicleReservation()}
+            </div>
+          </li>
         );
       });
     }
   };
 
-  
-  
-
   renderListOfMyVehicleReservation = () => {
     if (this.props.reservationsOfMyVehicles.length > 0) {
-      return this.props.reservationsOfMyVehicles.map(reservationsOfMyVehicle => {
+      return this.props.reservationsOfMyVehicles.map(
+        reservationsOfMyVehicle => {
+          return (
+            <div style={{ marginBottom: "20px" }}>
+              <Link
+                to={`/user/info/${reservationsOfMyVehicle.userCustomerId}`}
+                key={reservationsOfMyVehicle._id}
+              >
+                <div className="card-vehicle">
+                  <img
+                    className="avatar"
+                    src={reservationsOfMyVehicle.imageCustomer}
+                    alt="avatar"
+                  />
+                  <div className="card-vehicle-content">
+                    <p>
+                      {reservationsOfMyVehicle.fistNameCustomer}{" "}
+                      {reservationsOfMyVehicle.lastNameCustomer}{" "}
+                    </p>
+                    <p>
+                      <i className="fas fa-users"></i>{" "}
+                      {reservationsOfMyVehicle.person}
+                    </p>
+                    <p>
+                      <i className="fas fa-calendar-week"></i>{" "}
+                      {reservationsOfMyVehicle.startDate}{" "}
+                      <span
+                        style={{
+                          fontWeight: "bold",
+                          color: "black",
+                          fontSize: "15px"
+                        }}
+                      >
+                        To
+                      </span>{" "}
+                      <i className="fas fa-calendar-week"></i>{" "}
+                      {reservationsOfMyVehicle.endDate}
+                    </p>
+                    <p>
+                      <i className="fas fa-dollar-sign"></i>{" "}
+                      {reservationsOfMyVehicle.price}
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          );
+        }
+      );
+    }
+  };
+
+  renderListReservation = () => {
+    if (this.props.reservations.length > 0) {
+      return this.props.reservations.map(reservation => {
         return (
-        <div style={{marginBottom: 20}} key={reservationsOfMyVehicle._id}>
-            <div className="card-vehicle">
-              <img className='avatar' src={reservationsOfMyVehicle.imageCustomer} alt='avatar'/>
-              <div className="card-vehicle-content">
-                
-              <p>{reservationsOfMyVehicle.fistNameCustomer} {reservationsOfMyVehicle.lastNameCustomer} </p>
-              <p><i className="fas fa-users"></i> {reservationsOfMyVehicle.person}</p>
-              <p>
-                  <i className="fas fa-calendar-week"></i> {reservationsOfMyVehicle.startDate}{" "}
+            <Link
+              to={`/vehicle/${reservation.vehicleId}`}
+              key={reservation._id}
+              className="card-product-user"
+            >
+              <img src={reservation.image} alt="background" />
+              <div className="card-product-user-infos">
+                <h2>{reservation.name}</h2>
+                <p>
+                  <i className="fas fa-users"></i> {reservation.person}
+                </p>
+                <p>
+                  <i className="fas fa-calendar-week"></i>{" "}
+                  {reservation.startDate}{" "}
                   <span
                     style={{
                       fontWeight: "bold",
@@ -73,46 +132,13 @@ class UserShow extends React.Component {
                   >
                     To
                   </span>{" "}
-                  <i className="fas fa-calendar-week"></i> {reservationsOfMyVehicle.endDate}
+                  <i className="fas fa-calendar-week"></i> {reservation.endDate}
                 </p>
-              <p><i className="fas fa-dollar-sign"></i> {reservationsOfMyVehicle.price}</p>
+                <p>
+                  <i className="fas fa-dollar-sign"></i> {reservation.price}
+                </p>
               </div>
-            </div>
-        </div>
-        );
-      });
-    }
-  };
-
-  renderListReservation = () => {
-    if (this.props.reservations.length > 0) {
-      return this.props.reservations.map(reservation => {
-        return (
-          <div key={reservation._id} className="card-product-user">
-            <img src={reservation.image} alt="background" />
-            <div className="card-product-user-infos">
-              <h2>{reservation.name}</h2>
-              <p>
-                <i className="fas fa-users"></i> {reservation.person}
-              </p>
-              <p>
-                <i className="fas fa-calendar-week"></i> {reservation.startDate}{" "}
-                <span
-                  style={{
-                    fontWeight: "bold",
-                    color: "black",
-                    fontSize: "15px"
-                  }}
-                >
-                  To
-                </span>{" "}
-                <i className="fas fa-calendar-week"></i> {reservation.endDate}
-              </p>
-              <p>
-                <i className="fas fa-dollar-sign"></i> {reservation.price}
-              </p>
-            </div>
-          </div>
+            </Link>
         );
       });
     }
@@ -167,11 +193,11 @@ class UserShow extends React.Component {
             </div>
           </div>
           <div className="col s12 m6">
-            <div style={{padding:10}} className="card">
-            <h5 className="card-title grey-text text-darken-4">
-              Reservation 
-            </h5>
-                {this.renderListReservation()}
+            <div style={{ padding: 10 }} className="card">
+              <h5 className="card-title grey-text text-darken-4">
+                Reservation
+              </h5>
+              {this.renderListReservation()}
             </div>
           </div>
         </div>
@@ -181,10 +207,7 @@ class UserShow extends React.Component {
               Your vehicle(s)
             </h5>
             <div className="list-vehicle-user">
-            <ul className="collapsible">
-              {this.renderListVehicle()}
-            </ul>
-              
+              <ul className="collapsible">{this.renderListVehicle()}</ul>
             </div>
             <p className="right">
               Rent Your vehicle{" "}
@@ -203,7 +226,7 @@ class UserShow extends React.Component {
 }
 
 function mapStateToPros(state) {
-  console.log(state)
+  console.log(state);
   return {
     authenticated: state.auth.authenticated,
     vehicles: state.vehicles,

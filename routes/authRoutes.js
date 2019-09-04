@@ -11,6 +11,8 @@ module.exports = app => {
    app.post('/signin', requireSignin, Authentication.signin);
   // Fetch by id with JWT
   app.get('/api/user/:id', Authentication.fetchUser);
+   // get User by Id
+   app.get('/api/user/info/:id', Authentication.fetchUser);
   // Edit by id with JWT
   app.post('/api/user/:id', Authentication.editUser);
   // delete by id with JWT

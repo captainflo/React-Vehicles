@@ -12,8 +12,11 @@ import {
   GET_VEHICLE_ID,
   EDIT_RESERVATION,
   GET_MY_RESERVATION,
+  INFO_USER,
   GET_MY_RESERVATION_OF_MY_VEHICLE,
-  RESERVATION_ERROR
+  RESERVATION_ERROR,
+  GET_REVIEW,
+  REVIEW_ERROR
 } from "./types";
 import * as JWT from "jwt-decode";
 
@@ -100,6 +103,15 @@ export const fetchUser = () => async dispatch => {
     dispatch({ type: AUTH_USER, payload: res.data });
   }
 };
+
+// Fetch the user by Passport JWT
+export const getUserId = (id) => async dispatch => {
+    const response = await axios.get(`/api/user/info/${id}`);
+    dispatch({ type: INFO_USER, payload: response.data });
+};
+
+
+
 // Edit User
 export const editUser = (id, formValues, callback) => async dispatch => {
   try {
@@ -211,6 +223,25 @@ export const getReservationMyVehicle = id => async dispatch => {
     dispatch({ type: GET_MY_RESERVATION_OF_MY_VEHICLE, payload: response.data });
   } catch (e) {
     dispatch({ type: RESERVATION_ERROR, payload: "error" });
+  }
+};
+
+/***************************************  Review  ***********************************************/
+
+export const getReviewByVehicle = (id) => async dispatch => {
+  try {
+    const response = await axios.get( `/api/review/${id}`);
+    dispatch({ type: GET_REVIEW, payload: response.data });
+  } catch (e) {
+    dispatch({ type: REVIEW_ERROR, payload: "error" });
+  }
+};
+
+export const createReview = (body) => async dispatch => {
+  try {
+    const response = await axios.post( `/api/review`, body);
+  } catch (e) {
+    dispatch({ type: REVIEW_ERROR, payload: "error" });
   }
 };
 

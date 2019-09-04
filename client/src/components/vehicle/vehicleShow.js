@@ -4,12 +4,14 @@ import { compose } from "redux";
 import * as actions from "../actions";
 import { Slide, Slider } from "react-materialize";
 import Reservation from '../utils/Reservation.js'
+import Review from '../utils/Review.js'
 
 class VehicleShow extends React.Component {
 
     componentDidMount(){
       this.props.getVehicleById(this.props.match.params.id)
       this.props.getUserByVehicleId(this.props.match.params.id)
+      this.props.getReviewByVehicle(this.props.match.params.id)
     }
 
   render() {
@@ -63,6 +65,7 @@ class VehicleShow extends React.Component {
                   <span className='right'><img className='avatar' src={this.props.user.avatar}/><br></br>{this.props.user.firstName}</span>
                   <h4>{this.props.vehicle[0].name}</h4>
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <Review/>
               </div>
             </div>
             <div className="col m6">
