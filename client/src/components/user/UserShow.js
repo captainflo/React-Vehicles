@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as actions from "../actions";
 import M from "materialize-css/dist/js/materialize.min.js";
-import API from '../utils/API';
 
 class UserShow extends React.Component {
   state = {
@@ -56,28 +55,28 @@ class UserShow extends React.Component {
     if (this.props.reservationsOfMyVehicles.length > 0) {
       return this.props.reservationsOfMyVehicles.map(reservationsOfMyVehicle => {
         return (
-        <div key={reservationsOfMyVehicle._id}>
+        <div style={{marginBottom: 20}} key={reservationsOfMyVehicle._id}>
             <div className="card-vehicle">
-            <img className='avatar' src={reservationsOfMyVehicle.imageCustomer} alt='avatar'/>
-            <div className="card-vehicle-content">
-              
-            <p>{reservationsOfMyVehicle.fistNameCustomer} {reservationsOfMyVehicle.lastNameCustomer} </p>
-            <p><i className="fas fa-users"></i> {reservationsOfMyVehicle.person}</p>
-            <p>
-                <i className="fas fa-calendar-week"></i> {reservationsOfMyVehicle.startDate}{" "}
-                <span
-                  style={{
-                    fontWeight: "bold",
-                    color: "black",
-                    fontSize: "15px"
-                  }}
-                >
-                  To
-                </span>{" "}
-                <i className="fas fa-calendar-week"></i> {reservationsOfMyVehicle.endDate}
-              </p>
-            <p><i className="fas fa-dollar-sign"></i> {reservationsOfMyVehicle.price}</p>
-            </div>
+              <img className='avatar' src={reservationsOfMyVehicle.imageCustomer} alt='avatar'/>
+              <div className="card-vehicle-content">
+                
+              <p>{reservationsOfMyVehicle.fistNameCustomer} {reservationsOfMyVehicle.lastNameCustomer} </p>
+              <p><i className="fas fa-users"></i> {reservationsOfMyVehicle.person}</p>
+              <p>
+                  <i className="fas fa-calendar-week"></i> {reservationsOfMyVehicle.startDate}{" "}
+                  <span
+                    style={{
+                      fontWeight: "bold",
+                      color: "black",
+                      fontSize: "15px"
+                    }}
+                  >
+                    To
+                  </span>{" "}
+                  <i className="fas fa-calendar-week"></i> {reservationsOfMyVehicle.endDate}
+                </p>
+              <p><i className="fas fa-dollar-sign"></i> {reservationsOfMyVehicle.price}</p>
+              </div>
             </div>
         </div>
         );
