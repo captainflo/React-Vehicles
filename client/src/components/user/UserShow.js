@@ -3,10 +3,11 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as actions from "../actions";
 import M from "materialize-css/dist/js/materialize.min.js";
+import FormReview from "../utils/FormReview";
 
 class UserShow extends React.Component {
   state = {
-    userReservation: []
+    userReservation: [],
   };
 
   componentDidMount() {
@@ -19,6 +20,7 @@ class UserShow extends React.Component {
     this.props.getVehicleByUser(this.props.match.params.id);
     this.props.getReservationByUser(this.props.match.params.id);
     this.props.getReservationMyVehicle(this.props.match.params.id);
+    
   }
 
   renderListVehicle = () => {
@@ -56,10 +58,9 @@ class UserShow extends React.Component {
       return this.props.reservationsOfMyVehicles.map(
         reservationsOfMyVehicle => {
           return (
-            <div style={{ marginBottom: "20px" }}>
+            <div key={reservationsOfMyVehicle._id} style={{ marginBottom: "20px" }}>
               <Link
                 to={`/user/info/${reservationsOfMyVehicle.userCustomerId}`}
-                key={reservationsOfMyVehicle._id}
               >
                 <div className="card-vehicle">
                   <img
@@ -109,13 +110,9 @@ class UserShow extends React.Component {
     if (this.props.reservations.length > 0) {
       return this.props.reservations.map(reservation => {
         return (
-            <Link
-              to={`/vehicle/${reservation.vehicleId}`}
-              key={reservation._id}
-              className="card-product-user"
-            >
-              <img src={reservation.image} alt="background" />
-              <div className="card-product-user-infos">
+          <Link to={`/vehicle/${reservation.vehicleId}`} key={reservation._id} className="card-product-user">
+            <img src={reservation.image} alt="background" />
+            <div className="card-product-user-infos">
                 <h2>{reservation.name}</h2>
                 <p>
                   <i className="fas fa-users"></i> {reservation.person}
@@ -137,8 +134,8 @@ class UserShow extends React.Component {
                 <p>
                   <i className="fas fa-dollar-sign"></i> {reservation.price}
                 </p>
-              </div>
-            </Link>
+            </div>
+          </Link>
         );
       });
     }

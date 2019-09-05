@@ -1,11 +1,14 @@
 import { GET_REVIEW, REVIEW_ERROR} from '../actions/types';
-
-export default function(state = {}, action){
+const INITIAL_STATE = {
+    review:'',
+    error:''
+};
+export default function(state = INITIAL_STATE, action){
     switch (action.type) {
         case GET_REVIEW:
-            return action.payload;
+            return {...state , review: action.payload };
         case REVIEW_ERROR:
-            return action.payload;
+            return  {...state , error: action.payload };
         default:
             return state
     }

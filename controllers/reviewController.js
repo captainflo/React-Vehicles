@@ -11,7 +11,6 @@ exports.getReviewByVehicle = function (req,res,next){
 };
 
 exports.createReview = function(req,res,next){
-    console.log('here')
     const vehicleId = req.body.vehicleId;
     const comment = req.body.comment;
     const score = req.body.score;

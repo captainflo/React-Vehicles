@@ -37,8 +37,46 @@ body{
 }
 
 .color-field div{
-  /* color: #fff !important; */
     color: #00BCD4 !important;
+}
+/* Review card */
+
+.block-review{
+  max-height: 250px;
+  overflow: auto;
+}
+.card-product-review {
+  overflow: hidden;
+  height: 120px;
+  background: white;
+  display: flex;
+  align-items: center;
+
+}
+
+.card-product-review img {
+  vertical-align: middle;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+.card-product-review h2 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.card-product-review p {
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: .7;
+  margin-bottom: 0;
+  margin-top: 8px;
+}
+
+.card-product-review .card-product-review-infos {
+  padding: 16px;
 }
 
 /* UserShow */
@@ -140,6 +178,7 @@ body{
 
 .card-product-user .card-product-user-infos {
   padding: 16px;
+  width: 100%
 }
 
 /* Search */
