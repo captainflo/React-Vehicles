@@ -20,6 +20,7 @@ class FormReview extends React.Component {
   }
 
   createReview = event => {
+    this.props.getReviewByVehicle(this.props.vehicleId);
     event.preventDefault();
     const form = {
       vehicleId: this.props.vehicleId,
@@ -30,7 +31,8 @@ class FormReview extends React.Component {
     };
     console.log(form);
     this.props.createReview(form)
-  
+    this.props.getReviewByVehicle(this.props.vehicleId);
+    this.setState({score: '', text:''})
   };
 
   renderFom = () =>{

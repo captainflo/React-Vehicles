@@ -4,11 +4,13 @@ import { compose } from "redux";
 import * as actions from "../actions";
 
 class Review extends React.Component {
-  
-  // componentWillReceiveProps(prevProps, nextProps, next) {
-  //     this.props.getReviewByVehicle(this.props.vehicleId);
- 
-  // }
+
+
+  componentDidUpdate(prevProps) {
+    if (this.props.reviews.length != prevProps.reviews.length) {
+      this.props.getReviewByVehicle(this.props.vehicleId);
+    }
+  }
 
   renderListReview = () => {
     if (this.props.reviews.length > 0) {

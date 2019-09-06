@@ -119,7 +119,6 @@ class Reservation extends React.Component {
       endDate: this.state.infoEndDate,
       person: this.state.count
     }
-    console.log(formReservation)
 
     if (!this.props.vehicle.length > 0) {
       return (

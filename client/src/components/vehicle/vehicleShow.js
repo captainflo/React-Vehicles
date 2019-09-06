@@ -14,7 +14,7 @@ class VehicleShow extends React.Component {
     this.props.getUserByVehicleId(this.props.match.params.id);
     this.props.getReviewByVehicle(this.props.match.params.id);
   }
-
+  
   render() {
     if (!this.props.vehicle.length > 0) {
       return (
@@ -100,7 +100,6 @@ class VehicleShow extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     auth: state.auth.authenticated,
     vehicle: state.vehicles,

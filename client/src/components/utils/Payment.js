@@ -21,8 +21,6 @@ class Payments extends React.Component{
             fistNameCustomer: form.fistNameCustomer,
             lastNameCustomer: form.lastNameCustomer,
           }
-        console.log(formReservation)
-       
 
         return (
             <StripeCheckout
