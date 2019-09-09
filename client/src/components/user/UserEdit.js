@@ -182,7 +182,7 @@ class UserEdit extends React.Component {
           </form>
           <div className='right'> 
           <p style={{color: '#f4f4f4'}}>Delete Account?</p>
-          <Modal trigger={<button className="waves-effect waves-light btn btn-color">Delete user <i class="fas fa-trash"></i></button>}>
+          <Modal trigger={<button className="waves-effect waves-light btn btn-color">Delete user <i className="fas fa-trash"></i></button>}>
             <div style={{ padding: "30px" }}>
               <div className='center'>
               <h5>Are you sure you want to delete your User?</h5>

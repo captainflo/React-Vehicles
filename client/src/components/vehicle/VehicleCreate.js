@@ -135,8 +135,10 @@ class VehicleCreate extends React.Component {
 
   render() {
     return (
+      <div className='container'>
+         <h4 style={{color: '#f4f4f4'}} className="center">Create your vehicle</h4>
       <MuiThemeProvider>
-        <form id="search-form">
+        <form className='box-create-vehicle' id="search-form">
           <div className="row">
             <div className="col m6 s12">
               <div className="Boxinput">
@@ -204,10 +206,8 @@ class VehicleCreate extends React.Component {
               </div>
               </div>
               <div className="col m6 s12">
-              <button onClick={this.showWidget} className="btn-login">
-            {this.state.picOk && <i className="far fa-check-square" />} Upload
-            Picture <i className="fas fa-image" />
-          </button>
+              <button onClick={this.showWidget} className="btn-picture"><i className="material-icons right">add_a_photo</i></button>
+              {" "}Picture {this.state.picOk && <i className="far fa-check-square"></i>}
           <span style={{ color: "red" }}>{this.state.invalidImage}</span>
               </div>
             </div>
@@ -215,12 +215,13 @@ class VehicleCreate extends React.Component {
 
           <button
             onClick={this.onSubmit}
-            className="waves-effect waves-light btn-small"
+            className="waves-effect waves-light btn btn-color"
           >
             Create Vehicle
           </button>
         </form>
       </MuiThemeProvider>
+      </div>
     );
   }
 }
