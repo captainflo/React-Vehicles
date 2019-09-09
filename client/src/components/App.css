@@ -1,14 +1,135 @@
 body{
   font-family: 'Montserrat', sans-serif;
   /* color: #00BCD4  */
+  background: #1A2980;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #00BCD4, #1A2980);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #00BCD4, #1A2980); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+
+/* Navbar */
+.color-nav{
+  background: #1A2980;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #00BCD4, #1A2980);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #00BCD4, #1A2980); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.btn-color{
+  background-color: #00BCD4 !important;
+}
+
+/* UserShow */
+.box-profile{
+  display: block;
+  margin-top: 40px;
+  border-right: 1px solid #F4F4F4;
+}
+
+.list-select-user-show{
+  margin-left: 10%;
+}
+
+.list-select-user-show p{
+  color: rgba(0,0,0,.6);
+}
+.list-select-user-show p:hover{
+  color: #F4F4F4;
+  font-size: 18px;
+  -webkit-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05);
+  -webkit-transition: .3s;
+  -o-transition: .3s;
+  transition: .3s;
+  cursor: pointer;
+}
+
+.info-selected-user-show{
+  display: block;
+  margin-top: 40px;
+  margin-left: 20px;
+}
+
+.info-user-user-show{
+  color: rgba(0,0,0,.6);
+  font-size: 18px;
+}
+
+.info-name-user-show{
+  font-size: 30px;
+}
+
+
+/* UserEdit */
+.box-user-edit{
+  color: #F4F4F4;
+}
+
+.box-user-edit input{
+  color: #F4F4F4;
+}
+
+.box-user-edit input[type=text]:not(.browser-default), .box-user-edit input[type=tel]:not(.browser-default){
+  border-bottom: 1px solid #fff !important;
+}
+
+.box-user-edit input[type=text]:not(.browser-default):focus:not([readonly]), .box-user-edit input[type=tel]:not(.browser-default):focus:not([readonly]){
+  border-bottom: 1px solid #00BCD4 !important;
+}
+
+.box-user-edit input[type=text]:not(.browser-default):focus:not([readonly])+label,.box-user-edit input[type=tel]:not(.browser-default):focus:not([readonly])+label, .input-field .prefix.active{
+  color:  #00BCD4 !important;
+}
+
+.box-user-edit .input-field>label {
+  color: #f4f4f4;
+}
+
+.btn-picture{
+  font-size: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid #F4F4F4;
+  background-color: #00BCD4;
+  color: #F4F4F4;
+  padding: 12px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Close Modal */
 .btn-close-modal{
   background-color:  #00BCD4 !important;
-
   color: #FFFFFF;
-
 }
 
 /* Banner Image */

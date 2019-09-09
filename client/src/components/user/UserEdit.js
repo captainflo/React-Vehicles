@@ -76,7 +76,6 @@ class UserEdit extends React.Component {
         sources: ['local', 'url', 'instagram']
     },
         (error, result) => {
-
             if (result.event === "success") { //if (result && result.event === "success")
                 this.setState({ picOk: true })
                 this.setState({ avatar: result.info.url })
@@ -96,11 +95,8 @@ class UserEdit extends React.Component {
     const { handleSubmit } = this.props;
     return (
       <div className="container">
-        <div className="card">
-          <h4 className="center">
-            Edit <i className="fas fa-user-alt" />
-          </h4>
-          <form onSubmit={handleSubmit(this.onSubmit)}>
+          <h4 style={{color: '#f4f4f4'}} className="center">Edit Your Profile </h4>
+          <form className='box-user-edit' onSubmit={handleSubmit(this.onSubmit)}>
             <div className="row">
               <div className="col s12 m6">
                 <div className="input-field">
@@ -178,26 +174,29 @@ class UserEdit extends React.Component {
                 </div>
               </div>
               <div className='col s12 m6'>
-                <button onClick={this.showWidget} className="btn-login">{this.state.picOk && <i className="far fa-check-square"></i>} Upload Picture <i className="fas fa-image"></i></button>
+              <button onClick={this.showWidget} className="btn-picture"><i className="material-icons right">add_a_photo</i></button>
+              {" "}Picture {this.state.picOk && <i className="far fa-check-square"></i>}
               </div>
             </div>
-            <button className="waves-effect waves-light btn">
-              <i className="material-icons right">cloud</i>Edit
-            </button>
+            <button className="waves-effect waves-light btn btn-color">Save</button>
           </form>
-          <Modal trigger={<button className="waves-effect waves-light btn right"><i className="material-icons right">cloud</i>Delete Your user</button>}>
+          <div className='right'> 
+          <p style={{color: '#f4f4f4'}}>Delete Account?</p>
+          <Modal trigger={<button className="waves-effect waves-light btn btn-color">Delete user <i class="fas fa-trash"></i></button>}>
             <div style={{ padding: "30px" }}>
+              <div className='center'>
               <h5>Are you sure you want to delete your User?</h5>
             <button
             onClick={this.onDelete}
-            className="waves-effect waves-light btn right"
+            className="center waves-effect waves-light btn btn-color"
           >
-            <i className="material-icons right">cloud</i>Delete Your user definitely
+            Delete Your user definitely <i class="fas fa-trash"></i>
           </button>
+              </div>
+              
             </div>
           </Modal>
-          
-        </div>
+          </div>
       </div>
     );
   }

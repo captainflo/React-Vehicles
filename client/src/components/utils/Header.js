@@ -79,7 +79,7 @@ class Header extends React.Component {
     return (
       <div>
         <nav className=''>
-          <div className="nav-wrapper">
+          <div className="nav-wrapper color-nav">
             <Link className="brand-logo" to="/">
               <i
                 style={{ paddingLeft: "15px" }}

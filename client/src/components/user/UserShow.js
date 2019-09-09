@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as actions from "../actions";
 import M from "materialize-css/dist/js/materialize.min.js";
-import FormReview from "../utils/FormReview";
 
 class UserShow extends React.Component {
   state = {
@@ -20,7 +19,6 @@ class UserShow extends React.Component {
     this.props.getVehicleByUser(this.props.match.params.id);
     this.props.getReservationByUser(this.props.match.params.id);
     this.props.getReservationMyVehicle(this.props.match.params.id);
-    
   }
 
   renderListVehicle = () => {
@@ -140,12 +138,55 @@ class UserShow extends React.Component {
       });
     }
   };
+
+  infoProfile=()=>{
+    return (
+      <div className='info-user-user-show slideLeft'> 
+        <div className='info-name-user-show'>
+          {this.props.authenticated.firstName}{" "}{this.props.authenticated.lastName}{" "}
+          <Link
+            to={`/user/edit/${this.props.authenticated._id}`}
+            className="btn-floating waves-effect waves-light btn-color"
+          >
+          <i className="material-icons">edit</i>
+          </Link>
+        </div>
+          <p>
+            <i className="far fa-envelope"></i>{" "}
+            {this.props.authenticated.email}
+          </p>
+          <p>
+            <i className="fas fa-phone-square"></i>{" "}
+            {this.props.authenticated.phone || '-'}
+          </p>
+      </div>
+    )
+  }
+  
   render() {
     return (
-      <div className="container">
+      <div>
         <div className="row">
-          <div className="col s12 m6">
-            <div className="card">
+          <div className="col s12 m2">
+            <div className="box-profile">
+              <div style={{marginBottom: '30px'}} className="center">
+                <img className="avatar-card z-depth-5" src={this.props.authenticated.avatar || process.env.PUBLIC_URL + "/images/background.jpg" || null } alt="background"/>
+              </div>
+              <ul className='list-select-user-show'>
+                <p href="#!">My Profile</p>
+                <p href="#!">Your Reservation</p>
+                <p href="#!">Your Vehicle</p>
+              </ul>
+            </div>
+          </div>
+          <div className="col s12 m10">
+            <div className='info-selected-user-show'>
+              {this.infoProfile()}
+            </div>
+           
+          </div>
+        </div>
+            {/* <div className="card">
               <div className="top-left">
                 <img
                   className="avatar-card z-depth-5"
@@ -187,8 +228,8 @@ class UserShow extends React.Component {
                   {this.props.authenticated.phone}
                 </p>
               </div>
-            </div>
-          </div>
+            </div> 
+       
           <div className="col s12 m6">
             <div style={{ padding: 10 }} className="card">
               <h5 className="card-title grey-text text-darken-4">
@@ -196,9 +237,9 @@ class UserShow extends React.Component {
               </h5>
               {this.renderListReservation()}
             </div>
-          </div>
-        </div>
-        <div className="row">
+          </div> */}
+  
+        {/* <div className="row">
           <div className="col s12">
             <h5 className="card-title grey-text text-darken-4">
               Your vehicle(s)
@@ -216,7 +257,7 @@ class UserShow extends React.Component {
               </Link>
             </p>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }
