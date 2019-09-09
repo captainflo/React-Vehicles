@@ -7,6 +7,9 @@ import M from "materialize-css/dist/js/materialize.min.js";
 class UserShow extends React.Component {
   state = {
     userReservation: [],
+    displayProfile: true,
+    displayVehicle: false,
+    displayReservation: false,
   };
 
   componentDidMount() {
@@ -162,6 +165,16 @@ class UserShow extends React.Component {
       </div>
     )
   }
+
+  toggleInfoProfile=()=>{
+    this.setState({displayProfile: true, displayVehicle: false, displayReservation: false});
+  }
+  toggleInfoVehicle=()=>{
+    this.setState({displayVehicle: true, displayProfile: false ,displayReservation: false});
+  }
+  toggleInfoReservation=()=>{
+    this.setState({displayReservation: true, displayProfile: false, displayVehicle: false});
+  }
   
   render() {
     return (
@@ -173,15 +186,17 @@ class UserShow extends React.Component {
                 <img className="avatar-card z-depth-5" src={this.props.authenticated.avatar || process.env.PUBLIC_URL + "/images/background.jpg" || null } alt="background"/>
               </div>
               <ul className='list-select-user-show'>
-                <p href="#!">My Profile</p>
-                <p href="#!">Your Reservation</p>
-                <p href="#!">Your Vehicle</p>
+                <p onClick={this.toggleInfoProfile}>My Profile</p>
+                <p onClick={this.toggleInfoReservation}>Your Reservation</p>
+                <p onClick={this.toggleInfoVehicle}>Your Vehicle</p>
               </ul>
             </div>
           </div>
           <div className="col s12 m10">
             <div className='info-selected-user-show'>
-              {this.infoProfile()}
+              {this.state.displayProfile && this.infoProfile()}
+              {this.state.displayVehicle && this.renderListOfMyVehicleReservation()} 
+              {this.state.displayReservation && this.renderListReservation()}
             </div>
            
           </div>
