@@ -10,6 +10,9 @@ class UserShow extends React.Component {
     displayProfile: true,
     displayVehicle: false,
     displayReservation: false,
+    linkProfile: '',
+    linkReservation: '',
+    linkInfoVehicle: '',
   };
 
   componentDidMount() {
@@ -154,13 +157,13 @@ class UserShow extends React.Component {
   }
 
   toggleInfoProfile=()=>{
-    this.setState({displayProfile: true, displayVehicle: false, displayReservation: false});
+    this.setState({displayProfile: true, displayVehicle: false, displayReservation: false, linkProfile:'selected-link',linkReservation:'',linkInfoVehicle:''});
   }
   toggleInfoVehicle=()=>{
-    this.setState({displayVehicle: true, displayProfile: false ,displayReservation: false});
+    this.setState({displayVehicle: true, displayProfile: false ,displayReservation: false, linkProfile:'',linkReservation:'',linkInfoVehicle:'selected-link'});
   }
   toggleInfoReservation=()=>{
-    this.setState({displayReservation: true, displayProfile: false, displayVehicle: false});
+    this.setState({displayReservation: true, displayProfile: false, displayVehicle: false, linkProfile:'',linkReservation:'selected-link',linkInfoVehicle:''});
   }
   
   render() {
@@ -173,28 +176,34 @@ class UserShow extends React.Component {
                 <img className="avatar-card z-depth-5" src={this.props.authenticated.avatar || process.env.PUBLIC_URL + "/images/background.jpg" || null } alt="background"/>
               </div>
               <ul className='list-select-user-show'>
-                <p onClick={this.toggleInfoProfile}>My Profile</p>
-                <p onClick={this.toggleInfoReservation}>Your Reservation</p>
-                <p onClick={this.toggleInfoVehicle}>Your Vehicle</p>
+                <p className={this.state.linkProfile} onClick={this.toggleInfoProfile}>My Profile</p>
+                <p className={this.state.linkReservation} onClick={this.toggleInfoReservation}>Your Reservation</p>
+                <p className={this.state.linkInfoVehicle} onClick={this.toggleInfoVehicle}>Your Vehicle</p>
               </ul>
             </div>
           </div>
           <div className="col s12 m9">
             <div className='info-selected-user-show'>
-              {this.state.displayProfile && this.infoProfile()}
-              {this.state.displayVehicle && 
-                <div className='collaps-vehicle'><ul className="collapsible">{this.renderListVehicle()}</ul>
-                  <p style={{color: '#f4f4f4'}} className="right rent-vehicle">
-                    Rent Your vehicle{" "}
-                    <Link
-                      className="btn-floating  waves-effect waves-light btn-color"
-                      to={`/user/${this.props.authenticated_id}/createVehicle`}
-                    >
-                      <i className="material-icons">add</i>
-                    </Link>
-                  </p>
-              </div>} 
-              {this.state.displayReservation && this.renderListReservation()}
+              {this.state.displayProfile && <div><h4 className="slideDown">Account Information</h4>{this.infoProfile()}</div>}
+              {this.state.displayVehicle &&
+                <div><h4 className="slideDown">Your Rent by vehicle</h4>
+                  <div className='collaps-vehicle'><ul className="collapsible">{this.renderListVehicle()}</ul>
+                    <p style={{color: '#f4f4f4'}} className="right rent-vehicle">
+                      Rent Your vehicle{" "}
+                      <Link
+                        className="btn-floating  waves-effect waves-light btn-color"
+                        to={`/user/${this.props.authenticated_id}/createVehicle`}
+                      >
+                        <i className="material-icons">add</i>
+                      </Link>
+                    </p>
+                  </div>
+                </div>} 
+              {this.state.displayReservation && 
+              <div>
+                <h4 className="slideDown">Reservatoin</h4>
+                {this.renderListReservation()}
+                </div>}
             </div>
           </div>
         </div>

@@ -142,7 +142,7 @@ class Reservation extends React.Component {
     }
     return (
       <div className="container">
-        <h4>Reservation</h4>
+        <h4 style={{color: 'rgba(0,0,0,.6)'}}>Reservation</h4>
         <div className="form-price">
           <MuiThemeProvider>
             <form>

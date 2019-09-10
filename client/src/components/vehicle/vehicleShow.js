@@ -68,13 +68,12 @@ class VehicleShow extends React.Component {
         <div className="row">
           <div className="col m6">
             <div className="container-vehicle-show">
-              <span className="right">
-                <img className="avatar" src={this.props.user.avatar} />
+              <h4 style={{color: 'rgba(0,0,0,.6)'}}>{this.props.vehicle[0].name} <span className="right">
+                <img className="avatar" src={this.props.user.avatar} alt='avatar'/>
                 <br></br>
-                {this.props.user.firstName}
-              </span>
-              <h4>{this.props.vehicle[0].name}</h4>
-              <p>
+                <span className='title-avatar'>{this.props.user.firstName}</span>
+              </span></h4>
+              <p className='text-vehicle' style={{color: 'rgba(0,0,0,.6)'}}>
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem Ipsum has been the industry's standard dummy
                 text ever since the 1500s, when an unknown printer took a galley
@@ -86,12 +85,12 @@ class VehicleShow extends React.Component {
                 publishing software like Aldus PageMaker including versions of
                 Lorem Ipsum.
               </p>
-              <Review  vehicleId={this.props.vehicle[0]._id}/>
+              <Review vehicleId={this.props.vehicle[0]._id}/>
               <FormReview vehicleId={this.props.vehicle[0]._id}/>
             </div>
           </div>
           <div className="col m6">
-            <Reservation/>
+            {this.props.auth && <Reservation/>}
           </div>
         </div>
       </div>

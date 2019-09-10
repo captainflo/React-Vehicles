@@ -7,7 +7,7 @@ class Review extends React.Component {
 
 
   componentDidUpdate(prevProps) {
-    if (this.props.reviews.length != prevProps.reviews.length) {
+    if (this.props.reviews.length !== prevProps.reviews.length) {
       this.props.getReviewByVehicle(this.props.vehicleId);
     }
   }
@@ -53,11 +53,11 @@ class Review extends React.Component {
 
   render() {
     if (!this.props.reviews.length > 0) {
-      return <div><h4>Review {this.renderScorefinal()}</h4>No review</div>;
+      return <div><h4 style={{color: 'rgba(0,0,0,.6)'}}>Review {this.renderScorefinal()}</h4>No review</div>;
     }
     return (
       <div>
-        <h4>Review {this.renderScorefinal()}</h4>
+        <h4 style={{color: 'rgba(0,0,0,.6)'}}>Review {this.renderScorefinal()}</h4>
         <div className='block-review'>
           {this.renderListReview()}
         </div>

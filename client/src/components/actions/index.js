@@ -239,7 +239,7 @@ export const getReviewByVehicle = (id) => async dispatch => {
 
 export const createReview = (body,callback) => async dispatch => {
   try {
-    const response = await axios.post( `/api/review`, body);
+    await axios.post( `/api/review`, body);
     callback(); 
   } catch (e) {
     dispatch({ type: REVIEW_ERROR, payload: "error" });

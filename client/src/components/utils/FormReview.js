@@ -10,7 +10,8 @@ import M from "materialize-css/dist/js/materialize.min.js";
 class FormReview extends React.Component {
   state = {
     score: "",
-    text: ""
+    text: "",
+    error:''
   };
 
   componentDidMount() {
@@ -20,19 +21,25 @@ class FormReview extends React.Component {
   }
 
   createReview = event => {
-    this.props.getReviewByVehicle(this.props.vehicleId);
     event.preventDefault();
-    const form = {
-      vehicleId: this.props.vehicleId,
-      comment: this.state.text,
-      score: this.state.score,
-      customerID: this.props.auth._id,
-      customerImage: this.props.auth.avatar
-    };
-    console.log(form);
-    this.props.createReview(form)
-    this.props.getReviewByVehicle(this.props.vehicleId);
-    this.setState({score: '', text:''})
+    if(this.state.text === '' ||  this.state.score === ''){
+      this.setState({error: 'Put comment or score'})
+    }
+    if(this.state.text !== '' &&  this.state.score !== ''){
+      this.props.getReviewByVehicle(this.props.vehicleId);
+      event.preventDefault();
+      const form = {
+        vehicleId: this.props.vehicleId,
+        comment: this.state.text,
+        score: this.state.score,
+        customerID: this.props.auth._id,
+        customerImage: this.props.auth.avatar
+      };
+      console.log(form);
+      this.props.createReview(form)
+      this.props.getReviewByVehicle(this.props.vehicleId);
+      this.setState({score: '', text:'', error: ''})
+    }
   };
 
   renderFom = () =>{
@@ -42,11 +49,12 @@ class FormReview extends React.Component {
       if (reservation === this.props.vehicleId){
         return (
           <div>
-            <h4>Make a Review</h4>
+            <p style={{color: 'rgba(0,0,0,.6)'}}>Write a Review</p>
             <MuiThemeProvider>
               <form>
                 <div className="row">
-                  <div className="input-field col s12">
+                  <div className="box-make-review">
+                  <div className="input-field col s12 m6">
                     <textarea
                       id="textarea1"
                       className="materialize-textarea"
@@ -55,12 +63,11 @@ class FormReview extends React.Component {
                     ></textarea>
                     <label htmlFor="textarea1">Textarea</label>
                   </div>
-                </div>
-                <div className="row">
+                  <div className="col s12 m6">
                   <div className="Boxinput">
                     <SelectField
                       className="color-field"
-                      floatingLabelText="Start Time"
+                      floatingLabelText="Note"
                       value={this.state.score}
                       onChange={this.handleChangeFormReview}
                     >
@@ -70,8 +77,11 @@ class FormReview extends React.Component {
                       <MenuItem value={4} label="4" primaryText="4" />
                     </SelectField>
                   </div>
+                  </div>
+                  </div>
                 </div>
-                <button onClick={this.createReview}>here</button>
+                <div style={{ color: "red" }}>{this.state.error}</div>
+                <button className="waves-effect waves-light btn btn-color right" onClick={this.createReview}>Create Review</button>
               </form>
             </MuiThemeProvider>
           </div>

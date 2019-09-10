@@ -190,7 +190,7 @@ class UserEdit extends React.Component {
             onClick={this.onDelete}
             className="center waves-effect waves-light btn btn-color"
           >
-            Delete Your user definitely <i class="fas fa-trash"></i>
+            Delete Your user definitely <i className="fas fa-trash"></i>
           </button>
               </div>
               

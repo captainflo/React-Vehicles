@@ -55,7 +55,6 @@ class InfoUser extends React.Component {
             </div>
           </div>
         </div>
-        <h4></h4>
         {this.renderListVehicle()}
       </div>
     );
