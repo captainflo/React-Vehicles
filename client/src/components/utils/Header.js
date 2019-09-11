@@ -1,14 +1,38 @@
 import React from "react";
+import { compose } from "redux";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Sidebar from "./Sidebar";
 import { Modal } from "react-materialize";
 import Signin from "../auth/Signin";
 import Signup from "../auth/Signup";
+import Autocomplete from "react-google-autocomplete";
+import API from './API';
+import { withRouter } from 'react-router-dom';
 
 class Header extends React.Component {
   state = {
-    signup: false
+    signup: false,
+    city: "",
+    selectCity: ""
+  };
+
+  onSubmit = event => {
+    event.preventDefault();
+    // Validate city
+    if (this.state.city === ""){
+      this.setState({ selectCity: "must select city" });
+    } else {
+      this.setState({ selectCity: "" });
+    } 
+
+    const city = this.state.city
+
+    if(this.state.city !== "" ){  
+      API.SearchVehicle(city)
+      this.props.history.push(`/city/${city}`);
+    }
+
   };
 
   DisplaySignup = () => {
@@ -23,6 +47,19 @@ class Header extends React.Component {
     if (this.props.authenticated) {
       return (
         <div>
+           <li>
+           <form id="search-bar">
+            <Autocomplete
+              placeholder='City'
+              onPlaceSelected={place => {
+                this.setState({ city: place.formatted_address });
+              }}
+              types={["(regions)"]}
+              componentRestrictions={{ country: "us" }}
+            />
+           <buton onClick={this.onSubmit} className='btn-searching'><i className="fas fa-search"></i></buton>
+          </form>
+            </li>
           <li>
             <Link to="/signout">Signout</Link>
           </li>
@@ -92,7 +129,7 @@ class Header extends React.Component {
               <i className="material-icons">menu</i>
             </a>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
-              {this.renderLinks()}
+              {this.renderLinks()}  
             </ul>
           </div>
         </nav>
@@ -108,4 +145,4 @@ function mapStateToPros(state) {
   };
 }
 
-export default connect(mapStateToPros)(Header);
+export default compose(withRouter,connect(mapStateToPros))(Header);

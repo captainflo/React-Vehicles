@@ -2,10 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import SelectField from "material-ui/SelectField";
-import MenuItem from "material-ui/MenuItem";
 import * as actions from "../actions";
 import M from "materialize-css/dist/js/materialize.min.js";
+
 
 class FormReview extends React.Component {
   state = {
@@ -35,12 +34,19 @@ class FormReview extends React.Component {
         customerID: this.props.auth._id,
         customerImage: this.props.auth.avatar
       };
-      console.log(form);
       this.props.createReview(form)
       this.props.getReviewByVehicle(this.props.vehicleId);
       this.setState({score: '', text:'', error: ''})
     }
   };
+
+  handleChangeFormReview=(event)=> {
+    this.setState({
+      score: event.target.value
+    });
+  }
+
+  handleChangeText = event => this.setState({ text: event.target.value });
 
   renderFom = () =>{
     const reservations = this.props.reservations.reservation
@@ -49,39 +55,38 @@ class FormReview extends React.Component {
       if (reservation === this.props.vehicleId){
         return (
           <div>
-            <p style={{color: 'rgba(0,0,0,.6)'}}>Write a Review</p>
             <MuiThemeProvider>
               <form>
                 <div className="row">
                   <div className="box-make-review">
-                  <div className="input-field col s12 m6">
-                    <textarea
-                      id="textarea1"
-                      className="materialize-textarea"
-                      onChange={this.handleChangeText}
-                      value={this.state.text}
-                    ></textarea>
-                    <label htmlFor="textarea1">Textarea</label>
+                    <div className="input-field col s12 m12">
+                      <i className="material-icons prefix">textsms</i>
+                      <textarea
+                        id="textarea1"
+                        className="materialize-textarea"
+                        onChange={this.handleChangeText}
+                        value={this.state.text}
+                      ></textarea>
+                      <label htmlFor="textarea1">Write your review</label>
+                    </div>
                   </div>
-                  <div className="col s12 m6">
-                  <div className="Boxinput">
-                    <SelectField
-                      className="color-field"
-                      floatingLabelText="Note"
-                      value={this.state.score}
-                      onChange={this.handleChangeFormReview}
-                    >
-                      <MenuItem value={1} label="1" primaryText="1" />
-                      <MenuItem value={2} label="2" primaryText="2" />
-                      <MenuItem value={3} label="3" primaryText="3" />
-                      <MenuItem value={4} label="4" primaryText="4" />
-                    </SelectField>
-                  </div>
-                  </div>
+                  <div className="col s12 m12">
+                    <fieldset className="rating">
+                      <input onClick={this.handleChangeFormReview} type="radio" id="star5" name="rating" value="5" /><label className = "full" htmlFor="star5" title="Awesome - 5 stars"></label>
+                      <input onClick={this.handleChangeFormReview} type="radio" id="star4half" name="rating" value="4.5" /><label className="half" htmlFor="star4half" title="Pretty good - 4.5 stars"></label>
+                      <input onClick={this.handleChangeFormReview} type="radio" id="star4" name="rating" value="4" /><label className = "full" htmlFor="star4" title="Pretty good - 4 stars"></label>
+                      <input onClick={this.handleChangeFormReview} type="radio" id="star3half" name="rating" value="3.5" /><label className="half" htmlFor="star3half" title="Meh - 3.5 stars"></label>
+                      <input onClick={this.handleChangeFormReview} type="radio" id="star3" name="rating" value="3" /><label className = "full" htmlFor="star3" title="Meh - 3 stars"></label>
+                      <input onClick={this.handleChangeFormReview} type="radio" id="star2half" name="rating" value="2.5" /><label className="half" htmlFor="star2half" title="Kinda bad - 2.5 stars"></label>
+                      <input onClick={this.handleChangeFormReview} type="radio" id="star2" name="rating" value="2" /><label className = "full" htmlFor="star2" title="Kinda bad - 2 stars"></label>
+                      <input onClick={this.handleChangeFormReview} type="radio" id="star1half" name="rating" value="1.5" /><label className="half" htmlFor="star1half" title="Meh - 1.5 stars"></label>
+                      <input onClick={this.handleChangeFormReview} type="radio" id="star1" name="rating" value="1" /><label className = "full" htmlFor="star1" title="Sucks big time - 1 star"></label>
+                      <input onClick={this.handleChangeFormReview} type="radio" id="starhalf" name="rating" value="0.5" /><label className="half" htmlFor="starhalf" title="Sucks big time - 0.5 stars"></label>
+                    </fieldset>
                   </div>
                 </div>
                 <div style={{ color: "red" }}>{this.state.error}</div>
-                <button className="waves-effect waves-light btn btn-color right" onClick={this.createReview}>Create Review</button>
+                <button className="waves-effect waves-light btn btn-color " onClick={this.createReview}>Create Review</button>
               </form>
             </MuiThemeProvider>
           </div>
@@ -90,11 +95,6 @@ class FormReview extends React.Component {
       
     }
   }
-
-  handleChangeFormReview = (event, index, value) =>
-    this.setState({ score: value });
-
-  handleChangeText = event => this.setState({ text: event.target.value });
 
   render() {
     return (

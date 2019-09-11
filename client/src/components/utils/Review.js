@@ -43,11 +43,59 @@ class Review extends React.Component {
         totalScore += count;
       }
       const totalStar = totalScore / array.length;
-      return (
-        <span>
-          {totalStar} <i className="fas fa-star"></i>
-        </span>
-      );
+      console.log(totalStar)
+      if(totalStar < 1){
+        return (
+          <span><i className="fas fa-star-half-alt"></i></span>
+        )
+      }
+      else if(totalStar < 1.5){
+        return (
+          <span><i className="fas fa-star"></i></span>
+        )
+      }
+      else if(totalStar < 2){
+        return (
+          <span><i className="fas fa-star"></i><i className="fas fa-star-half-alt"></i></span>
+        )
+      }
+      else if(totalStar < 2.5){
+        return (
+          <span><i className="fas fa-star"></i><i className="fas fa-star"></i></span>
+        )
+      }
+      else if(totalStar < 3){
+        return (
+          <span><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star-half-alt"></i></span>
+        )
+      }
+      else if(totalStar < 3.5){
+        return (
+          <span><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i></span>
+        )
+      }
+      else if(totalStar < 4){
+        return (
+          <span><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star-half-alt"></i></span>
+        )
+      }
+      else if(totalStar < 4.5){
+        return (
+          <span><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i></span>
+        )
+      }
+      else if(totalStar < 5){
+        return (
+          <span><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star-half-alt"></i></span>
+        )
+      }
+      if(totalStar === 5){
+        return (
+          <span><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i></span>
+        )
+      }
+     
+      
     }
   };
 

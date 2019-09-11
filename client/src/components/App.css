@@ -1,3 +1,4 @@
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 body{
   font-family: 'Montserrat', sans-serif;
   background: #1A2980;  /* fallback for old browsers */
@@ -10,7 +11,34 @@ body{
   background: #1A2980;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #00BCD4, #1A2980);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #00BCD4, #1A2980); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
 
+/* Search bar navbar */
+#search-bar{
+  display: inline;
+}
+#search-bar input:not([type]) {
+  width: 100px;
+  box-sizing: border-box;
+  border: 2px solid #00BCD4;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: transparent;
+  color: #f4f4f4;
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding: 10px;
+
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+
+#search-bar input:not([type]):focus {
+  width: 175px;
+}
+
+.btn-searching{
+  margin-left: 10px;
 }
 
 .btn-color{
@@ -497,6 +525,46 @@ body{
   margin-top: -4px; 
 }
 
+/****** Style Star Rating Widget *****/
+
+.rating { 
+  border: none;
+  float: left;
+}
+
+.rating > input { display: none; } 
+.rating > label:before { 
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.rating > .half:before { 
+  content: "\f089";
+  position: absolute;
+}
+
+.rating > label { 
+  color: #ddd; 
+ float: right; 
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+
+.fa-star, .fa-star-half-alt{
+  color: #FFD700;
+}
 
 
 
