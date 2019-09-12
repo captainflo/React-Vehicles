@@ -40,19 +40,21 @@ class UserShow extends React.Component {
                 <img src={vehicle.image} alt="background" />
                 <div className="list-vehicle-user-show-content">
                   <h4>{vehicle.name}</h4>
-                  <p>
+                  <ul>
+                    <li>
                     <i className="fas fa-building"></i> {vehicle.city}
-                  </p>
-                  <p>
-                    <i className="fas fa-dollar-sign"></i> {vehicle.price} /Half
-                    Day
-                  </p>
+                    </li>
+                    <li> <i className="fas fa-dollar-sign"></i> {vehicle.price} /Half
+                    Day</li>
+                    <li><Link to={`/vehicle/${vehicle._id}`} className='btn waves-effect waves-light btn-color'>View Vehicle</Link></li>
+                  </ul>
                 </div>
+   
               </div>
             </div>
             <div className="collapsible-body">
               <h5>Reservation</h5>
-              {this.renderListOfMyVehicleReservation()}
+              {this.renderListOfMyVehicleReservation(vehicle._id)}
             </div>
           </li>
         );
@@ -60,10 +62,11 @@ class UserShow extends React.Component {
     }
   };
 
-  renderListOfMyVehicleReservation = () => {
+  renderListOfMyVehicleReservation = (id) => {
     if (this.props.reservationsOfMyVehicles.length > 0) {
       return this.props.reservationsOfMyVehicles.map(
         reservationsOfMyVehicle => {
+           if(reservationsOfMyVehicle.vehicleId === id){
           return (
             <div key={reservationsOfMyVehicle._id} style={{ marginBottom: "20px" }}>
               <Link
@@ -102,6 +105,7 @@ class UserShow extends React.Component {
               </Link>
             </div>
           );
+        }
         }
       );
     }
@@ -177,16 +181,16 @@ class UserShow extends React.Component {
               </div>
               <ul className='list-select-user-show'>
                 <p className={this.state.linkProfile} onClick={this.toggleInfoProfile}>My Profile</p>
-                <p className={this.state.linkReservation} onClick={this.toggleInfoReservation}>Your Reservation</p>
-                <p className={this.state.linkInfoVehicle} onClick={this.toggleInfoVehicle}>Your Vehicle</p>
+                <p className={this.state.linkReservation} onClick={this.toggleInfoReservation}>Reservation</p>
+                <p className={this.state.linkInfoVehicle} onClick={this.toggleInfoVehicle}>My Vehicle</p>
               </ul>
             </div>
           </div>
           <div className="col s12 m9">
             <div className='info-selected-user-show'>
-              {this.state.displayProfile && <div><h4 className="slideDown">Account Information</h4>{this.infoProfile()}</div>}
+              {this.state.displayProfile && <div>{this.infoProfile()}</div>}
               {this.state.displayVehicle &&
-                <div><h4 className="slideDown">Your Rent by vehicle</h4>
+                <div><h4 style={{color: '#f4f4f4'}} className="slideDown">Your Rent by vehicle</h4>
                   <div className='collaps-vehicle'><ul className="collapsible">{this.renderListVehicle()}</ul>
                     <p style={{color: '#f4f4f4'}} className="right rent-vehicle">
                       Rent Your vehicle{" "}
@@ -201,7 +205,7 @@ class UserShow extends React.Component {
                 </div>} 
               {this.state.displayReservation && 
               <div>
-                <h4 className="slideDown">Reservatoin</h4>
+                <h4 style={{color: '#f4f4f4'}} className="slideDown">Reservation</h4>
                 {this.renderListReservation()}
                 </div>}
             </div>

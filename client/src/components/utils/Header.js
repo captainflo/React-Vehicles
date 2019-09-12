@@ -57,7 +57,7 @@ class Header extends React.Component {
               types={["(regions)"]}
               componentRestrictions={{ country: "us" }}
             />
-           <buton onClick={this.onSubmit} className='btn-searching'><i className="fas fa-search"></i></buton>
+           <span onClick={this.onSubmit} className='btn-searching'><i className="fas fa-search"></i></span>
           </form>
             </li>
           <li>

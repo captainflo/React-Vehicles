@@ -10,7 +10,8 @@ class GoogleMap extends React.Component {
     super(props);
 
     this.state = {
-      currentPosition: { lat: 0, lng: 0 }
+      currentPosition: { lat: 0, lng: 0 },
+      city: {lat: 0, lng: 0}
     };
   }
   componentDidMount() {
@@ -55,6 +56,8 @@ class GoogleMap extends React.Component {
     }
   };
 
+
+    
   render() {
     const currentPosition = this.state.currentPosition;
     // if current position is null

@@ -43,7 +43,6 @@ class Review extends React.Component {
         totalScore += count;
       }
       const totalStar = totalScore / array.length;
-      console.log(totalStar)
       if(totalStar < 1){
         return (
           <span><i className="fas fa-star-half-alt"></i></span>

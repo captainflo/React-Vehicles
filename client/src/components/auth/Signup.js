@@ -61,7 +61,7 @@ class Signup extends React.Component {
   
     return (
       <div>
-        <form onSubmit={handleSubmit(this.onSubmit)}>
+        <form className='user-login' onSubmit={handleSubmit(this.onSubmit)}>
           <h4 className="center">
             Sign Up <i className="fas fa-user-plus" />
           </h4>
@@ -104,20 +104,30 @@ class Signup extends React.Component {
             />
           </div>
           
-          <button className="waves-effect waves-light btn">
-            <i className="material-icons right">cloud</i>Sign Up
-          </button>
-        </form>
-        <ul>
-          <li style={{listStyle:'none', paddingBottom: '10px'}}><a href="/auth/google" className="waves-effect waves-light btn social google">
-          <i className="fab fa-google"></i> Sign in with google</a></li>
-          <li style={{listStyle:'none', paddingBottom: '10px'}}><a href="/auth/linkedin" className="waves-effect waves-light btn social linkedin">
-          <i className="fab fa-linkedin"></i> Sign in with linkedin</a></li>
-          <li style={{listStyle:'none', paddingBottom: '10px'}}><a href='/auth/facebook'className="waves-effect waves-light btn social facebook">
-          <i className="fab fa-facebook"></i> Sign in with facebook</a></li>
-          <li style={{listStyle:'none', paddingBottom: '10px'}}><a href="/auth/instagram" className="waves-effect waves-light btn social instagram">
-          <i className="fab fa-instagram"></i> Sign in with instagram</a></li>
-      </ul>
+          <div className='row center'>
+              <div className='col m12 s12'>
+                <button className="waves-effect waves-light btn btn-color">
+                  <i className="material-icons right">cloud</i>Sign In
+                </button>
+              </div>
+            </div>
+          </form>
+          <p className='center'>- OR -</p>
+          <div className='row center'>
+            <div className='col m6 s12'>
+            <li style={{listStyle:'none', paddingBottom: '10px'}}><a href="/auth/google" className="waves-effect waves-light btn social google">
+            <i className="fab fa-google"></i>google</a></li>
+            <li style={{listStyle:'none', paddingBottom: '10px'}}><a href="/auth/linkedin" className="waves-effect waves-light btn social linkedin">
+            <i className="fab fa-linkedin"></i>linkedin</a></li>
+            </div>
+            <div className='col m6 s12'>
+            <li style={{listStyle:'none', paddingBottom: '10px'}}><a href='/auth/facebook'className="waves-effect waves-light btn social facebook">
+            <i className="fab fa-facebook"></i>facebook</a></li>
+          
+            <li style={{listStyle:'none', paddingBottom: '10px'}}><a href="/auth/instagram" className="waves-effect waves-light btn social instagram">
+            <i className="fab fa-instagram"></i>instagram</a></li>
+            </div>
+          </div>
       </div>
     );
   }

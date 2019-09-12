@@ -1,7 +1,9 @@
 import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import { connect } from 'react-redux';
-import * as actions from '../actions'; 
+import * as actions from '../actions';
+import { withRouter } from 'react-router-dom';
+import { compose } from "redux";
 
 class Payments extends React.Component{
     render(){
@@ -25,7 +27,9 @@ class Payments extends React.Component{
         return (
             <StripeCheckout
                 amount={money}
-                token={token => this.props.handleToken(token, formReservation )}
+                token={token => this.props.handleToken(token, formReservation, () => {
+                    this.props.history.push(`/user/${this.props.auth._id}`);
+                  } )}
                 stripeKey={process.env.REACT_APP_STRIPE_KEY}
                 name="Vehicle Trip"
                 description="Book your vehicle"
@@ -36,5 +40,8 @@ class Payments extends React.Component{
         )
     }
 }
+function mapStateToProps(state) {
+    return { auth: state.auth.authenticated };
+  }
 
-export default connect(null, actions)(Payments);
+export default compose(withRouter,connect(mapStateToProps, actions))(Payments);

@@ -169,8 +169,18 @@ export const getVehicleByUser = id => async dispatch => {
   }
 };
 
-// Get Vehicle all Vehicles
+// Get Vehicle all Vehicles By city
 export const getAllVehicleByCity = city => async dispatch => {
+  try {
+    const response = await axios.get(`/api/city/${city}`);
+    dispatch({ type: GET_VEHICLE_CITY, payload: response.data });
+  } catch (e) {
+    dispatch({ type: VEHICLE_ERROR, payload: "error" });
+  }
+};
+
+// Get Vehicle all Vehicles By city
+export const getAllVehicle = city => async dispatch => {
   try {
     const response = await axios.get(`/api/city/${city}`);
     dispatch({ type: GET_VEHICLE_CITY, payload: response.data });
@@ -191,13 +201,14 @@ export const getVehicleById = id => async dispatch => {
 
 /***************************************  Payment  ***********************************************/
 // + creation of the reservation
-export const handleToken = (token, form) => async dispatch =>{
+export const handleToken = (token, form, callback) => async dispatch =>{
   const body = {
     form: form,
     token: token,
   };
   const res = await axios.post("/api/stripe", body);
   dispatch({ type: EDIT_RESERVATION, payload: res.data });
+  callback(); 
 };
 
 

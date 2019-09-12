@@ -299,7 +299,7 @@ class Reservation extends React.Component {
                       id="icon_prefix2"
                       className="materialize-textarea"
                     ></textarea>
-                    <label htmlFor="icon_prefix2">Type of message</label>
+                    <label htmlFor="icon_prefix2">email</label>
                   </div>
                 </div>
                 <div className="row">
