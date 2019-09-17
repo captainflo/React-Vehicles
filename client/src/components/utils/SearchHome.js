@@ -8,7 +8,6 @@ import API from './API';
 import { withRouter } from 'react-router-dom';
 
 
-
 class SearchHome extends React.Component {
   state = {
     city: "",
@@ -17,6 +16,7 @@ class SearchHome extends React.Component {
     invalidVehicle: "",
     startDate:{}
   };
+  
 
   handleChangeStartDate = (event, date) => {
     this.setState({

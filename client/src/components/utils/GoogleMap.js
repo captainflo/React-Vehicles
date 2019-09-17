@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import * as actions from "../actions";
 import config from "../../config/keys";
 import image from "./marker.jpg";
+import Geocode from "react-geocode";
 
 class GoogleMap extends React.Component {
   constructor(props) {
@@ -11,12 +12,28 @@ class GoogleMap extends React.Component {
 
     this.state = {
       currentPosition: { lat: 0, lng: 0 },
-      city: {lat: 0, lng: 0}
+      city: {lat: 0, lng: 0},
     };
   }
   componentDidMount() {
     this.getCurrentPosition();
+    this.GetCity()
   }
+
+  GetCity(){
+    Geocode.fromAddress(this.props.city).then(
+      response => {
+        const lat = response.results[0].geometry.location.lat;
+        const lng = response.results[0].geometry.location.lng;
+        this.setState({city: {lat: lat, lng: lng}})
+        console.log(this.state.city);
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+  
 
   // My current position
   getCurrentPosition() {
@@ -60,8 +77,9 @@ class GoogleMap extends React.Component {
     
   render() {
     const currentPosition = this.state.currentPosition;
-    // if current position is null
-    if (currentPosition.lat === 0 && currentPosition.lng === 0) {
+    const city = this.state.city
+    console.log(this.state.city)
+    if (city.lat === 0 && city.lng === 0 && currentPosition.lat === 0 && currentPosition.lng === 0) {
       return (
         <div style={{ marginTop: "50%" }} className="center">
           <p>Loading...</p>
@@ -81,23 +99,26 @@ class GoogleMap extends React.Component {
         </div>
       );
     }
-    return (
-      <div
-        style={{
-          position: "relative",
-          height: "769px"
-        }}
-      >
-        <Map
-          google={this.props.google}
-          zoom={9}
-          initialCenter={this.state.currentPosition}
+      return (
+        <div
+          style={{
+            position: "relative",
+            height: "769px"
+          }}
         >
-          <Marker position={this.state.currentPosition} />
-          {this.displayMarkers()}
-        </Map>
-      </div>
-    );
+          <Map
+            google={this.props.google}
+            zoom={12}
+            center={{lat: this.state.city.lat,
+              lng: this.state.city.lng }}
+          >
+            <Marker position={this.state.currentPosition} />
+            {this.displayMarkers()}
+          </Map>
+        </div>
+      );
+    
+
   }
 }
 

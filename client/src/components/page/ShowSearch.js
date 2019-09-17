@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import SearchCity from '../utils/SearchCity'
 import M from "materialize-css/dist/js/materialize.min.js";
 
+
 class ShowSearch extends React.Component {
   state = {
     classCard: "card-product"
@@ -17,6 +18,12 @@ class ShowSearch extends React.Component {
     M.Collapsible.init(elems, {
       inDuration: 300
     });
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.city !== prevProps.match.params.city) {
+      this.props.getAllVehicleByCity(this.props.match.params.city);
+      this.renderMap()
+    }
   }
 
   // This method will be sent to the child component
@@ -62,6 +69,11 @@ class ShowSearch extends React.Component {
       return <div>Nothing found!</div>;
     }
   };
+
+  renderMap=()=>{
+    return (<GoogleMap action={this.handler} city={this.props.match.params.city}/>)
+  }
+
   render() {
     return (
       <div className="search-show">
@@ -76,7 +88,7 @@ class ShowSearch extends React.Component {
             <div className="list-vehicle">{this.renderListVehicle()}</div>
           </div>
           <div className="col m6 s12">
-            <GoogleMap action={this.handler}/>
+            {this.renderMap()}
           </div>
         </div>
       </div>
