@@ -6,7 +6,7 @@ import Sidebar from "./Sidebar";
 import { Modal } from "react-materialize";
 import Signin from "../auth/Signin";
 import Signup from "../auth/Signup";
-import Autocomplete from "react-google-autocomplete";
+// import Autocomplete from "react-google-autocomplete";
 import API from './API';
 import { withRouter } from 'react-router-dom';
 

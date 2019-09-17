@@ -5,6 +5,7 @@ import * as actions from "../actions";
 import config from "../../config/keys";
 import image from "./marker.jpg";
 import Geocode from "react-geocode";
+Geocode.setApiKey(config.googleMap);
 
 class GoogleMap extends React.Component {
   constructor(props) {
@@ -16,8 +17,15 @@ class GoogleMap extends React.Component {
     };
   }
   componentDidMount() {
+    console.log(this.props.city)
     this.getCurrentPosition();
     this.GetCity()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.city !== prevProps.city) {
+      this.GetCity(this.props.city)
+    }
   }
 
   GetCity(){
@@ -26,7 +34,6 @@ class GoogleMap extends React.Component {
         const lat = response.results[0].geometry.location.lat;
         const lng = response.results[0].geometry.location.lng;
         this.setState({city: {lat: lat, lng: lng}})
-        console.log(this.state.city);
       },
       error => {
         console.error(error);
@@ -34,7 +41,6 @@ class GoogleMap extends React.Component {
     );
   }
   
-
   // My current position
   getCurrentPosition() {
     if (navigator.geolocation) {
@@ -73,13 +79,10 @@ class GoogleMap extends React.Component {
     }
   };
 
-
-    
   render() {
     const currentPosition = this.state.currentPosition;
     const city = this.state.city
-    console.log(this.state.city)
-    if (city.lat === 0 && city.lng === 0 && currentPosition.lat === 0 && currentPosition.lng === 0) {
+    if (currentPosition.lat === 0 && currentPosition.lng === 0) {
       return (
         <div style={{ marginTop: "50%" }} className="center">
           <p>Loading...</p>
@@ -99,8 +102,30 @@ class GoogleMap extends React.Component {
         </div>
       );
     }
+    if (city.lat === 0 && city.lng === 0) {
       return (
-        <div
+        <div style={{ marginTop: "50%" }} className="center">
+          <p>Loading...</p>
+          <div className="preloader-wrapper big active">
+            <div className="spinner-layer spinner-blue-only">
+              <div className="circle-clipper left">
+                <div className="circle" />
+              </div>
+              <div className="gap-patch">
+                <div className="circle" />
+              </div>
+              <div className="circle-clipper right">
+                <div className="circle" />
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    console.log(city.lat)
+    console.log(city.lng)
+      return (
+      <div
           style={{
             position: "relative",
             height: "769px"
@@ -109,13 +134,15 @@ class GoogleMap extends React.Component {
           <Map
             google={this.props.google}
             zoom={12}
-            center={{lat: this.state.city.lat,
-              lng: this.state.city.lng }}
+            initialCenter={{lat: city.lat,
+              lng: city.lng }}
+            center={{lat: city.lat,
+              lng: city.lng }}
           >
             <Marker position={this.state.currentPosition} />
             {this.displayMarkers()}
           </Map>
-        </div>
+      </div>
       );
     
 

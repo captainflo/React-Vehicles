@@ -22,8 +22,12 @@ class ShowSearch extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.match.params.city !== prevProps.match.params.city) {
       this.props.getAllVehicleByCity(this.props.match.params.city);
-      this.renderMap()
+      this.renderMap(this.props.match.params.city)
     }
+  }
+
+  renderMap=(city)=>{
+    return (<GoogleMap action={this.handler} city={city}/>)
   }
 
   // This method will be sent to the child component
@@ -70,10 +74,6 @@ class ShowSearch extends React.Component {
     }
   };
 
-  renderMap=()=>{
-    return (<GoogleMap action={this.handler} city={this.props.match.params.city}/>)
-  }
-
   render() {
     return (
       <div className="search-show">
@@ -88,7 +88,7 @@ class ShowSearch extends React.Component {
             <div className="list-vehicle">{this.renderListVehicle()}</div>
           </div>
           <div className="col m6 s12">
-            {this.renderMap()}
+            {this.renderMap(this.props.match.params.city)}
           </div>
         </div>
       </div>
