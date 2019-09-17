@@ -67,7 +67,7 @@ class ShowSearch extends React.Component {
       <div className="search-show">
         <div className="row">
           <div className="col m6 s12 search-filter">
-            <ul className="collapsible ">
+            <ul className="collapsible">
                 <li>
                 <div className="collapsible-header">Search <i style={{fontSize: '20px'}} className="material-icons">search</i></div>
                 <div className="collapsible-body"> <SearchCity/></div>
