@@ -47,7 +47,7 @@ class Header extends React.Component {
     if (this.props.authenticated) {
       return (
         <div>
-           <li>
+           {/* <li>
            <form id="search-bar">
             <Autocomplete
               placeholder='City'
@@ -59,7 +59,7 @@ class Header extends React.Component {
             />
            <span onClick={this.onSubmit} className='btn-searching'><i className="fas fa-search"></i></span>
           </form>
-            </li>
+            </li> */}
           <li>
             <Link to="/signout">Signout</Link>
           </li>

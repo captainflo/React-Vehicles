@@ -637,6 +637,9 @@ body{
 .centered label,.centered input{
   color: #fff !important;
 }
+.box-search-home{
+  margin-top: 3px;
+}
 
 .color-field div{
     color: #00BCD4 !important;

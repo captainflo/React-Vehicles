@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import Search from "../utils/Search";
+import SearchHome from "../utils/SearchHome";
 
 class Welcome extends React.Component {
   render() {
@@ -15,7 +15,7 @@ class Welcome extends React.Component {
           /> */}
         </div>
         <div className="centered fadeIn">
-        <Search/>
+          <SearchHome/>
         </div>
       </div>
     );
