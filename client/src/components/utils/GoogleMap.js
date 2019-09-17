@@ -128,7 +128,7 @@ class GoogleMap extends React.Component {
       <div
           style={{
             position: "relative",
-            height: "769px"
+            height: "827px"
           }}
         >
           <Map

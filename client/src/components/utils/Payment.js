@@ -28,7 +28,7 @@ class Payments extends React.Component{
             <StripeCheckout
                 amount={money}
                 token={token => this.props.handleToken(token, formReservation, () => {
-                    this.props.history.push(`/user/${this.props.auth._id}`);
+                    this.props.history.push(`/confirmation/payment`);
                   } )}
                 stripeKey={process.env.REACT_APP_STRIPE_KEY}
                 name="Vehicle Trip"

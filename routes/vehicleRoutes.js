@@ -11,5 +11,5 @@ module.exports = app => {
   app.get('/api/user/:id/myVehicles',controllers.getVehicleByUser);
 
   // Get vehicles by city
-  app.get('/api/city/:city', controllers.getVehicleByCity)
+  app.get('/api/city/:city', controllers.getAllVehicle)
 };

@@ -44,31 +44,68 @@ class ShowSearch extends React.Component {
   // Render Vehicles
   renderListVehicle = () => {
     if (this.props.vehicles.length > 0) {
-      return this.props.vehicles.map(vehicle => {
-        return (
-          <Link key={vehicle._id} to={"/vehicle/" + vehicle._id}>
-            <div
-              ref={vehicle._id}
-              id={vehicle._id}
-              className={
-                "card-product" + " " + this.state.classCard[vehicle._id]
-              }
-            >
-              <img src={vehicle.image} alt="background" />
-              <div className="card-product-infos">
-                <h2>{vehicle.name}</h2>
-                <p>
-                  <i className="fas fa-building"></i> {vehicle.city}
-                </p>
-                <p>
-                  <i className="fas fa-dollar-sign"></i> {vehicle.price} /Half
-                  Day
-                </p>
+        return this.props.vehicles.map(vehicle => {
+          if (vehicle.city === this.props.match.params.city){
+          return (
+            <Link key={vehicle._id} to={"/vehicle/" + vehicle._id}>
+              <div
+                ref={vehicle._id}
+                id={vehicle._id}
+                className={
+                  "card-product" + " " + this.state.classCard[vehicle._id]
+                }
+              >
+                <img src={vehicle.image} alt="background" />
+                <div className="card-product-infos">
+                  <h2>{vehicle.name}</h2>
+                  <p>
+                    <i className="fas fa-building"></i> {vehicle.city}
+                  </p>
+                  <p>
+                    <i className="fas fa-dollar-sign"></i> {vehicle.price} /Half
+                    Day
+                  </p>
+                </div>
               </div>
-            </div>
-          </Link>
-        );
-      });
+            </Link>
+          );
+          }
+        });
+    } else {
+      return <div>Nothing found!</div>;
+    }
+  };
+
+  // Render other Vehicles
+  renderAroundListVehicle = () => {
+    if (this.props.vehicles.length > 0) {
+        return this.props.vehicles.map(vehicle => {
+          if (vehicle.city !== this.props.match.params.city){
+          return (
+            <Link key={vehicle._id} to={"/vehicle/" + vehicle._id}>
+              <div
+                ref={vehicle._id}
+                id={vehicle._id}
+                className={
+                  "card-product" + " " + this.state.classCard[vehicle._id]
+                }
+              >
+                <img src={vehicle.image} alt="background" />
+                <div className="card-product-infos">
+                  <h2>{vehicle.name}</h2>
+                  <p>
+                    <i className="fas fa-building"></i> {vehicle.city}
+                  </p>
+                  <p>
+                    <i className="fas fa-dollar-sign"></i> {vehicle.price} /Half
+                    Day
+                  </p>
+                </div>
+              </div>
+            </Link>
+          );
+          }
+        });
     } else {
       return <div>Nothing found!</div>;
     }
@@ -85,7 +122,11 @@ class ShowSearch extends React.Component {
                 <div className="collapsible-body"> <SearchCity/></div>
                 </li>
             </ul>
-            <div className="list-vehicle">{this.renderListVehicle()}</div>
+            <div className="list-vehicle">
+              {this.renderListVehicle()}
+              <h5>OutSide {this.props.match.params.city}</h5>
+              {this.renderAroundListVehicle()}
+            </div>
           </div>
           <div className="col m6 s12">
             {this.renderMap(this.props.match.params.city)}

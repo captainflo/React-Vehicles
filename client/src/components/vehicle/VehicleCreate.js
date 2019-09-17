@@ -96,7 +96,7 @@ class VehicleCreate extends React.Component {
         if(form.price !== '' && form.city !== '' && form.type !== '' && form.name !== '' && form.image !== '' &&  form.address !== ''){
           const id = this.props.auth._id;
           this.props.createVehicle(id, form, () => {
-            this.props.history.push(`/user/${id}`);
+            this.props.history.push(`/confirmation/vehicle`);
           });
         }
       },

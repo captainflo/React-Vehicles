@@ -16,6 +16,8 @@ import VehicleCreate from './vehicle/VehicleCreate';
 import ShowSearch from "./page/ShowSearch";
 import VehicleShow from "./vehicle/vehicleShow";
 import InfoUser from "./user/InfoUser";
+import ConfirmReservation from "./utils/ConfirmReservation";
+import ConfirmVehicle from "./utils/ConfirmVehicle";
 
 class App extends React.Component {
   componentDidMount(){
@@ -45,6 +47,8 @@ class App extends React.Component {
             <Route exact path="/user/:id" component={UserShow}/>
             <Route exact path="/user/:id/createVehicle" component={VehicleCreate}/>
             <Route exact path='/user/edit/:id' component={UserEdit}/>
+            <Route exact path='/confirmation/payment' component={ConfirmReservation}/>
+            <Route exact path='/confirmation/vehicle' component={ConfirmVehicle}/>
           </div> : ""}
           {/* <Footer/> */}
         </BrowserRouter>
