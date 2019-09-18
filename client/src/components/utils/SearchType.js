@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Autocomplete from "react-google-autocomplete";
-import API from './API';
 import { withRouter } from 'react-router-dom';
+import * as actions from "../actions";
 
 
 
@@ -14,6 +14,14 @@ class SearchCity extends React.Component {
     selectCity: "",
     vehicle: "",
     invalidVehicle: ""
+  };
+
+  handleChange = e => {
+    const { name, value } = e.target;
+
+    this.setState({
+      [name]: value
+    });
   };
 
   onSubmit = event => {
@@ -37,17 +45,12 @@ class SearchCity extends React.Component {
       city: this.state.city,
       vehicle: this.state.vehicle
     };
-    console.log(form);
-    const city = form.city 
 
     if(this.state.city !== "" && this.state.vehicle !== ""){  
-      API.SearchVehicle(city)
-      this.props.history.push(`/city/${city}`);
+      this.props.getAllVehicleByType(form)
+      this.props.history.push(`/city/${form.city}/${form.vehicle}`);
     }
   };
-
-  handleChangeVehicle = (event, index, value) =>
-    this.setState({ vehicle: value });
 
   render() {
     return (
@@ -76,7 +79,7 @@ class SearchCity extends React.Component {
                         name="vehicle"
                         type="radio"
                         value="Car"
-                        onChange={e => this.handleChangeVehicle(e)}
+                         onChange={this.handleChange}
                         />
                         <span>
                         <i className="fas fa-car" /> Car
@@ -90,7 +93,7 @@ class SearchCity extends React.Component {
                         name="vehicle"
                         type="radio"
                         value="Boat"
-                        onChange={e => this.handleChangeVehicle(e)}
+                         onChange={this.handleChange}
                         />
                         <span>
                         <i className="fas fa-ship" /> Boat
@@ -103,7 +106,7 @@ class SearchCity extends React.Component {
                         name="vehicle"
                         type="radio"
                         value="Bike"
-                        onChange={e => this.handleChangeVehicle(e)}
+                         onChange={this.handleChange}
                         />
                         <span>
                         <i className="fas fa-motorcycle" /> Bike
@@ -125,4 +128,4 @@ function mapStateToProps(state) {
   return { auth: state.auth.authenticated };
 }
 
-export default compose(withRouter,connect(mapStateToProps))(SearchCity);
+export default compose(withRouter,connect(mapStateToProps, actions))(SearchCity);

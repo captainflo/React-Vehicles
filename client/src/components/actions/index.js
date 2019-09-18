@@ -179,6 +179,16 @@ export const getAllVehicleByCity = city => async dispatch => {
   }
 };
 
+// Get Vehicle all Vehicles By type
+export const getAllVehicleByType = form => async dispatch => {
+  try {
+    const response = await axios.get(`/api/city/${form.city}/${form.vehicle}`)
+    dispatch({ type: GET_VEHICLE_CITY, payload: response.data });
+  } catch (e) {
+    dispatch({ type: VEHICLE_ERROR, payload: "error" });
+  }
+};
+
 // Get Vehicle all Vehicles By city
 export const getAllVehicle = city => async dispatch => {
   try {

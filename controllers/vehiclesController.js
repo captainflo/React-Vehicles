@@ -1,6 +1,7 @@
 const Vehicle = require('../models/Vehicle');
 
 exports.getAllVehicle = function (req,res,next){
+    console.log(req.params)
     Vehicle.find({})
     .then(function(dbVehicle){
         res.json(dbVehicle)
@@ -9,6 +10,18 @@ exports.getAllVehicle = function (req,res,next){
         res.json(error);
     })
 };
+
+exports.getAllVehicleByType = function (req,res,next){
+    Vehicle.find({type: req.params.vehicle})
+    .then(function(dbVehicle){
+        res.json(dbVehicle)
+    })
+    .catch(function(error){
+        res.json(error);
+    })
+};
+
+
 
 exports.createVehicle = function(req,res,next){
     const userId = req.params.id

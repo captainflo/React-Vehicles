@@ -513,6 +513,10 @@ body{
   color: #F4F4F4;
 }
 
+.box-make-review .input-field .prefix {
+  color: #fff;
+}
+
 .box-make-review .input-field>label {
     color: #F4F4F4 !important;
 }
@@ -628,7 +632,7 @@ body{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 70%;
+  width: 30%;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
@@ -638,7 +642,7 @@ body{
   color: #fff !important;
 }
 .box-search-home{
-  margin-top: 3px;
+  display: inline-block;
 }
 
 .color-field div{
@@ -704,8 +708,6 @@ body{
   margin-bottom: 0;
   margin-top: 8px;
 }
-
-
 
 .card-product-user {
   overflow: hidden;
