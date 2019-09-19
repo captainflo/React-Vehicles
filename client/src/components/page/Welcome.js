@@ -14,15 +14,15 @@ class Welcome extends React.Component {
   render() {
     return (
       <div>
-        <div class="slider">
-          <ul class="slides slideDown">
+        <div className="slider fullscreen">
+          <ul className="slides slideDown">
             <li>
             <img
             style={{width:'100%'}}
             src={process.env.PUBLIC_URL + "/images/lambo.jpg"}
             alt="background"
           />
-              <div class="caption">
+              <div className="caption">
                 <h3 className='center'>Time to rent your vehicle!</h3>
                 <div className="centered fadeIn">
                   <SearchHome/>
@@ -32,26 +32,6 @@ class Welcome extends React.Component {
             
           </ul>
         </div>
-
-        <div className='row center concept'>
-          <h4>Concept</h4>
-          <div className='col m4 s12'>
-            <p>Select your City</p>
-            <i className="fas fa-city"></i>
-          </div>
-          <div className='col m4 s12'>
-          <p>Select Your Vehicle</p>
-            <i class="fas fa-car"></i>
-            <i class="fas fa-motorcycle"></i>
-            <i class="fas fa-ship"></i>
-          </div>
-          <div className='col m4 s12'>
-          <p>Reserve it</p>
-            <i class="fas fa-file-signature"></i>
-          </div>
-        </div>
-
-
       </div>
     );
   }

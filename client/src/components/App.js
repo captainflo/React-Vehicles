@@ -1,6 +1,5 @@
 import React from "react";
 import Header from "./utils/Header";
-import Footer from "./utils/Footer";
 import { BrowserRouter, Route} from 'react-router-dom';
 import * as actions from './actions'
 import { connect } from 'react-redux';
@@ -48,9 +47,7 @@ class App extends React.Component {
             <Route exact path='/confirmation/payment' component={ConfirmReservation}/>
             <Route exact path='/confirmation/vehicle' component={ConfirmVehicle}/>
           </div> : ""}
-          <Footer/>
         </BrowserRouter>
-        
       </div>
     );
   }

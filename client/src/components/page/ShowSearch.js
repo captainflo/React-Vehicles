@@ -8,6 +8,7 @@ import M from "materialize-css/dist/js/materialize.min.js";
 import * as geolib from "geolib";
 import Geocode from "react-geocode";
 import config from "../../config/keys";
+import Footer from "../utils/Footer";
 Geocode.setApiKey(config.googleMap);
 
 class ShowSearch extends React.Component {
@@ -184,6 +185,7 @@ class ShowSearch extends React.Component {
             {this.renderMap(this.props.match.params.city)}
           </div>
         </div>
+        <Footer/>
       </div>
     );
   }

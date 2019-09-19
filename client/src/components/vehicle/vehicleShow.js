@@ -6,6 +6,7 @@ import { Slide, Slider } from "react-materialize";
 import Reservation from "../utils/Reservation.js";
 import Review from "../utils/Review.js";
 import FormReview from "../utils/FormReview";
+import { Link } from "react-router-dom";
 
 class VehicleShow extends React.Component {
   componentDidMount() {
@@ -69,7 +70,9 @@ class VehicleShow extends React.Component {
           <div className="col m6">
             <div className="container-vehicle-show">
               <h4 style={{color: 'rgba(0,0,0,.6)'}}>{this.props.vehicle[0].name} <span className="right">
+              <Link to={"/user/info/" + this.props.user._id}>
                 <img className="avatar" src={this.props.user.avatar} alt='avatar'/>
+              </Link>
                 <br></br>
                 <span className='title-avatar'>{this.props.user.firstName}</span>
               </span></h4>
