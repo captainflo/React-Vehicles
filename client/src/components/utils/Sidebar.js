@@ -27,11 +27,6 @@ class Sidebar extends React.Component {
               <i className="material-icons">cloud</i> Signout
             </Link>
           </li>
-          <li>
-            <Link to="/feature">
-              <i className="material-icons">cloud</i> feature
-            </Link>
-          </li>
         </div>
       );
     } else {

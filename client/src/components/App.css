@@ -13,6 +13,23 @@ body{
   background: linear-gradient(to right, #00BCD4, #1A2980); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+.color-footer{
+  border-top: 1px solid #f4f4f4;
+  background: #1A2980;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #00BCD4, #1A2980);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #00BCD4, #1A2980); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+
+/* Sign in Sign Up */
+.box-social li{
+  float: right;
+}
+
+.box-social-right li{
+  float: left;
+}
+
 /* Search bar navbar */
 #search-bar{
   display: inline;
@@ -579,45 +596,13 @@ body{
   box-shadow: 0 1px 0 0 #00BCD4 !important;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Close Modal */
 .btn-close-modal{
   background-color:  #00BCD4 !important;
   color: #FFFFFF;
 }
 
-/* Banner Image */
+/* Welcome */
 .Banner {
   position: relative;
   text-align: center;
@@ -629,10 +614,10 @@ body{
   overflow: auto;
   position: absolute;
   padding: 20px;
-  top: 50%;
+  top: 200%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 30%;
+  width: 45%;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
@@ -647,6 +632,17 @@ body{
 
 .color-field div{
     color: #00BCD4 !important;
+}
+
+.concept{
+  color: #F4F4F4;
+  margin-bottom: 80px !important;
+  margin-top: 45px;
+}
+
+.concept .fas{
+  font-size: 45px;
+  padding: 5px
 }
 
 /* UserShow */
@@ -807,10 +803,18 @@ input[type=number]:not(.browser-default):focus:not([readonly]){
 @media only screen and (max-width: 600px) {
   .centered {
     padding: 10px;
-    top: 45%;
+    top: 160%;
     left: 50%;
-    height: 400px;
-    width: 80%;
+    height: auto;
+    width: 135%;
+  }
+
+  .box-social li{
+    float: none;
+  }
+  
+  .box-social-right li{
+    float: none;
   }
 
   .info-selected-user-show {

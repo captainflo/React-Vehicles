@@ -8,7 +8,6 @@ import M from "materialize-css/dist/js/materialize.min.js";
 import './App.css';
 
 import Welcome from './page/Welcome';
-import Feature from './page/Feature';
 import Signout from './auth/Signout'
 import UserShow from "./user/UserShow";
 import UserEdit from "./user/UserEdit";
@@ -43,14 +42,13 @@ class App extends React.Component {
 
           {this.props.authenticated ?
           <div>
-            <Route exact path='/feature' component={Feature}/>
             <Route exact path="/user/:id" component={UserShow}/>
             <Route exact path="/user/:id/createVehicle" component={VehicleCreate}/>
             <Route exact path='/user/edit/:id' component={UserEdit}/>
             <Route exact path='/confirmation/payment' component={ConfirmReservation}/>
             <Route exact path='/confirmation/vehicle' component={ConfirmVehicle}/>
           </div> : ""}
-          {/* <Footer/> */}
+          <Footer/>
         </BrowserRouter>
         
       </div>

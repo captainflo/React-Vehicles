@@ -114,13 +114,13 @@ class Signup extends React.Component {
           </form>
           <p className='center'>- OR -</p>
           <div className='row center'>
-            <div className='col m6 s12'>
+            <div className='col m6 s12 box-social'>
             <li style={{listStyle:'none', paddingBottom: '10px'}}><a href="/auth/google" className="waves-effect waves-light btn social google">
             <i className="fab fa-google"></i>google</a></li>
             <li style={{listStyle:'none', paddingBottom: '10px'}}><a href="/auth/linkedin" className="waves-effect waves-light btn social linkedin">
             <i className="fab fa-linkedin"></i>linkedin</a></li>
             </div>
-            <div className='col m6 s12'>
+            <div className='col m6 s12 box-social-right'>
             <li style={{listStyle:'none', paddingBottom: '10px'}}><a href='/auth/facebook'className="waves-effect waves-light btn social facebook">
             <i className="fab fa-facebook"></i>facebook</a></li>
           

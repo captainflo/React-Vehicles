@@ -23,7 +23,7 @@ class Reservation extends React.Component {
     count: 0,
     max: "",
     className: "col m12",
-    contractDate: ""
+    contractDate: "",
   };
 
   componentDidMount() {
@@ -239,12 +239,14 @@ class Reservation extends React.Component {
               </button>
 
               <div className="line">- Or -</div>
-              <button
-                href="#modalMessage"
-                className=" waves-effect waves-light color-web-owner modal-trigger"
+              <a
+                style={{textAlign: 'center'}}
+                href={`mailto:${this.props.user.email}`}
+                target="_blank"
+                className="waves-effect waves-light color-web-owner"
               >
                 Message Owner
-              </button>
+              </a>
             </form>
           </MuiThemeProvider>
         </div>
@@ -273,55 +275,6 @@ class Reservation extends React.Component {
           </div>
           <div className="modal-footer">
             <Payment submitReservation={formReservation}/>
-          </div>
-        </div>
-
-        <div id="modalMessage" className="modal">
-          <div className="modal-content">
-            <button className="modal-close right btn waves-effect waves-light btn-close-modal">
-              <i className="fas fa-times"></i>
-            </button>
-            <h4>Message Owner</h4>
-            <div className="row">
-              <form className="col s12">
-                <div className="row">
-                  <div className="input-field col s6">
-                    <i className="fas fa-user-alt prefix"></i>
-                    <textarea
-                      id="icon_prefix"
-                      className="materialize-textarea"
-                    ></textarea>
-                    <label htmlFor="icon_prefix">First Name</label>
-                  </div>
-                  <div className="input-field col s6">
-                    <i className="far fa-edit prefix"></i>
-                    <textarea
-                      id="icon_prefix2"
-                      className="materialize-textarea"
-                    ></textarea>
-                    <label htmlFor="icon_prefix2">email</label>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="input-field col s12">
-                    <i className="far fa-comment-dots prefix"></i>
-                    <textarea
-                      id="icon_prefix3"
-                      className="materialize-textarea"
-                    ></textarea>
-                    <label htmlFor="icon_prefix3">Message</label>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-          <div className="modal-footer">
-            <a
-              href="#!"
-              className="modal-close btn waves-effect waves-light color-web"
-            >
-              Send Message
-            </a>
           </div>
         </div>
       </div>

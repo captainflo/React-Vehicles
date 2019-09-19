@@ -6,7 +6,6 @@ import Sidebar from "./Sidebar";
 import { Modal } from "react-materialize";
 import Signin from "../auth/Signin";
 import Signup from "../auth/Signup";
-// import Autocomplete from "react-google-autocomplete";
 import API from './API';
 import { withRouter } from 'react-router-dom';
 
@@ -62,9 +61,6 @@ class Header extends React.Component {
             </li> */}
           <li>
             <Link to="/signout">Signout</Link>
-          </li>
-          <li>
-            <Link to="/feature">feature</Link>
           </li>
           <li>
             <Link to={`/user/${this.props.authenticated._id}`}>
