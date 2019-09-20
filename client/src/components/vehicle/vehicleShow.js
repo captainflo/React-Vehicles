@@ -93,7 +93,12 @@ class VehicleShow extends React.Component {
             </div>
           </div>
           <div className="col m6">
-            {this.props.auth && <Reservation/>}
+            {this.props.auth ? <Reservation/>: 
+            <div className='login-before'>
+              <h5>Do you want make reservation?</h5>
+              <p>Login to book </p>
+            </div>
+            }
           </div>
         </div>
       </div>
