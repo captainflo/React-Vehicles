@@ -23,7 +23,7 @@ class Welcome extends React.Component {
             alt="background"
           />
               <div className="caption">
-                <h3 className='center'>Time to rent your vehicle!</h3>
+                <h3 className='center'>Rent your vehicle everywhere!</h3>
                 <div className="centered fadeIn">
                   <SearchHome/>
                 </div>
