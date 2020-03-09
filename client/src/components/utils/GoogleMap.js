@@ -1,10 +1,10 @@
-import React from "react";
-import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
-import { connect } from "react-redux";
-import * as actions from "../actions";
-import config from "../../config/keys";
-import image from "./marker.jpg";
-import Geocode from "react-geocode";
+import React from 'react';
+import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
+import config from '../../config/keys';
+import image from './marker.jpg';
+import Geocode from 'react-geocode';
 Geocode.setApiKey(config.googleMap);
 
 class GoogleMap extends React.Component {
@@ -13,34 +13,33 @@ class GoogleMap extends React.Component {
 
     this.state = {
       currentPosition: { lat: 0, lng: 0 },
-      city: {lat: 0, lng: 0},
+      city: { lat: 0, lng: 0 }
     };
   }
   componentDidMount() {
-    console.log(this.props.city)
     this.getCurrentPosition();
-    this.GetCity()
+    this.GetCity();
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.city !== prevProps.city) {
-      this.GetCity(this.props.city)
+      this.GetCity(this.props.city);
     }
   }
 
-  GetCity(){
+  GetCity() {
     Geocode.fromAddress(this.props.city).then(
       response => {
         const lat = response.results[0].geometry.location.lat;
         const lng = response.results[0].geometry.location.lng;
-        this.setState({city: {lat: lat, lng: lng}})
+        this.setState({ city: { lat: lat, lng: lng } });
       },
       error => {
         console.error(error);
       }
     );
   }
-  
+
   // My current position
   getCurrentPosition() {
     if (navigator.geolocation) {
@@ -81,10 +80,10 @@ class GoogleMap extends React.Component {
 
   render() {
     const currentPosition = this.state.currentPosition;
-    const city = this.state.city
+    const city = this.state.city;
     if (currentPosition.lat === 0 && currentPosition.lng === 0) {
       return (
-        <div style={{ marginTop: "50%" }} className="center">
+        <div style={{ marginTop: '50%' }} className="center">
           <p>Loading...</p>
           <div className="preloader-wrapper big active">
             <div className="spinner-layer spinner-blue-only">
@@ -104,7 +103,7 @@ class GoogleMap extends React.Component {
     }
     if (city.lat === 0 && city.lng === 0) {
       return (
-        <div style={{ marginTop: "50%" }} className="center">
+        <div style={{ marginTop: '50%' }} className="center">
           <p>Loading...</p>
           <div className="preloader-wrapper big active">
             <div className="spinner-layer spinner-blue-only">
@@ -122,30 +121,24 @@ class GoogleMap extends React.Component {
         </div>
       );
     }
-    console.log(city.lat)
-    console.log(city.lng)
-      return (
+    return (
       <div
-          style={{
-            position: "relative",
-            height: "827px"
-          }}
+        style={{
+          position: 'relative',
+          height: '827px'
+        }}
+      >
+        <Map
+          google={this.props.google}
+          zoom={12}
+          initialCenter={{ lat: city.lat, lng: city.lng }}
+          center={{ lat: city.lat, lng: city.lng }}
         >
-          <Map
-            google={this.props.google}
-            zoom={12}
-            initialCenter={{lat: city.lat,
-              lng: city.lng }}
-            center={{lat: city.lat,
-              lng: city.lng }}
-          >
-            <Marker position={this.state.currentPosition} />
-            {this.displayMarkers()}
-          </Map>
+          <Marker position={this.state.currentPosition} />
+          {this.displayMarkers()}
+        </Map>
       </div>
-      );
-    
-
+    );
   }
 }
 

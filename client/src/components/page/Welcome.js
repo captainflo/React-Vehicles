@@ -1,14 +1,13 @@
-import React from "react";
-import { connect } from "react-redux";
-import { compose } from "redux";
-import SearchHome from "../utils/SearchHome";
-import M from "materialize-css/dist/js/materialize.min.js";
-
+import React from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import SearchHome from '../utils/SearchHome';
+import M from 'materialize-css/dist/js/materialize.min.js';
 class Welcome extends React.Component {
   componentDidMount() {
     // banner slider
     var elems = document.querySelectorAll('.slider');
-    M.Slider.init(elems, {indicators: false});
+    M.Slider.init(elems, { indicators: false });
   }
 
   render() {
@@ -17,19 +16,18 @@ class Welcome extends React.Component {
         <div className="slider fullscreen">
           <ul className="slides slideDown">
             <li>
-            <img
-            style={{width:'100%'}}
-            src={process.env.PUBLIC_URL + "/images/lambo.jpg"}
-            alt="background"
-          />
+              <img
+                style={{ width: '100%' }}
+                src={process.env.PUBLIC_URL + '/images/lambo.jpg'}
+                alt="background"
+              />
               <div className="caption">
-                <h3 className='center'>Rent your vehicle everywhere!</h3>
+                <h3 className="center">Rent your vehicle everywhere!</h3>
                 <div className="centered fadeIn">
-                  <SearchHome/>
+                  <SearchHome />
                 </div>
               </div>
             </li>
-            
           </ul>
         </div>
       </div>

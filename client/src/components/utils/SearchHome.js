@@ -37,33 +37,35 @@ class SearchHome extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider>
-        <form className="search-city" id="search-form">
-          <div className="row">
-            <div className="col m12 s12">
-              <div className="box-search-home">
-                <label>City</label>
-                <Autocomplete
-                  onPlaceSelected={place => {
-                    this.setState({ city: place.formatted_address });
-                  }}
-                  types={['(regions)']}
-                  componentRestrictions={{ country: 'us' }}
-                />
-              </div>
+      <div>
+        <MuiThemeProvider>
+          <form className="search-city" id="search-form">
+            <div className="row">
+              <div className="col m12 s12">
+                <div className="box-search-home">
+                  <label>City</label>
+                  <Autocomplete
+                    onPlaceSelected={place => {
+                      this.setState({ city: place.formatted_address });
+                    }}
+                    types={['(regions)']}
+                    componentRestrictions={{ country: 'us' }}
+                  />
+                </div>
 
-              <button
-                style={{ marginTop: '32px' }}
-                onClick={this.onSubmit}
-                className="waves-effect waves-light btn btn-color btn-search right"
-              >
-                Search
-              </button>
-              <span style={{ color: 'red' }}>{this.state.selectCity}</span>
+                <button
+                  style={{ marginTop: '32px' }}
+                  onClick={this.onSubmit}
+                  className="waves-effect waves-light btn btn-color btn-search right"
+                >
+                  Search
+                </button>
+                <span style={{ color: 'red' }}>{this.state.selectCity}</span>
+              </div>
             </div>
-          </div>
-        </form>
-      </MuiThemeProvider>
+          </form>
+        </MuiThemeProvider>
+      </div>
     );
   }
 }
