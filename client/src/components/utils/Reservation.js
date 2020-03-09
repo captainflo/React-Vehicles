@@ -1,35 +1,35 @@
-import React from "react";
-import { connect } from "react-redux";
-import { compose } from "redux";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import DatePicker from "material-ui/DatePicker";
-import * as actions from "../actions";
-import SelectField from "material-ui/SelectField";
-import MenuItem from "material-ui/MenuItem";
-import M from "materialize-css/dist/js/materialize.min.js";
-import moment from "moment";
+import React from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import DatePicker from 'material-ui/DatePicker';
+import * as actions from '../actions';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import M from 'materialize-css/dist/js/materialize.min.js';
+import moment from 'moment';
 import Payment from '../utils/Payment';
 
 class Reservation extends React.Component {
   state = {
     newprice: this.props.vehicle[0].price,
-    finalPrice: "",
+    finalPrice: '',
     addCalandar: false,
     startDate: new Date(),
-    infoStartDate: "",
-    infoEndDate: "",
+    infoStartDate: '',
+    infoEndDate: '',
     endDate: new Date(),
-    invalidDate: "",
+    invalidDate: '',
     count: 0,
-    max: "",
-    className: "col m12",
-    contractDate: "",
+    max: '',
+    className: 'col m12',
+    contractDate: ''
   };
 
   componentDidMount() {
-    const elemSelect = document.querySelectorAll("select");
+    const elemSelect = document.querySelectorAll('select');
     M.FormSelect.init(elemSelect, {});
-    const elemsModal = document.querySelectorAll(".modal");
+    const elemsModal = document.querySelectorAll('.modal');
     M.Modal.init(elemsModal, {});
   }
 
@@ -37,13 +37,13 @@ class Reservation extends React.Component {
     event.preventDefault();
     // Date Format
     const formatDateStart = this.state.startDate;
-    const responseDateStart = moment(formatDateStart).format("L");
+    const responseDateStart = moment(formatDateStart).format('L');
     this.setState({
       infoStartDate: responseDateStart
     });
 
     const formatDateEnd = this.state.endDate;
-    const responseDateEnd = moment(formatDateEnd).format("L");
+    const responseDateEnd = moment(formatDateEnd).format('L');
     this.setState({
       infoEndDate: responseDateEnd
     });
@@ -78,7 +78,7 @@ class Reservation extends React.Component {
       });
     } else {
       this.setState({
-        max: "Max 10 passenger"
+        max: 'Max 10 passenger'
       });
     }
   }
@@ -98,14 +98,14 @@ class Reservation extends React.Component {
     });
   };
 
-  addCalandar = () => this.setState({ addCalandar: true, className: "col m6" });
+  addCalandar = () => this.setState({ addCalandar: true, className: 'col m6' });
   removeCalandar = () =>
-    this.setState({ addCalandar: false, className: "col m12" });
+    this.setState({ addCalandar: false, className: 'col m12' });
 
   handlePrice = (event, index, value) => this.setState({ newprice: value });
 
   render() {
-    const formReservation ={
+    const formReservation = {
       vehicleId: this.props.vehicle[0]._id,
       image: this.props.vehicle[0].image,
       name: this.props.vehicle[0].name,
@@ -118,11 +118,11 @@ class Reservation extends React.Component {
       startDate: this.state.infoStartDate,
       endDate: this.state.infoEndDate,
       person: this.state.count
-    }
+    };
 
     if (!this.props.vehicle.length > 0) {
       return (
-        <div style={{ marginTop: "10%" }} className="center">
+        <div style={{ marginTop: '10%' }} className="center">
           <p>Loading...</p>
           <div className="preloader-wrapper big active">
             <div className="spinner-layer spinner-blue-only">
@@ -142,7 +142,7 @@ class Reservation extends React.Component {
     }
     return (
       <div className="container">
-        <h4 style={{color: 'rgba(0,0,0,.6)'}}>Reservation</h4>
+        <h4 style={{ color: 'rgba(0,0,0,.6)' }}>Reservation</h4>
         <div className="form-price">
           <MuiThemeProvider>
             <form>
@@ -208,7 +208,7 @@ class Reservation extends React.Component {
                     </div>
                   </div>
                 )}
-                <div style={{ color: "red" }}>{this.state.invalidDate}</div>
+                <div style={{ color: 'red' }}>{this.state.invalidDate}</div>
               </div>
               <div className="center">
                 <div className="counter">
@@ -233,6 +233,7 @@ class Reservation extends React.Component {
               <button
                 onClick={this.onSubmit}
                 href="#modalBook"
+                rel="noopener noreferrer"
                 className="btn waves-effect waves-light color-web modal-trigger"
               >
                 Request a Book
@@ -240,8 +241,9 @@ class Reservation extends React.Component {
 
               <div className="line">- Or -</div>
               <a
-                style={{textAlign: 'center'}}
+                style={{ textAlign: 'center' }}
                 href={`mailto:${this.props.user.email}`}
+                rel="noopener noreferrer"
                 target="_blank"
                 className="waves-effect waves-light color-web-owner"
               >
@@ -261,9 +263,9 @@ class Reservation extends React.Component {
               You are in the last step of your booking before proced payment
             </p>
             <p>
-              <i className="material-icons">date_range</i>{" "}
-              {this.state.infoStartDate} To{" "}
-              <i className="material-icons">date_range</i>{" "}
+              <i className="material-icons">date_range</i>{' '}
+              {this.state.infoStartDate} To{' '}
+              <i className="material-icons">date_range</i>{' '}
               {this.state.infoEndDate}
             </p>
             <p>
@@ -274,7 +276,7 @@ class Reservation extends React.Component {
             </p>
           </div>
           <div className="modal-footer">
-            <Payment submitReservation={formReservation}/>
+            <Payment submitReservation={formReservation} />
           </div>
         </div>
       </div>
@@ -290,9 +292,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default compose(
-  connect(
-    mapStateToProps,
-    actions
-  )
-)(Reservation);
+export default compose(connect(mapStateToProps, actions))(Reservation);

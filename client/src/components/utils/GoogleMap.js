@@ -2,10 +2,9 @@ import React from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import config from '../../config/keys';
 import image from './marker.jpg';
 import Geocode from 'react-geocode';
-Geocode.setApiKey(config.googleMap);
+Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAP);
 
 class GoogleMap extends React.Component {
   constructor(props) {
@@ -153,6 +152,6 @@ export default connect(
   actions
 )(
   GoogleApiWrapper({
-    apiKey: config.googleMap
+    apiKey: process.env.REACT_APP_GOOGLE_MAP
   })(GoogleMap)
 );

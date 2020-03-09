@@ -7,9 +7,8 @@ import SearchType from '../utils/SearchType';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import * as geolib from 'geolib';
 import Geocode from 'react-geocode';
-import config from '../../config/keys';
 import Footer from '../utils/Footer';
-Geocode.setApiKey(config.googleMap);
+Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAP);
 
 class ShowSearch extends React.Component {
   state = {

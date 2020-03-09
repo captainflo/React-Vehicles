@@ -1,7 +1,7 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import * as actions from "../actions";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import * as actions from '../actions';
 
 class InfoUser extends React.Component {
   componentDidMount() {
@@ -17,9 +17,9 @@ class InfoUser extends React.Component {
             to={`/vehicle/${vehicle._id}`}
             key={vehicle._id}
             className="card-product"
-            style={{marginBottom: '20px'}}
+            style={{ marginBottom: '20px' }}
           >
-            <img src={vehicle.image} alt="background"/>
+            <img src={vehicle.image} alt="background" />
             <div className="card-product-infos">
               <h2>{vehicle.name}</h2>
               <p>
@@ -44,20 +44,30 @@ class InfoUser extends React.Component {
         <div className="row">
           <div className="">
             <div className="center">
-              <img style={{marginTop: '40px'}} className='avatar-large' src={this.props.infoUser.avatar} alt="background" />
+              <img
+                style={{ marginTop: '40px' }}
+                className="avatar-large"
+                src={this.props.infoUser.avatar}
+                alt="background"
+              />
             </div>
             <div className="card-profile-content">
-              <h4 style={{color:'#f4f4f4'}} className="center">
+              <h4 style={{ color: '#f4f4f4' }} className="center">
                 {this.props.infoUser.firstName}
-                {""} {this.props.infoUser.lastName}{" "}
+                {''} {this.props.infoUser.lastName}{' '}
               </h4>
               <a
-                style={{textAlign: 'center', color:'#f4f4f4', fontSize: '20px'}}
+                style={{
+                  textAlign: 'center',
+                  color: '#f4f4f4',
+                  fontSize: '20px'
+                }}
                 href={`mailto:${this.props.infoUser.email}`}
+                rel="noopener noreferrer"
                 target="_blank"
                 className=""
               >
-               <i className="far fa-comment-dots"></i> Send Message
+                <i className="far fa-comment-dots"></i> Send Message
               </a>
             </div>
           </div>
@@ -79,7 +89,4 @@ function mapStateToPros(state) {
   };
 }
 
-export default connect(
-  mapStateToPros,
-  actions
-)(InfoUser);
+export default connect(mapStateToPros, actions)(InfoUser);
