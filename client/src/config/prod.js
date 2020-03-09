@@ -4,5 +4,5 @@ module.exports = {
   cloudinaryClientName: 'dwtc6zep7',
   cloudinaryClientID: '596555837329564',
   cloudinaryClientSecret: 'oCn37LxVL2KbWdFIU_H89yVcz6o',
-  googleMap: 'AIzaSyCRkBa_zStbl1Gtc0EDtGYfqO5DNECKm_8'
+  googleMap: 'AIzaSyAkjlelC3Dss0-jafEQjlP_BBPODPt1rtc'
 };
