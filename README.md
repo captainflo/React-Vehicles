@@ -32,7 +32,3 @@ Reserve or rent out your boat, car, motorcycle for as short as half a day, an ev
 - google-maps-react
 - geolib
 - ...
-
-**API**
-
-- TMDB
