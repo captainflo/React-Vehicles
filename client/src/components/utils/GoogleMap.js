@@ -13,7 +13,7 @@ class GoogleMap extends React.Component {
 
     this.state = {
       currentPosition: { lat: 0, lng: 0 },
-      city: { lat: 0, lng: 0 }
+      city: { lat: 0, lng: 0 },
     };
   }
   componentDidMount() {
@@ -29,12 +29,12 @@ class GoogleMap extends React.Component {
 
   GetCity() {
     Geocode.fromAddress(this.props.city).then(
-      response => {
+      (response) => {
         const lat = response.results[0].geometry.location.lat;
         const lng = response.results[0].geometry.location.lng;
         this.setState({ city: { lat: lat, lng: lng } });
       },
-      error => {
+      (error) => {
         console.error(error);
       }
     );
@@ -43,7 +43,7 @@ class GoogleMap extends React.Component {
   // My current position
   getCurrentPosition() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
+      navigator.geolocation.getCurrentPosition((position) => {
         const lng = position.coords.longitude;
         const lat = position.coords.latitude;
         this.setState({ currentPosition: { lat: lat, lng: lng } });
@@ -54,7 +54,7 @@ class GoogleMap extends React.Component {
   // Display Marker
   displayMarkers = () => {
     if (this.props.vehicles.length > 0) {
-      return this.props.vehicles.map(vehicle => {
+      return this.props.vehicles.map((vehicle) => {
         return (
           <Marker
             google={this.props.google}
@@ -62,12 +62,12 @@ class GoogleMap extends React.Component {
             animation={this.props.google.maps.Animation.DROP}
             position={{
               lat: vehicle.lat,
-              lng: vehicle.lng
+              lng: vehicle.lng,
             }}
             icon={{
               url: image,
               anchor: new window.google.maps.Point(16, 16),
-              scaledSize: new window.google.maps.Size(32, 32)
+              scaledSize: new window.google.maps.Size(32, 32),
             }}
             onClick={() => this.props.action(vehicle._id)}
           />
@@ -125,7 +125,7 @@ class GoogleMap extends React.Component {
       <div
         style={{
           position: 'relative',
-          height: '827px'
+          height: '827px',
         }}
       >
         <Map
@@ -145,7 +145,7 @@ class GoogleMap extends React.Component {
 function mapStateToPros(state) {
   return {
     authenticated: state.auth.authenticated,
-    vehicles: state.vehicles
+    vehicles: state.vehicles,
   };
 }
 export default connect(
@@ -153,6 +153,6 @@ export default connect(
   actions
 )(
   GoogleApiWrapper({
-    apiKey: config.googleMap
+    apiKey: config.googleMap,
   })(GoogleMap)
 );

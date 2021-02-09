@@ -14,14 +14,14 @@ Geocode.setApiKey(config.googleMap);
 class ShowSearch extends React.Component {
   state = {
     classCard: 'card-product',
-    city: { lat: '', lng: '' }
+    city: { lat: '', lng: '' },
   };
   componentDidMount() {
     this.props.getAllVehicleByCity(this.props.match.params.city);
     // collapsible
     const elems = document.querySelectorAll('.collapsible');
     M.Collapsible.init(elems, {
-      inDuration: 300
+      inDuration: 300,
     });
     this.GetCity(this.props.match.params.city);
   }
@@ -33,17 +33,17 @@ class ShowSearch extends React.Component {
     }
   }
 
-  renderMap = city => {
+  renderMap = (city) => {
     return <GoogleMap action={this.handler} city={city} />;
   };
 
   // This method will be sent to the child component
-  handler = vehicleId => {
+  handler = (vehicleId) => {
     window.location = '#' + vehicleId;
     this.setState({ classCard: `card-product` });
     if (vehicleId) {
       this.setState({
-        classCard: { ...this.state.classCard, [vehicleId]: ` select-marker` }
+        classCard: { ...this.state.classCard, [vehicleId]: ` select-marker` },
       });
     }
   };
@@ -51,12 +51,12 @@ class ShowSearch extends React.Component {
   // Convert city
   GetCity(city) {
     Geocode.fromAddress(city).then(
-      response => {
+      (response) => {
         const lat = response.results[0].geometry.location.lat;
         const lng = response.results[0].geometry.location.lng;
         this.setState({ city: { lat: lat, lng: lng } });
       },
-      error => {
+      (error) => {
         console.error(error);
       }
     );
@@ -77,7 +77,7 @@ class ShowSearch extends React.Component {
   // Render Vehicles
   renderListVehicle = () => {
     if (this.props.vehicles.length > 0) {
-      return this.props.vehicles.map(vehicle => {
+      return this.props.vehicles.map((vehicle) => {
         const DistanceFromMySearch = [];
         const latVehicle = vehicle.lat;
         const lngVehicle = vehicle.lng;
@@ -120,7 +120,7 @@ class ShowSearch extends React.Component {
   // Render other Vehicles
   renderAroundListVehicle = () => {
     if (this.props.vehicles.length > 0) {
-      return this.props.vehicles.map(vehicle => {
+      return this.props.vehicles.map((vehicle) => {
         const DistanceFromMySearch = [];
         const latVehicle = vehicle.lat;
         const lngVehicle = vehicle.lng;
@@ -202,7 +202,7 @@ class ShowSearch extends React.Component {
 function mapStateToPros(state) {
   return {
     authenticated: state.auth.authenticated,
-    vehicles: state.vehicles
+    vehicles: state.vehicles,
   };
 }
 
