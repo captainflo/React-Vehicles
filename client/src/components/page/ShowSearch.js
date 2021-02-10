@@ -1,71 +1,59 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../actions';
-import GoogleMap from '../utils/GoogleMap';
-import { Link } from 'react-router-dom';
-import SearchType from '../utils/SearchType';
+import React, { useEffect, useState, useRef } from 'react';
+import MapContainerGoogle from '../utils/MapContainerGoogle';
 import M from 'materialize-css/dist/js/materialize.min.js';
+import * as actions from '../actions';
+import SearchType from '../utils/SearchType';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as geolib from 'geolib';
 import Geocode from 'react-geocode';
 import config from '../../config/keys';
-import Footer from '../utils/Footer';
 Geocode.setApiKey(config.googleMap);
 
-class ShowSearch extends React.Component {
-  state = {
-    classCard: 'card-product',
-    city: { lat: '', lng: '' },
-  };
-  componentDidMount() {
-    this.props.getAllVehicleByCity(this.props.match.params.city);
+const ShowSearch = (props) => {
+  const [classCard, setClassCard] = useState('card-product');
+  const [city, setCity] = useState({ lat: '', lng: '' });
+  const dispatch = useDispatch();
+  const vehicles = useSelector((state) => state.vehicles);
+  const { vehicle } = useRef(null);
+
+  useEffect(() => {
     // collapsible
     const elems = document.querySelectorAll('.collapsible');
     M.Collapsible.init(elems, {
       inDuration: 300,
     });
-    this.GetCity(this.props.match.params.city);
-  }
-  componentDidUpdate(prevProps) {
-    if (this.props.match.params.city !== prevProps.match.params.city) {
-      this.props.getAllVehicleByCity(this.props.match.params.city);
-      this.renderMap(this.props.match.params.city);
-      this.GetCity(this.props.match.params.city);
-    }
-  }
-
-  renderMap = (city) => {
-    return <GoogleMap action={this.handler} city={city} />;
-  };
+    dispatch(actions.getAllVehicleByCity(props.match.params.city));
+    GetCity(props.match.params.city);
+  }, []);
 
   // This method will be sent to the child component
-  handler = (vehicleId) => {
+  const handler = (vehicleId) => {
     window.location = '#' + vehicleId;
-    this.setState({ classCard: `card-product` });
+    setClassCard(`card-product`);
     if (vehicleId) {
-      this.setState({
-        classCard: { ...this.state.classCard, [vehicleId]: ` select-marker` },
-      });
+      setClassCard({ ...classCard, [vehicleId]: ` select-marker` });
     }
   };
 
   // Convert city
-  GetCity(city) {
+  const GetCity = (city) => {
     Geocode.fromAddress(city).then(
       (response) => {
         const lat = response.results[0].geometry.location.lat;
         const lng = response.results[0].geometry.location.lng;
-        this.setState({ city: { lat: lat, lng: lng } });
+        setCity({ lat: lat, lng: lng });
       },
       (error) => {
         console.error(error);
       }
     );
-  }
+  };
 
   // Get distance between my search and vehicle around
-  getDistance = (vehicleLat, vehicleLng, array) => {
+  const getDistance = (vehicleLat, vehicleLng, array) => {
     const distance = geolib.getDistance(
-      { latitude: this.state.city.lat, longitude: this.state.city.lng },
+      { latitude: city.lat, longitude: city.lng },
       { latitude: vehicleLat, longitude: vehicleLng }
     );
     const finalDistance = String(distance);
@@ -75,22 +63,20 @@ class ShowSearch extends React.Component {
   };
 
   // Render Vehicles
-  renderListVehicle = () => {
-    if (this.props.vehicles.length > 0) {
-      return this.props.vehicles.map((vehicle) => {
+  const renderListVehicle = () => {
+    if (vehicles.length > 0) {
+      return vehicles.map((vehicle) => {
         const DistanceFromMySearch = [];
         const latVehicle = vehicle.lat;
         const lngVehicle = vehicle.lng;
-        this.getDistance(latVehicle, lngVehicle, DistanceFromMySearch);
-        if (vehicle.city === this.props.match.params.city) {
+        getDistance(latVehicle, lngVehicle, DistanceFromMySearch);
+        if (vehicle.city === props.match.params.city) {
           return (
             <Link key={vehicle._id} to={'/vehicle/' + vehicle._id}>
               <div
-                ref={vehicle._id}
+                // ref={vehicle._id}
                 id={vehicle._id}
-                className={
-                  'card-product' + ' ' + this.state.classCard[vehicle._id]
-                }
+                className={'card-product' + ' ' + classCard[vehicle._id]}
               >
                 <img src={vehicle.image} alt="background" />
                 <div className="card-product-infos">
@@ -104,7 +90,7 @@ class ShowSearch extends React.Component {
                   </p>
                   <p>
                     Your are {DistanceFromMySearch} Miles from{' '}
-                    {this.props.match.params.city}
+                    {props.match.params.city}
                   </p>
                 </div>
               </div>
@@ -117,24 +103,21 @@ class ShowSearch extends React.Component {
     }
   };
 
-  // Render other Vehicles
-  renderAroundListVehicle = () => {
-    if (this.props.vehicles.length > 0) {
-      return this.props.vehicles.map((vehicle) => {
+  const renderAroundListVehicle = () => {
+    if (vehicles.length > 0) {
+      return vehicles.map((vehicle) => {
         const DistanceFromMySearch = [];
         const latVehicle = vehicle.lat;
         const lngVehicle = vehicle.lng;
-        this.getDistance(latVehicle, lngVehicle, DistanceFromMySearch);
+        getDistance(latVehicle, lngVehicle, DistanceFromMySearch);
         if (DistanceFromMySearch < 30) {
-          if (vehicle.city !== this.props.match.params.city) {
+          if (vehicle.city !== props.match.params.city) {
             return (
               <Link key={vehicle._id} to={'/vehicle/' + vehicle._id}>
                 <div
-                  ref={vehicle._id}
+                  // ref={vehicle._id}
                   id={vehicle._id}
-                  className={
-                    'card-product' + ' ' + this.state.classCard[vehicle._id]
-                  }
+                  className={'card-product' + ' ' + classCard[vehicle._id]}
                 >
                   <img src={vehicle.image} alt="background" />
                   <div className="card-product-infos">
@@ -148,7 +131,7 @@ class ShowSearch extends React.Component {
                     </p>
                     <p>
                       Your are {DistanceFromMySearch} Miles from{' '}
-                      {this.props.match.params.city}
+                      {props.match.params.city}
                     </p>
                   </div>
                 </div>
@@ -162,48 +145,39 @@ class ShowSearch extends React.Component {
     }
   };
 
-  render() {
-    return (
-      <div className="search-show">
-        <div className="row">
-          <div className="col m6 s12 search-filter">
-            <ul className="collapsible">
-              <li>
-                <div className="collapsible-header">
-                  Search{' '}
-                  <i style={{ fontSize: '20px' }} className="material-icons">
-                    search
-                  </i>
-                </div>
-                <div className="collapsible-body">
-                  {' '}
-                  <SearchType />
-                </div>
-              </li>
-            </ul>
-            <div className="list-vehicle">
-              {this.renderListVehicle()}
-              <h5 style={{ paddingLeft: '10px' }}>
-                Around {this.props.match.params.city} (30 Miles)
-              </h5>
-              {this.renderAroundListVehicle()}
-            </div>
-          </div>
-          <div className="col m6 s12">
-            {this.renderMap(this.props.match.params.city)}
+  return (
+    <div className="search-show">
+      <div className="row">
+        <div className="col m6 s12 search-filter">
+          <ul className="collapsible">
+            <li>
+              <div className="collapsible-header">
+                Search{' '}
+                <i style={{ fontSize: '20px' }} className="material-icons">
+                  search
+                </i>
+              </div>
+              <div className="collapsible-body">
+                <SearchType />
+              </div>
+            </li>
+          </ul>
+          <div className="list-vehicle">
+            {renderListVehicle()}
+            <h5 style={{ paddingLeft: '10px' }}>
+              Around {props.match.params.city} (30 Miles)
+            </h5>
+            {renderAroundListVehicle()}
           </div>
         </div>
-        <Footer />
+        <div className="col m6 s12">
+          {vehicles.length > 0 && (
+            <MapContainerGoogle vehicles={vehicles} action={handler} />
+          )}
+        </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
-function mapStateToPros(state) {
-  return {
-    authenticated: state.auth.authenticated,
-    vehicles: state.vehicles,
-  };
-}
-
-export default connect(mapStateToPros, actions)(ShowSearch);
+export default ShowSearch;
