@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import * as geolib from 'geolib';
 import Geocode from 'react-geocode';
 import config from '../../config/keys';
+import Loading from '../utils/Loading';
 Geocode.setApiKey(config.googleMap);
 
 const ShowSearch = (props) => {
@@ -168,8 +169,14 @@ const ShowSearch = (props) => {
           </div>
         </div>
         <div className="col m6 s12">
-          {vehicles.length > 0 && (
-            <MapContainerGoogle vehicles={vehicles} action={handler} />
+          {vehicles.length > 0 ? (
+            <MapContainerGoogle
+              vehicles={vehicles}
+              action={handler}
+              city={city}
+            />
+          ) : (
+            <Loading />
           )}
         </div>
       </div>
