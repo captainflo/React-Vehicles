@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import MapContainerGoogle from '../utils/MapContainerGoogle';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import * as actions from '../actions';
@@ -15,7 +15,6 @@ const ShowSearch = (props) => {
   const [city, setCity] = useState({ lat: '', lng: '' });
   const dispatch = useDispatch();
   const vehicles = useSelector((state) => state.vehicles);
-  const { vehicle } = useRef(null);
 
   useEffect(() => {
     // collapsible
@@ -25,14 +24,14 @@ const ShowSearch = (props) => {
     });
     dispatch(actions.getAllVehicleByCity(props.match.params.city));
     GetCity(props.match.params.city);
-  }, []);
+  }, [dispatch, props.match.params.city]);
 
   // This method will be sent to the child component
   const handler = (vehicleId) => {
     window.location = '#' + vehicleId;
     setClassCard(`card-product`);
     if (vehicleId) {
-      setClassCard({ ...classCard, [vehicleId]: ` select-marker` });
+      setClassCard({ [vehicleId]: `select-marker` });
     }
   };
 
@@ -74,7 +73,6 @@ const ShowSearch = (props) => {
           return (
             <Link key={vehicle._id} to={'/vehicle/' + vehicle._id}>
               <div
-                // ref={vehicle._id}
                 id={vehicle._id}
                 className={'card-product' + ' ' + classCard[vehicle._id]}
               >
@@ -115,7 +113,6 @@ const ShowSearch = (props) => {
             return (
               <Link key={vehicle._id} to={'/vehicle/' + vehicle._id}>
                 <div
-                  // ref={vehicle._id}
                   id={vehicle._id}
                   className={'card-product' + ' ' + classCard[vehicle._id]}
                 >
